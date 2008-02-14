@@ -29,7 +29,7 @@ if (!empty($focus)) {
 					$href .= "&run=false";
 					$href .= "&parent_module=".$focus->module_dir;
 					$href .= "&parent_id=".$focus->id;
-					$href .= "&parent_name=".$focus->get_summary_text();
+					$href .= "&parent_name=".urlencode($focus->get_summary_text());
 					$href .= "&".$mod_link->parameterlink_name."=".$focus->id;
 					
 					$module_menu[] = array($href, $t->get_summary_text(), $t->image_module);

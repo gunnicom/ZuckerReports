@@ -12,6 +12,7 @@ class ListingRow extends SugarBean {
 	
 	function ListingRow($list_view_data) {
 		$this->list_view_data = $list_view_data;
+		$this->field_defs = array();
 	}
 	function get_list_view_data() {
 		return $this->list_view_data;

@@ -30,16 +30,16 @@ require_once("modules/ZuckerReports/config.php");
 <table width="100%" cellspacing="0" cellpadding="0" border="0" class="tabForm">
 	<tr>
 		<td class="tabDetailViewDL">ZuckerReports</td>
-		<td class="tabDetailViewDF"><?php echo get_image("themes/Default/images/ZuckerReports32", "ZuckerReports"); ?> 1.6g</td>
+		<td class="tabDetailViewDF"><?php echo get_image("themes/Default/images/ZuckerReports32", "ZuckerReports"); ?> 1.7</td>
 	</tr><tr>
 		<td width="15%" class="tabDetailViewDL">Company</td>
-		<td class="tabDetailViewDF">go-mobile<br/>Grillparzerstraﬂe 26<br/>A-4020 Linz<br/></td>
+		<td class="tabDetailViewDF">go-mobile<br/>Grillparzerstra&szlig;e 26<br/>A-4020 Linz<br/></td>
 	</tr><tr>
 		<td class="tabDetailViewDL">Website</td>
 		<td class="tabDetailViewDF"><a href="http://www.go-mobile.at">http://www.go-mobile.at</a></td>
 	</tr><tr>
 		<td class="tabDetailViewDL">Email</td>
-		<td class="tabDetailViewDF"><a href="mailto:office@go-mobile.at">office@go-mobile.at</a></td>
+		<td class="tabDetailViewDF"><a href="mailto:office@go-mobile.at">management@go-mobile.at</a></td>
 	</tr><tr>
 		<td class="tabDetailViewDL">Contributors</td>
 		<td class="tabDetailViewDF"> 
@@ -57,6 +57,8 @@ require_once("modules/ZuckerReports/config.php");
 		<strong>Spanish language pack: </strong> Frank, <a href="mailto:fhprietor@hotmail.com">fhprietor@hotmail.com</a>
 		<br/>
 		<strong>French language pack: </strong> Jean Jacques Serpoul	
+		<br/>
+		<strong>Norwegian language pack: </strong> ÿyvind Berntsen, <a href="mailto:omb@smallworld.no">omb@smallworld.no</a>
 		</td>
 	</tr>
 </table>
