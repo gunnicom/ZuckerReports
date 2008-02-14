@@ -77,7 +77,23 @@
 	
 	
 <!-- END: LIST -->
-	
+
+<!-- BEGIN: SCRIPT -->	
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><slot>{MOD.LBL_PARAM_RANGE_SCRIPT}</slot></td>
+		<td width="60%" class="dataField" colspan="2"  ><slot><textarea name='range_options' cols="90" rows="10">{RANGE_OPTIONS}</textarea></slot></td>
+		<td width="25%" class="dataField" ><slot>{MOD.LBL_PARAM_RANGE_SCRIPT_HELP}</slot></td>
+	</tr>
+<!-- END: SCRIPT -->	
+
+<!-- BEGIN: SCRIPTDISABLED -->	
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><slot>{MOD.LBL_PARAM_RANGE_SCRIPT}</slot></td>
+		<td width="85%" class="dataField" colspan="3" ><slot>{MOD.LBL_PARAM_RANGE_SCRIPT_DISABLED}</slot></td>
+	</tr>
+<!-- END: SCRIPTDISABLED -->	
+
+
 	</table>
 </td>
 </tr>

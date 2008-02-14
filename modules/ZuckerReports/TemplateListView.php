@@ -28,7 +28,8 @@ if (is_admin($current_user)) {
 	$button .= "<input type='hidden' name='return_module' value='ZuckerReports'>\n";
 	$button .= "<input type='hidden' name='return_action' value='TemplateListView'>\n";
 	foreach ($zuckerreports_config["providers"] as $provider) {
-		$button .= "<input class='button' onclick='this.form.module.value=\"".$provider["module"]."\";this.form.action.value=\"EditView\"' type='submit' value=' ".$mod_strings[$provider["lang_key_new"]]."  '>\n";
+		$strings = return_module_language($current_language, $provider["module"]);
+		$button .= "<input class='button' onclick='this.form.module.value=\"".$provider["module"]."\";this.form.action.value=\"EditView\"' type='submit' value=' ".$strings[$provider["lang_key_new"]]."  '>\n";
 	}
 	$button .= "</form>\n";
 }

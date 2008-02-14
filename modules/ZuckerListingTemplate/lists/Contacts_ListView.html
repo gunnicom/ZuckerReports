@@ -1,0 +1,23 @@
+<!-- BEGIN: rows -->
+<table cellpadding="0" cellspacing="0" width="100%" border="0" class="listView">
+	<tr height="20">
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_NAME}</a></slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_TITLE}</slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_ACCOUNT_NAME}</slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_EMAIL_ADDRESS}</slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_PHONE}</slot></td>
+	</tr>
+	<!-- BEGIN: row -->
+	<tr height="20"  onmouseover="setPointer(this, '{ROW.CONTACTS_ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{ROW.CONTACTS_ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{ROW.CONTACTS_ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot><a href="{SITE_URL}/index.php?action=DetailView&module=Contacts&record={ROW.CONTACTS_ID}" class="listViewTdLinkS1">{ROW.CONTACTS_NAME}</a></slot></td>
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.CONTACTS_TITLE}</slot></td>
+		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot><a href="{SITE_URL}/index.php?action=DetailView&module=Accounts&record={ROW.CONTACTS_ACCOUNT_ID}" class="listViewTdLinkS1"> {ROW.CONTACTS_ACCOUNT_NAME}</a></slot></td>
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.CONTACTS_EMAIL1_LINK}{ROW.CONTACTS_EMAIL1}</A></slot></td>
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.CONTACTS_PHONE_WORK}</slot></td>
+	</tr>
+	<tr>
+		<td colspan="20" class="listViewHRS1"></td>
+	</tr>
+<!-- END: row -->
+	</table>
+<!-- END: rows -->

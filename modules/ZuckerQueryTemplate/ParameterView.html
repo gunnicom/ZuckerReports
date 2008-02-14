@@ -1,0 +1,185 @@
+<!-- BEGIN: main -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+	<td style="padding-bottom: 2px;">
+		<form name="QueryTemplateDetail" method="POST" action="index.php">
+			<input type="hidden" name="module" value="ZuckerQueryTemplate">
+			<input type="hidden" name="record" value="{ID}">
+			<input type="hidden" name="action">
+			<input type="hidden" name="return_module" value="{RETURN_MODULE}">
+			<input type="hidden" name="return_id" value="{RETURN_ID}">
+			<input type="hidden" name="return_action" value="{RETURN_ACTION}">
+			<input type="hidden" name="querytemplate_id" value="{ID}">
+			
+			<!-- BEGIN: edit -->		
+			<input class="button" onclick="this.form.return_module.value='ZuckerQueryTemplate'; this.form.return_action.value='DetailView'; this.form.return_id.value='{ID}'; this.form.action.value='EditView'" type="submit" name="button" value="  {APP.LBL_EDIT_BUTTON_LABEL}  ">
+			<!-- END: edit -->		
+			<!-- BEGIN: delete -->		
+			<input class="button" onclick="this.form.return_module.value='ZuckerReports'; this.form.return_action.value='TemplateListView'; this.form.action.value='Delete'; return confirm('{APP.NTC_DELETE_CONFIRMATION}')" type="submit" name="button" value=" {APP.LBL_DELETE_BUTTON_LABEL} ">
+			<!-- END: delete -->		
+			<input class="button" onclick="this.form.return_module.value='ZuckerQueryTemplate'; this.form.return_action.value='DetailView'; this.form.module.value='ZuckerReports'; this.form.action.value='ReportOnDemand'" type="submit" name="button" value=" {MOD.LBL_ONDEMAND_EXECUTE} ">
+		</form>
+	</td>
+</tr>
+</table>
+
+
+	<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView">
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_QUERY_NAME}</slot></td>
+		<td width="85%" valign="top" class="tabDetailViewDF"><slot>{NAME}</slot></td>		
+	</tr>
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_QUERY_SQL}</slot></td>
+		<td width="85%" class="tabDetailViewDF"><slot><textarea name='description' readonly cols="90" rows="4">{SQL}</textarea></slot></td>
+	</tr>
+
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_QUERY_DESCRIPTION}</slot></td>
+		<td width="85%" class="tabDetailViewDF"><slot><textarea name='description' readonly cols="90" rows="4">{DESCRIPTION}</textarea></slot></td>
+	</tr>
+	</table>
+
+{JAVASCRIPT}
+<!-- END: main -->
+
+<!-- BEGIN: wordtemplates -->
+<table cellpadding="0" cellspacing="0" width="100%" border="0" class="listView">
+
+	<tr height="20" >
+	<td scope="col" width="20%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_WORD_NAME}</slot></td>
+	<td scope="col" width="20%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_WORD_FILENAME}</slot></td>
+	<td scope="col" width="*" class="listViewThS1" NOWRAP><slot>{MOD.LBL_WORD_DESCRIPTION}</a></slot></td>
+	</tr>
+
+<!-- BEGIN: row -->
+<tr height="20"  onmouseover="setPointer(this, '{WORD.ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{WORD.ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{WORD.ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
+    	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot><a href="{URL_PREFIX}index.php?action=DetailView&module=ZuckerWordTemplate&record={WORD.ID}&return_module=ZuckerQueryTemplate&return_action=DetailView&return_id={ID}" class="listViewTdLinkS1">{WORD.NAME}</a></slot></td>
+    	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot><a href="{WORD.TEMPLATE_URL}" class="listViewTdLinkS1">{WORD.FILENAME}</a></slot></td>
+     	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{WORD.DESCRIPTION}</slot></td>
+</tr>
+<tr><td colspan="20" class="listViewHRS1"></td></tr>
+<!-- END: row -->
+
+</table>
+<!-- END: wordtemplates -->
+
+<!-- BEGIN: parameters -->
+<table cellpadding="0" cellspacing="0" width="100%" border="0" class="listView">
+
+	<tr height="20" >
+	<td scope="col" width="20%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_PARAM_FRIENDLYNAME}</slot></td>
+	<td scope="col" width="20%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_PARAM_LINK_NAME}</slot></td>
+	<td scope="col" width="40%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_PARAM_LINK_RANGE}</a></slot></td>
+	<td scope="col" width="20%" class="listViewThS1" NOWRAP><slot>&nbsp;</a></slot></td>
+	</tr>
+
+<!-- BEGIN: row -->
+<tr height="20"  onmouseover="setPointer(this, '{LINK.ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{LINK.ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{LINK.ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
+    	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot><a href="{URL_PREFIX}index.php?action=EditView&module=ZuckerReportParameter&record={LINK.PARAMETER_ID}&return_module=ZuckerQueryTemplate&return_action=DetailView&return_id={LINK.TEMPLATE_ID}" class="listViewTdLinkS1">{LINK.FRIENDLY_NAME}</a></slot></td>
+		<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{LINK.NAME}</slot></td>
+    	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{LINK.RANGE_DESCRIPTION}</slot></td>
+     	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot><a class="listViewTdToolsS1" onclick="return confirm('{APP.NTC_DELETE_CONFIRMATION}')" href="{URL_PREFIX}index.php?action=Delete&module=ZuckerReportParameterLink&record={LINK.ID}&return_module=ZuckerQueryTemplate&return_action=DetailView&return_id={LINK.TEMPLATE_ID}">{DELETE_INLINE_PNG}</a>&nbsp;<a class="listViewTdToolsS1" onclick="return confirm('{APP.NTC_DELETE_CONFIRMATION}')" href="{URL_PREFIX}index.php?action=Delete&module=ZuckerReportParameterLink&record={LINK.ID}&return_module=ZuckerQueryTemplate&return_action=DetailView&return_id={LINK.TEMPLATE_ID}">{MOD.LBL_PARAM_LINK_DETACH}</a></slot></td>
+</tr>
+<tr><td colspan="20" class="listViewHRS1"></td></tr>
+<!-- END: row -->
+
+</table>
+<!-- END: parameters -->
+
+<!-- BEGIN: parameter_link -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+	<td style="padding-bottom: 2px;">
+			<form name="ReportParameterEdit" method="POST" action="index.php">
+			<input type="hidden" name="module" value="ZuckerReportParameterLink">
+			<input type="hidden" name="record" value="{LINK_ID}">
+			<input type="hidden" name="action">
+			<input type="hidden" name="link_template_id" value="{TEMPLATE_ID}">
+			<input type="hidden" name="return_module" value="ZuckerQueryTemplate">
+			<input type="hidden" name="return_id" value="{TEMPLATE_ID}">
+			<input type="hidden" name="return_action" value="DetailView">
+		<input class="button" onclick="this.form.action.value='Save'; return verify_paramlink_data(this.form);" type="submit" name="button" value="  {MOD.LBL_PARAM_LINK_ATTACH}  " > 	
+		</tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="tabForm">
+<tr>
+<td>
+	<table width="100%" border="0" cellspacing="1" cellpadding="0">
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_PARAM_LINK_PARAM}</slot></td>
+		<td width="85%" class="dataField" colspan=3><slot><select name='link_parameter_id' onChange="this.form.module.value='ZuckerQueryTemplate'; this.form.action.value='DetailView'; this.form.record.value='{TEMPLATE_ID}'; this.form.submit();">{LINK_PARAM_SELECTION}</select></slot></td>		
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_PARAM_LINK_NAME}</slot> <span class="required">{APP.LBL_REQUIRED_SYMBOL}</span></td>
+		<td width="85%" class="dataField" colspan=3><slot><input name='link_name' type='text' size=40 value="{LINK_NAME}"></slot></td>		
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_PARAM_LINK_DEFAULTVALUE}</slot></td>
+		<td width="85%" class="dataField" colspan=3><slot><input name='link_default_value' type='text' size=40 value="{LINK_DEFAULT_VALUE}"></slot></td>		
+	</tr>
+	</table>
+</td>
+</tr>
+</table>
+</form>
+{JAVASCRIPT}
+<!-- END: parameter_link -->
+
+<!-- BEGIN: modules -->
+<table cellpadding="0" cellspacing="0" width="100%" border="0" class="listView">
+
+	<tr height="20" >
+	<td scope="col" width="20%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_TEMPLATE_MODULE_MOD}</slot></td>
+	<td scope="col" width="20%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_PARAM_LINK_NAME}</slot></td>
+	<td scope="col" width="*" class="listViewThS1" NOWRAP><slot>&nbsp;</a></slot></td>
+	</tr>
+
+<!-- BEGIN: row -->
+<tr height="20"  onmouseover="setPointer(this, '{LINK.ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{LINK.ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{LINK.ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
+		<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{LINK.MODULE_NAME}</a></slot></td>
+    	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{LINK.PARAMETERLINK_NAME}</a></slot></td>
+    	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot><a class="listViewTdToolsS1" onclick="return confirm('{APP.NTC_DELETE_CONFIRMATION}')" href="{URL_PREFIX}index.php?action=Delete&module=ZuckerReportModuleLink&record={LINK.ID}&return_module=ZuckerQueryTemplate&return_action=DetailView&return_id={TEMPLATE_ID}">{DELETE_INLINE_PNG}</a>&nbsp;<a class="listViewTdToolsS1" onclick="return confirm('{APP.NTC_DELETE_CONFIRMATION}')" href="{URL_PREFIX}index.php?action=Delete&module=ZuckerReportModuleLink&record={LINK.ID}&return_module=ZuckerQueryTemplate&return_action=DetailView&return_id={TEMPLATE_ID}">{MOD.LBL_TEMPLATE_MODULE_DETACH}</a></slot></td>
+</tr>
+<tr><td colspan="20" class="listViewHRS1"></td></tr>
+<!-- END: row -->
+
+</table>
+<!-- END: modules -->
+
+<!-- BEGIN: module_link -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+	<td style="padding-bottom: 2px;">
+			<form name="QueryModuleEdit" method="POST" action="index.php">
+			<input type="hidden" name="module" value="ZuckerReportModuleLink">
+			<input type="hidden" name="record">
+			<input type="hidden" name="action">
+			<input type="hidden" name="link_template_id" value="{TEMPLATE_ID}">
+			<input type="hidden" name="return_module" value="ZuckerQueryTemplate">
+			<input type="hidden" name="return_id" value="{TEMPLATE_ID}">
+			<input type="hidden" name="return_action" value="DetailView">
+		<input class="button" onclick="this.form.action.value='Save'; return verify_modulelink_data(this.form);" type="submit" name="button" value="  {MOD.LBL_TEMPLATE_MODULE_ATTACH}  " > 	
+		</tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="tabForm">
+<tr>
+<td>
+	<table width="100%" border="0" cellspacing="1" cellpadding="0">
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_TEMPLATE_MODULE_MOD}</slot></td>
+		<td width="85%" class="dataField" colspan=3><slot><select name='module_module_name'>{LINK_MODULE_SELECTION}</select></slot></td>		
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_TEMPLATE_MODULE_PARAM}</slot></td>
+		<td width="85%" class="dataField" colspan=3><slot><select name='module_parameterlink_id'>{LINK_PARAM_SELECTION}</select></slot></td>		
+	</tr>
+	</table>
+</td>
+</tr>
+</table>
+</form>
+{JAVASCRIPT}
+<!-- END: module_link -->

@@ -1,0 +1,25 @@
+<!-- BEGIN: rows -->
+<table cellpadding="0" cellspacing="0" width="100%" border="0" class="listView">
+	<tr height="20">
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_OPPORTUNITY_NAME}</a></slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_ACCOUNT_NAME}</slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_SALES_STAGE}</slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_AMOUNT}</slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_DATE_CLOSED}</slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{APP.LBL_LIST_ASSIGNED_USER}</slot></td>
+	</tr>
+	<!-- BEGIN: row -->
+	<tr height="20"  onmouseover="setPointer(this, '{ROW.OPPORTUNITIES_ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{ROW.OPPORTUNITIES_ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{ROW.OPPORTUNITIES_ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot><a href="{SITE_URL}/index.php?action=DetailView&module=Opportunities&record={ROW.OPPORTUNITIES_ID}" class="listViewTdLinkS1">{ROW.OPPORTUNITIES_NAME}</a></slot></td>
+		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot><a href="{SITE_URL}/index.php?action=DetailView&module=Accounts&record={ROW.OPPORTUNITIES_ACCOUNT_ID}" class="listViewTdLinkS1"> {ROW.OPPORTUNITIES_ACCOUNT_NAME}</a></slot></td>
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.OPPORTUNITIES_SALES_STAGE}</slot></td>
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.OPPORTUNITIES_AMOUNT}</A></slot></td>
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.OPPORTUNITIES_DATE_CLOSED}</slot></td>
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.OPPORTUNITIES_ASSIGNED_USER_NAME}</slot></td>
+	</tr>
+	<tr>
+		<td colspan="20" class="listViewHRS1"></td>
+	</tr>
+<!-- END: row -->
+	</table>
+<!-- END: rows -->

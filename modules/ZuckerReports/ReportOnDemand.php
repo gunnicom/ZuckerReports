@@ -9,8 +9,10 @@ require_once('modules/ZuckerReportParameterLink/ReportParameterLink.php');
 require_once('include/ListView/ListView.php');
 require_once('modules/Notes/Note.php');
 require_once('include/upload_file.php');
+require_once('include/TimeDate.php');
 require_once('include/JSON.php');
 
+$timedate = new TimeDate();
 global $app_strings;
 global $app_list_strings;
 global $mod_strings;
@@ -75,13 +77,21 @@ if (count($templates) > 0) {
 		
 	$xtpl->assign("REPORT_SELECTION_HEADER", get_form_header ($mod_strings["LBL_ONDEMAND_REPORT_SELECTION"], "", false));
 	$xtpl->assign("TEMPLATE_SELECTION", get_select_options_with_id($template_select, $focus->id));
-
-
+	$xtpl->parse("report_selection");
+	$report_selection = $xtpl->text("report_selection");
 	
+	if (!empty($focus->id)) {
 	
+		$xtpl->assign("FORMAT_SELECTION_HEADER", get_form_header ($mod_strings["LBL_ONDEMAND_FORMAT_SELECTION"], "", false));
+		$xtpl->assign("FORMAT_SELECTION", $focus->get_format_selection());
+		$xtpl->assign("FORMAT_PARAMETERS", $focus->get_format_parameters());
+
+		$xtpl->parse("format_selection");			
+		$format_selection = $xtpl->text("format_selection");
+	}
+
 	if (!empty($focus->id)) {	
-
-		if ($focus->can_attach_to_parent()) {
+		if ($focus->report_result_type == "FILE") {
 			$types = parse_list_modules($app_list_strings['record_type_display']);
 			$types = array_merge(array("" => ""), $types);
 		
@@ -99,89 +109,52 @@ if (count($templates) > 0) {
 			);
 			$json = new JSON(JSON_LOOSE_TYPE);
 			$encoded_popup_request_data = $json->encode($popup_request_data);
+			
 			$xtpl->assign('encoded_popup_request_data', $encoded_popup_request_data);
+			$xtpl->assign("ATTACH_SELECTION_HEADER", get_form_header ($mod_strings["LBL_ONDEMAND_ATTACH_SELECTION"], "", false));
 			$xtpl->assign("PARENT_ID", $_REQUEST['parent_id']);
 			$xtpl->assign("PARENT_NAME", $_REQUEST['parent_name']);	
-			$xtpl->parse("report_selection.attach_to_parent");
-		}
-		if ($focus->can_attach_to_container()) {
 			$xtpl->assign("CAT_OPTIONS", get_select_options_with_id(ReportContainer::get_category_select_options(), $_REQUEST['parent_category']));
-			$xtpl->parse("report_selection.attach_to_container");
+			
+			$xtpl->parse("attach_selection");
+			$attach_selection = $xtpl->text("attach_selection");
+		} else {
+			$xtpl->assign("PARENT_ID", $_REQUEST['parent_id']);
+			$xtpl->assign("PARENT_MODULE", $_REQUEST['parent_module']);	
+			$xtpl->assign("PARENT_NAME", $_REQUEST['parent_name']);	
+			
+			$xtpl->parse("attach_selection_hidden");
+			$attach_selection = $xtpl->text("attach_selection_hidden");
 		}
-	}	
-		
-	$xtpl->parse("report_selection");
-	$report_selection = $xtpl->text("report_selection");
+	}		
 	
-	if (!empty($focus->id)) {
 	
-		$xtpl->assign("FORMAT_SELECTION_HEADER", get_form_header ($mod_strings["LBL_ONDEMAND_FORMAT_SELECTION"], "", false));
 	
-/*		$focus->handle_format_selection(&$xtpl);
-		
-		$focus->handle_format_parameters(&$xtpl);
-*/
-		$focus->handle_format_selection($xtpl);
-		
-		$focus->handle_format_parameters($xtpl);
-
-		$xtpl->parse("format_selection");			
-		$format_selection = $xtpl->text("format_selection");
-	}
-
 	if (!empty($focus->id)) {
 
 		$links = $focus->get_parameter_links();
 		if (count($links) > 0) {
+			$input_required = false;
 			foreach ($links as $link) {
 				$link->fill_in_additional_detail_fields();
 				$selected_val = $link->default_value;
 				if (!empty($_REQUEST[$link->name])) {
 					$selected_val = $_REQUEST[$link->name];
 				}
-	
-				$xtpl1=new XTemplate ('modules/ZuckerReports/ParameterFill.html');
-				$xtpl1->assign("MOD", $mod_strings);
-				$xtpl1->assign("APP", $app_strings);
-				$xtpl1->assign("THEME", $theme);
-				$xtpl1->assign("IMAGE_PATH", $image_path);
-				if ($link->parameter->range == 'SQL') {
-					$param_table = $link->parameter->get_sql_table();
-					if (is_array($param_table)) {
-						$xtpl1->assign("PARAM_FRIENDLY_NAME", $link->friendly_name);
-						$xtpl1->assign("PARAM_NAME", $link->name);
-						$xtpl1->assign("PARAM_SELECTION", get_select_options_with_id($param_table, $selected_val));
-						$xtpl1->parse("SQL");
-						$parameter_html .= $xtpl1->text("SQL");
-	
-					} else {
-						$parameter_html .= $param_table."<br/>";
-					}
-	
-				} else if ($link->parameter->range == 'LIST') {
-	
-					$list = $link->parameter->get_list_table();
-					$xtpl1->assign("PARAM_FRIENDLY_NAME", $link->friendly_name);
-					$xtpl1->assign("PARAM_NAME", $link->name);
-					$xtpl1->assign("PARAM_SELECTION", get_select_options_with_id($list, $selected_val));
-					$xtpl1->parse("LIST");
-					$parameter_html .= $xtpl1->text("LIST");
-	
-				} else if ($link->parameter->range == 'SIMPLE') {
-					$xtpl1->assign("PARAM_FRIENDLY_NAME", $link->friendly_name);
-					$xtpl1->assign("PARAM_NAME", $link->name);
-					$xtpl1->assign("PARAM_VALUE", $selected_val);
-					$xtpl1->parse("SIMPLE");
-					$parameter_html .= $xtpl1->text("SIMPLE");
-			
-				}
+				$parameter_html .= ReportParameter::get_parameter_html($link->parameter, $link, $selected_val);
+				
+				if ($link->parameter->input_required()) $input_required = true;
+				
+				
 			}
-			$xtpl->assign("PARAMETER_HEADER", get_form_header ($mod_strings["LBL_ONDEMAND_PARAMETERS"], "", false));
-			$xtpl->assign("PARAMETERS", $parameter_html);
-			
-			$xtpl->parse("parameters");			
-			$parameters = $xtpl->text("parameters");
-
+			if ($input_required) {
+				$xtpl->assign("PARAMETER_HEADER", get_form_header ($mod_strings["LBL_ONDEMAND_PARAMETERS"], "", false));
+				$xtpl->assign("PARAMETERS", $parameter_html);
+				$xtpl->parse("parameters");			
+				$parameters = $xtpl->text("parameters");
+			} else {
+				$parameters = $parameter_html;
+			}
 		}
 	}
 
@@ -192,6 +165,7 @@ if (count($templates) > 0) {
 	
 	if (!empty($report_selection)) $xtpl->assign("REPORT_SELECTION", $report_selection);
 	if (!empty($format_selection)) $xtpl->assign("FORMAT_SELECTION", $format_selection);
+	if (!empty($attach_selection)) $xtpl->assign("ATTACH_SELECTION", $attach_selection);
 	if (!empty($parameters)) $xtpl->assign("PARAMETERS", $parameters);
 	if (!empty($execbutton)) $xtpl->assign("EXEC_BUTTON", $execbutton);
 	
@@ -202,58 +176,71 @@ if (count($templates) > 0) {
 if (!empty($focus->id) && $_REQUEST['run'] == "true") {
 
 	$parameter_values = array();
-
 	$links = $focus->get_parameter_links();
 	foreach ($links as $link) {
-		$parameter_values[$link->name] = $_REQUEST[$link->name];
+		$parameter_values[$link->name] = ReportParameter::get_parameter_value($link->parameter, $link);
 	}
 	$success = $focus->execute_request($parameter_values);
 		
 	if ($success) {
-		if (!empty($_REQUEST['parent_category'])) {
-			$report = new ZuckerReport();
-			$report->container_id = $_REQUEST['parent_category'];
-			$report->description = $focus->report_output;
-			$report->filename = $focus->outfile;
-			$report->published = 0;
-			$report->save();
-			
-			$uf = new UploadFile("upload");
-			$uf->set_for_soap($focus->outfile, file_get_contents($focus->report_outfile));
-			$uf->stored_file_name = $uf->create_stored_filename();
-			$uf->final_move($report->id);
-			$cat_url = "index.php?action=ReportDetailView&module=ZuckerReports&record=".($report->id);
-		} 
-		if (!empty($_REQUEST['parent_module'])) {
 		
-			$note = new Note();
-			$note->name = $focus->name;
-			$note->description = $focus->report_output;
-			$note->filename = $focus->outfile;
-			if ($_REQUEST['parent_module'] == 'Contacts') {
-				$note->contact_id = $_REQUEST['parent_id'];
-			} else {
-				$note->parent_type = $_REQUEST['parent_module'];
-				$note->parent_id = $_REQUEST['parent_id'];
-			}
-			$note->save();
-		
-			$uf = new UploadFile("upload");
-			$uf->set_for_soap($focus->outfile, file_get_contents($focus->report_outfile));
-			$uf->stored_file_name = $uf->create_stored_filename();
-			$uf->final_move($note->id);
+		if ($focus->report_result_type == "FILE") {
+			if (!empty($_REQUEST['parent_category'])) {
+				$report = new ZuckerReport();
+				$report->container_id = $_REQUEST['parent_category'];
+				$report->description = $focus->report_output;
+				$report->filename = $focus->report_result_name;
+				$report->published = 0;
+				$report->save();
 				
-			$note_url = "index.php?action=DetailView&module=Notes&record=".($note->id)."&return_module=ZuckerReports&return_action=ReportOnDemand";
-		}
-
-		if (!empty($note_url)) {
-			header("Location: ".$note_url);
-		} else if (!empty($cat_url)) {
-			header("Location: ".$cat_url);
+				$uf = new UploadFile("upload");
+				$uf->set_for_soap($focus->report_result_name, file_get_contents($focus->report_result));
+				$uf->stored_file_name = $uf->create_stored_filename();
+				$uf->final_move($report->id);
+				$cat_url = "index.php?action=ReportDetailView&module=ZuckerReports&record=".($report->id);
+			} 
+			if (!empty($_REQUEST['parent_module'])) {
+			
+				$note = new Note();
+				$note->name = $focus->name;
+				$note->description = $focus->report_output;
+				$note->filename = $focus->report_result_name;
+				if ($_REQUEST['parent_module'] == 'Contacts') {
+					$note->contact_id = $_REQUEST['parent_id'];
+				} else {
+					$note->parent_type = $_REQUEST['parent_module'];
+					$note->parent_id = $_REQUEST['parent_id'];
+				}
+				$note->save();
+			
+				$uf = new UploadFile("upload");
+				$uf->set_for_soap($focus->report_result_name, file_get_contents($focus->report_result));
+				$uf->stored_file_name = $uf->create_stored_filename();
+				$uf->final_move($note->id);
+					
+				$note_url = "index.php?action=DetailView&module=Notes&record=".($note->id)."&return_module=ZuckerReports&return_action=ReportOnDemand";
+			}
+			
+			if (!empty($note_url)) {
+				header("Location: ".$note_url);
+				sugar_die();
+			} else if (!empty($cat_url)) {
+				header("Location: ".$cat_url);
+				sugar_die();
+			} else {
+				?>
+				<script language="javascript">window.open('<? echo $focus->report_result; ?>', '_blank');</script>
+				<?
+				//echo $focus->report_output;
+			}
+		} else if ($focus->report_result_type == "FORWARD") {
+			header("Location: ".($focus->report_result));
+			sugar_die();
 		} else {
-			header("Location: ".($focus->report_outfile));
+			echo get_form_header ($mod_strings["LBL_ONDEMAND_RESULT"], "", false);
+			echo $focus->report_result;
 		}
-		sugar_die();
+		
 	} else {
 		echo "\n<p>\n";
 		echo  	get_form_header ($mod_strings['LBL_ONDEMAND_OUTPUT'], "", false);

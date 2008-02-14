@@ -1,0 +1,39 @@
+<!-- BEGIN: SQL -->
+<tr>
+ <td width="15%" class="tabDetailViewDL">{PARAM_FRIENDLY_NAME}</td>
+ <td width="85%" class="tabDetailViewDF" colspan="3"><select name="{PARAM_NAME}">{PARAM_SELECTION}</select></td>
+</tr>
+<!-- END: SQL -->
+
+<!-- BEGIN: LIST -->
+<tr>
+ <td width="15%" class="tabDetailViewDL">{PARAM_FRIENDLY_NAME}</td>
+ <td width="85%" class="tabDetailViewDF" colspan="3"><select name="{PARAM_NAME}">{PARAM_SELECTION}</select></td>
+</tr>
+<!-- END: LIST -->
+
+<!-- BEGIN: SIMPLE -->
+<tr>
+ <td width="15%" class="tabDetailViewDL">{PARAM_FRIENDLY_NAME}</td>
+ <td width="85%" class="tabDetailViewDF" colspan="3"><input name="{PARAM_NAME}" type="text" size="40" value="{PARAM_VALUE}"></td>
+</tr>
+<!-- END: SIMPLE -->
+
+<!-- BEGIN: DATE -->
+<tr>
+ <td width="15%" class="tabDetailViewDL">{PARAM_FRIENDLY_NAME}</td>
+ <td width="85%" class="tabDetailViewDF" colspan="3"><input name='{PARAM_NAME}' onblur="parseDate(this, '{CALENDAR_DATEFORMAT}');" id='{PARAM_NAME}_jscal_field' type="text" tabindex='2' size='11' maxlength='10' value="{PARAM_VALUE}"> <img src="themes/{THEME}/images/jscalendar.gif" alt="{APP.LBL_ENTER_DATE}"  id="jscal_trigger" align="absmiddle"> <span class="dateFormat">{USER_DATEFORMAT}</span></td>
+</tr>
+
+	<script type="text/javascript">
+	Calendar.setup ({
+		inputField : "{PARAM_NAME}_jscal_field", ifFormat : "{CALENDAR_DATEFORMAT}", showsTime : false, button : "jscal_trigger", singleClick : true, step : 1
+	});
+	</script>
+
+
+<!-- END: DATE -->
+
+<!-- BEGIN: HIDDEN -->
+<input name="{PARAM_NAME}" type="hidden" value="{PARAM_VALUE}">
+<!-- END: HIDDEN -->

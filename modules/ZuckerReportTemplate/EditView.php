@@ -32,14 +32,16 @@ if (!empty($_REQUEST['description'])) {
 	$description = $_REQUEST['description'];
 }
 
-echo "\n<p>\n";
-echo get_module_title("ZuckerReports", $title, false); 
-echo "\n</p>\n";
-
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
 require_once($theme_path.'layout_utils.php');
+
+echo "\n<p>\n";
+echo get_module_title("ZuckerReportTemplate", $title, false); 
+echo "\n</p>\n";
+
+
 
 $xtpl=new XTemplate ('modules/ZuckerReportTemplate/EditView.html');
 $xtpl->assign("MOD", $mod_strings);
@@ -56,7 +58,10 @@ $xtpl->assign("ID", $focus->id);
 $xtpl->assign("NAME", $name);
 $xtpl->assign("URL", $focus->template_url);
 $xtpl->assign("DESCRIPTION", $description);
-$xtpl->assign("ERROR_MSG", $_REQUEST["ZR_ERROR_MSG"]);
+if (!empty($_REQUEST["ZR_ERROR_MSG"])) {
+	$xtpl->assign("ERROR_MSG", $_REQUEST["ZR_ERROR_MSG"]);
+	$xtpl->parse("main.error");
+}
 
 $checkboxes = $focus->get_export_checkbox_array();
 $xtpl->assign("EXPORT_TYPES", join("<br/>", $checkboxes));

@@ -12,7 +12,7 @@ $fields_array['ReportTemplate'] = array (
 		'export_as',		
 		'deleted',
 	),
-        'list_fields' =>  array(
+    'list_fields' =>  array(
 		'id',
 		'date_entered',
 		'date_modified',
@@ -22,6 +22,7 @@ $fields_array['ReportTemplate'] = array (
 		'filename',
 		'description',
 		'export_as',		
+		'type_desc',		
 		'deleted',
 	),
     	'required_fields' =>  array('name'=>1),

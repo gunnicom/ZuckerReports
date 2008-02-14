@@ -16,11 +16,19 @@ function post_install( ) {
 		require_once('modules/ZuckerReportContainer/ReportContainer.php');
 
 		$seed = new ReportContainer();
-		$seed->name = "My Reports";
+		$seed->name = "2006";
 		$seed->save();
+
+		for ($i = 1; $i <= 4; $i++) {
+			$qseed = new ReportContainer();
+			$qseed->name = "Q".$i." 2006";
+			$qseed->parent_id = $seed->id;
+			$qseed->save();
+		}
+
 		
 		$seed = new ReportContainer();
-		$seed->name = "Other Reports";
+		$seed->name = "Archive";
 		$seed->save();
 	}
 	if (is_file('modules/ZuckerReportParameter/ReportParameter.php')) {
@@ -41,7 +49,7 @@ function post_install( ) {
 		$seed->default_value = "";
 		$seed->description = "";
 		$seed->range = "SQL";
-		$seed->range_options = 'select id, concat(last_name, concat(\" \", first_name)) as name from contacts where deleted = 0 order by last_name';
+		$seed->range_options = 'select id, concat(last_name, concat(" ", first_name)) as name from contacts where deleted = 0 order by last_name';
 		$seed->save();
 
 		$seed = new ReportParameter();
@@ -50,7 +58,7 @@ function post_install( ) {
 		$seed->default_value = "";
 		$seed->description = "";
 		$seed->range = "SQL";
-		$seed->range_options = 'select id, concat(name, \" (\", date_start, \" \", time_start, \")\") from meetings where deleted = 0 order by name, date_start, time_start';
+		$seed->range_options = 'select id, concat(name, " (", date_start, " ", time_start, ")") from meetings where deleted = 0 order by name, date_start, time_start';
 		$seed->save();
 
 		$seed = new ReportParameter();
@@ -62,13 +70,28 @@ function post_install( ) {
 		$seed->range_options = 'select id, name from project where deleted = 0 order by name';
 		$seed->save();
 		
+		$seed = new ReportParameter();
+		$seed->friendly_name = "Current User";
+		$seed->default_name = "CURRENT_USER";
+		$seed->default_value = "";
+		$seed->description = "";
+		$seed->range = "CURRENT_USER";
+		$seed->save();
+
+		$seed = new ReportParameter();
+		$seed->friendly_name = "My Script";
+		$seed->default_name = "MY_SCRIPT";
+		$seed->default_value = "";
+		$seed->description = "";
+		$seed->range = "SCRIPT";
+		$seed->range_options = "return '%';";
+		$seed->save();
 		
 	}
-
-	
-	echo "<h1>Note: Please remember to check your Java installation - you may configure it in the file modules/ZuckerReports/config.php!</h1><br/>";
-	
-	
+	if (is_file('modules/ZuckerReports/config.php')) {
+		echo "<h3>Note: Please remember to check your Java installation - you may configure it in the file modules/ZuckerReports/config.php! This is not an error message, but a reminder to check your environment according to the ZuckerReports manual.</h3><br/>";
+		echo "<h2>ZuckerReports is free for Sugar Open Source users. Commercial licenses including support and upgrades are available, please contact us at sales@go-mobile.at.</h3><br/>";
+	}
 }
 
 ?>

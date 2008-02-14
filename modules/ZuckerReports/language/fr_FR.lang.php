@@ -15,36 +15,6 @@ $mod_strings = array (
 	'LBL_TEMPLATE_LIST_TYPE' => 'Type',
 	'LBL_TEMPLATE_LIST_DESCRIPTION' => 'Description',
 	
-	'LBL_REPORT_TEMPLATE_NEW' => 'Nouveau modèle de rapport',
-	'LBL_REPORT' => 'Rapport',
-	'LBL_REPORT_NAME' => 'Nom du modèle',
-	'LBL_REPORT_FILENAME' => 'Fichier du modèle',
-	'LBL_REPORT_DESCRIPTION' => 'Description',
-	'LBL_REPORT_EXPORT_AS' => 'Formats autorisés',
-	'LBL_SUBREPORTS' => 'Sous-rapport',
-	'LBL_SUBREPORT' => 'Charger Sous-rapport',
-	'LBL_SUBREPORT_HELP' => 'Les sous-rapports sont sauvegardés dans leur propres fichiers. Pour que Zucker Rapports puisse les charger, mettez les ici. Si vous avez déjà chargé les rapports, il n\'est pas nécessaire de les recharger.',
-	'LBL_RESOURCES' => 'Autres Ressources',
-	'LBL_RESOURCE' => 'Charger Ressources',
-	'LBL_RESOURCE_HELP' => 'Les images et les scriptlets sont sauvegardés dans leur propres fichiers. Pour que Zucker Rapports puisse les charger, mettez les ici. Si vous avez déjà chargé les rapports, il n\st pas nécessaire de les recharger.',
-
-	'LBL_QUERY_TEMPLATE_NEW' => 'Nouveau modèle Requètes',
-	'LBL_QUERY' => 'Requètes',
-	'LBL_QUERY_NAME' => 'Nom Requètes',
-	'LBL_QUERY_SQL' => 'Requètes',
-	'LBL_QUERY_SQL_HELP' => 'Saisir la requête SQL pour ce rapport. Saisir le nom du paramètres avec un $ devant, et la valeur associée sera insérée dans le rapport',
-	'LBL_QUERY_DESCRIPTION' => 'Description',
-	'LBL_QUERY_CREATE_WORD_TEMPLATE' => 'Nouveau lien avec un modèle Office',
-	'LBL_QUERY_WORD_TEMPLATES' => 'Lien avec le modèle office',
-
-	'LBL_WORD_TEMPLATE_NEW' => 'Nouveau modèle office',
-	'LBL_WORD' => 'Modèle Word',
-	'LBL_OPENOFFICE' => 'Modèle OpenOffice',
-	'LBL_WORD_NAME' => 'Nom du modèle',
-	'LBL_WORD_FILENAME' => 'Fichier modèle',
-	'LBL_WORD_DESCRIPTION' => 'Description',
-	'LBL_WORD_QUERY' => 'Requètes',
-
 	'LBL_CREATED_BY'=> 'Créé par',
 	'LBL_DATE_ENTERED'=> 'Date création',
 	'LBL_DATE_MODIFIED'=> 'Date Modification',
@@ -82,7 +52,9 @@ $mod_strings = array (
 	'LBL_PARAM_RANGE_SQL' => 'Requètes utilisateur',
 	'LBL_PARAM_RANGE_SQL_HELP' => 'Saisir la requète SQL. la valeur de la 1ere colonne est gérée par le rapport, la seconde par l\'utilisateur.',
 	'LBL_PARAM_RANGE_SQL_TEST' => 'Tester la requête SQL',
-	'LBL_PARAM_RANGE_MODULE' => 'Sélection SugarSuite',
+	'LBL_PARAM_RANGE_SCRIPT' => 'PHP Script',
+	'LBL_PARAM_RANGE_SCRIPT_DISABLED' => 'PHP Scripting has been disabled. Please enable it in modules/ZuckerReports/config.php.',
+	'LBL_PARAM_RANGE_SCRIPT_HELP' => 'Please enter any PHP code you want. Finish with a "return"-statement.',
 	
 
 
@@ -104,21 +76,18 @@ $mod_strings = array (
 	
 	'LBL_ONDEMAND_REPORT_SELECTION' => 'Sélection Rapport',
 	'LBL_ONDEMAND_FORMAT_SELECTION' => 'Préferences Formats',
+	'LBL_ONDEMAND_ATTACH_SELECTION' => 'Attach',
 	'LBL_ONDEMAND_PARAMETERS' => 'Paramètres',
 	
 	'LBL_ONDEMAND_TEMPLATE' => 'Rapport',
 	'LBL_ONDEMAND_EXECUTE' => 'Lancer Report',
 	'LBL_ONDEMAND_OUTPUT' => 'Sortie',
+	'LBL_ONDEMAND_RESULT' => 'Report Result',
 	'LBL_ONDEMAND_VIEW' => 'Voir Rapport',
 	'LBL_ATTACH_TO' => 'Attacher Rapport à',
 	'LBL_ARCHIVE_TO' => 'Archiver Rapport',
 	'LBL_ONDEMAND_ERROR' => 'Erreur lors de l\exécution du rapport',
 	'LBL_ONDEMAND_FORMAT' => 'Format',
-	'LBL_ONDEMAND_COLUMN_DELIMITER' => 'Délimiteur Colonne',
-	'LBL_ONDEMAND_ROW_DELIMITER' => 'Délimiteur ligne',
-	'LBL_ONDEMAND_INCLUDE_HEADER' => 'Inclure l\'en-tête',
-
-	'LBL_ONDEMAND_SAVE_PATH' => 'Sauver dans le répertoire',
 
 	'LBL_ONDEMAND_BOUND' => 'Rapports, Requètes et lettres',
 	'LBL_ONDEMAND_BOUND_ATTACH' => 'Attacher résultats',
@@ -126,59 +95,17 @@ $mod_strings = array (
 	
 	
 	'LBL_ARCHIVE_LIST'=> 'Liste des Rapports',
-	
-	//error messages
-	'ERR_TEMPLATE_INVALID_FILE' => 'Seul les rapports (*.jrxml) sont gérés',
-	'ERR_TEMPLATE_INVALID_OFFICE_FILE' => 'Uniquement Word (*.doc) et OpenOffice/StarOffice (*.stw) sont gérés',
-
-	'LBL_LOADER_SETUP' => 'Installer  <a href="modules/ZuckerReports/resources/ZuckerReportsLoaderSetup.msi"><strong>ZuckerReports Loader</strong></a> pour Microsoft Office et OpenOffice support.',
-	
 );
 
 $mod_list_strings = array (
   'PARAM_RANGE_TYPES' =>
   array (
     'SIMPLE' => 'Saisie directe',
+	'DATE' => 'Date Input',
     'SQL' => 'Requètes définie par l\'utilisateur',
     'LIST' => 'Liste définie par l\'utilisateur',
-    #'MODULE' => 'Sélection SugarSuite',
-  ),
-  'REPORT_EXPORT_TYPES' =>
-  array (
-    'PDF' => 'Adobe PDF (*.pdf)',
-    'XLS' => 'Excel (*.xls)',
-    //'CSV' => 'Liste  (*.csv)',
-    'HTML' => 'HTML (*.html)',
-    'XML' => 'XML (images externes, *.xml)',
-    'XML_EMBED' => 'XML (images imbriquées, *.xml)',
-  ),
-  'QUERY_EXPORT_TYPES' =>
-  array (
-    'CSV' => 'Liste CSV avec virgules (*.csv)',
-    'HTML' => 'HTML (*.html)',
-  ),
-  'COL_DELIMS' =>
-  array (
-    ',' => 'Colonne (,)',
-    ';' => 'Semicolonne (;)',
-    'tab' => 'Tab (\t)',
-    '.' => 'Dot (.)',
-  ),
-  'ROW_DELIMS' =>
-  array (
-    'newline' => 'Nouvelle ligne (\n)',
-  ),
-  'WORD_EXPORT_TYPES' =>
-  array (
-    'NewDocument' => 'Nouveau document',
-    'Print' => 'Imprimer',
-    'Mail' => 'Envoyer par email',
-    'Fax' => 'Fax',
-  ),
-  'OPENOFFICE_EXPORT_TYPES' =>
-  array (
-    'Print' => 'Imprimante',
-    'File' => 'Sauvegarder dans un fichier',
+	'CURRENT_USER' => 'Current User',
+	'SCRIPT' => 'PHP Script',
   ),
 );
 

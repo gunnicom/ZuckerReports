@@ -1,0 +1,23 @@
+<!-- BEGIN: rows -->
+<table cellpadding="0" cellspacing="0" width="100%" border="0" class="listView">
+	<tr height="20">
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_NUMBER}</a></slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_SUBJECT}</slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_ACCOUNT_NAME}</slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_PRIORITY}</slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_STATUS}</slot></td>
+	</tr>
+	<!-- BEGIN: row -->
+	<tr height="20"  onmouseover="setPointer(this, '{ROW.CASES_ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{ROW.CASES_ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{ROW.CASES_ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.CASES_CASE_NUMBER}</slot></td>
+		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot><a href="{URL_PREFIX}/index.php?action=DetailView&module=Cases&record={ROW.CASES_ID}" class="listViewTdLinkS1">{ROW.CASES_NAME}</a></slot></td>
+		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot><a href="{URL_PREFIX}/index.php?action=DetailView&module=Accounts&record={ROW.CASES_ACCOUNT_ID}" class="listViewTdLinkS1"> {ROW.CASES_ACCOUNT_NAME}</a></slot></td>
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.CASES_PRIORITY}</slot></td>
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.CASES_STATUS}</slot></td>
+	</tr>
+	<tr>
+		<td colspan="20" class="listViewHRS1"></td>
+	</tr>
+<!-- END: row -->
+	</table>
+<!-- END: rows -->

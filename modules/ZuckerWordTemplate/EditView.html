@@ -1,0 +1,75 @@
+<!-- BEGIN: main -->
+
+{JAVASCRIPT}
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+	<td style="padding-bottom: 2px;">
+			<form name="WordTemplateEdit" method="POST" action="index.php" enctype="multipart/form-data">
+			<input type="hidden" name="module" value="ZuckerWordTemplate">
+			<input type="hidden" name="record" value="{ID}">
+			<input type="hidden" name="action">
+			<input type="hidden" name="return_module" value="{RETURN_MODULE}">
+			<input type="hidden" name="return_id" value="{RETURN_ID}">
+			<input type="hidden" name="return_action" value="{RETURN_ACTION}">
+		<input class="button" onclick="this.form.action.value='CheckAndSave'; return verify_word_template_data(this.form);" type="submit" name="button" value="  {APP.LBL_SAVE_BUTTON_LABEL}  " > 
+		<input class="button" onclick="this.form.action.value='{RETURN_ACTION}'; this.form.module.value='{RETURN_MODULE}'; this.form.record.value='{RETURN_ID}'" type="submit" name="button" value="  {APP.LBL_CANCEL_BUTTON_LABEL}  ">
+	</td>
+	</tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="tabForm">
+<tr>
+<td>
+	<table width="100%" border="0" cellspacing="1" cellpadding="0">
+	<tr>
+		<td width="15%" class="dataLabel">&nbsp;</td>
+		<td width="85%" class="dataField" colspan=3><font color="red"><slot>{ERROR_MSG}</slot></font></td>		
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_WORD_NAME}</slot> <span class="required">{APP.LBL_REQUIRED_SYMBOL}</span></td>
+		<td width="85%" class="dataField" colspan=3><slot><input name='name' type='text' size=40 value="{NAME}"></slot></td>		
+	</tr>
+	<tr>
+        <td width="15%" class="dataLabel"><slot>{MOD.LBL_WORD_FILENAME}</slot></td>
+        <td width="85%" class="dataField" colspan=3><slot><input name="templatefile" type="file" size="20" onchange="setvalue(this);"/></slot></td>	
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><slot>{MOD.LBL_WORD_DESCRIPTION}</slot></td>
+		<td width="85%" class="dataField" colspan="3"  ><slot><textarea name='description' cols="90" rows="4">{DESCRIPTION}</textarea></slot></td>
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><slot>{MOD.LBL_WORD_QUERY}</slot> <span class="required">{APP.LBL_REQUIRED_SYMBOL}</span></td>
+		<td width="85%" class="dataField" colspan="3"  ><slot><select name='querytemplate_id'>{QUERYTEMPLATE_SELECTION}</select></slot></td>
+	</tr>
+	</table>
+</td>
+</tr>
+</table>
+</form>
+<script type="text/javascript" language="JavaScript">
+	function setvalue(source) {
+		src= new String(source.value);
+		target=new String(source.form.name.value);
+
+		if (target.length == 0) {
+			lastindex=src.lastIndexOf("/");
+			if (lastindex == -1) {
+				lastindex=src.lastIndexOf("\\");
+			} 
+			if (lastindex == -1) {
+				filename = src;
+			} else {
+				filename = src.substr(++lastindex, src.length);
+			}			
+			lastindex = filename.lastIndexOf(".");
+			if (lastindex == -1) {
+				source.form.name.value=filename;
+			} else {
+				source.form.name.value=filename.substr(0, lastindex);
+			}
+		}			
+	}
+	
+</script>
+<!-- END: main -->

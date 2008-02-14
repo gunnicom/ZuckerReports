@@ -49,17 +49,17 @@ if (!empty($_REQUEST['range_options'])) {
 }
 
 
-
-
-
-echo "\n<p>\n";
-echo get_module_title("ZuckerReports", $title, false); 
-echo "\n</p>\n";
-
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
 require_once($theme_path.'layout_utils.php');
+
+
+echo "\n<p>\n";
+echo get_module_title("ZuckerReportParameter", $title, false); 
+echo "\n</p>\n";
+
+
 
 $xtpl=new XTemplate ('modules/ZuckerReportParameter/EditView.html');
 $xtpl->assign("MOD", $mod_strings);
@@ -105,6 +105,17 @@ if ($range == 'LIST') {
 	
 	$xtpl->parse('main.LIST');
 }
+if ($range == 'SCRIPT') {
+	require_once("modules/ZuckerReports/config.php");
+	
+	if ($zuckerreports_config["param_script_enabled"] == "yes") {
+		$xtpl->assign("RANGE_OPTIONS", $range_options);
+		$xtpl->parse('main.SCRIPT');
+	} else {
+		$xtpl->parse('main.SCRIPTDISABLED');
+	}
+}
+
 if (is_admin($current_user)) {
 	$xtpl->parse("main.save");
 	if (!empty($focus->id)) {

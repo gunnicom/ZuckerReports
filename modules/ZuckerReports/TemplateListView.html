@@ -12,7 +12,7 @@
 
 <!-- BEGIN: row -->
 <tr height="20"  onmouseover="setPointer(this, '{TEMPLATE.ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{TEMPLATE.ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{TEMPLATE.ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
-    	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot><img src="{TEMPLATE.ICON_URL}"/></slot></td>
+    	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{TEMPLATE.IMAGE_HTML}</slot></td>
 		<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot><a href="{URL_PREFIX}index.php?module={TEMPLATE.ACTION_MODULE}&action=DetailView&record={TEMPLATE.ID}&return_module=ZuckerReports&return_action=TemplateListView" class="listViewTdLinkS1">{TEMPLATE.NAME}</a></slot></td>
     	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{TEMPLATE.TYPE_DESC}</slot></td>
     	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{TEMPLATE.DESCRIPTION}</slot></td>

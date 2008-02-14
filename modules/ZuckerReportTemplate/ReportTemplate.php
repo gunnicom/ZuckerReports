@@ -2,44 +2,29 @@
 require_once('include/logging.php');
 require_once('data/SugarBean.php');
 require_once('modules/ZuckerReports/config.php');
-require_once('modules/ZuckerReportParameterLink/ReportParameterLink.php');
-require_once('modules/ZuckerReportModuleLink/ReportModuleLink.php');
+require_once('modules/ZuckerReports/ReportProviderBase.php');
 
 function endsWith( $str, $sub ) {
 	return ( substr( $str, strlen( $str ) - strlen( $sub ) ) == $sub );
 }
 
-class ReportTemplate extends SugarBean {
+class ReportTemplate extends ReportProviderBase {
 
-	var $id;	
 	var $name;	
 	var $filename;
 	var $description;
 	var $export_as;
-	var $created_by;	
-	var $date_entered;	
-	var $date_modified;	
-	var $modified_user_id;		
 	
 	var $template_url;		
 	var $compiled_filename;
 	var $resources_folder;
-	var $icon_url;
-	
-	var $action_module;
-	var $type_desc;
 
 	var $table_name = "zucker_reporttemplates";
 	var $object_name = "ReportTemplate";
 	var $module_dir = "ZuckerReportTemplate";
 	
 	function ReportTemplate() {		
-		parent::SugarBean();		
-		$this->new_schema = true;	
-	}	
-	
-	function save($check_notify = false) {			
-		return parent::save($check_notify);			
+		parent::ReportProviderBase();		
 	}	
 	
 	function get_summary_text() {		
@@ -49,7 +34,7 @@ class ReportTemplate extends SugarBean {
 	function get_export_checkbox_array() {
 		global $current_language;
 	
-		$mod_list_strings = return_mod_list_strings_language($current_language, "ZuckerReports");
+		$mod_list_strings = return_mod_list_strings_language($current_language, "ZuckerReportTemplate");
 		$export_types = $mod_list_strings["REPORT_EXPORT_TYPES"];
 		
 		$result = array();
@@ -66,7 +51,7 @@ class ReportTemplate extends SugarBean {
 	function set_export_from_checkboxes() {
 		global $current_language;
 	
-		$mod_list_strings = return_mod_list_strings_language($current_language, "ZuckerReports");
+		$mod_list_strings = return_mod_list_strings_language($current_language, "ZuckerReportTemplate");
 		$export_types = $mod_list_strings["REPORT_EXPORT_TYPES"];
 		
 		$this->export_as = "";
@@ -85,7 +70,7 @@ class ReportTemplate extends SugarBean {
 	function get_export_array() {
 		global $current_language;
 	
-		$mod_list_strings = return_mod_list_strings_language($current_language, "ZuckerReports");
+		$mod_list_strings = return_mod_list_strings_language($current_language, "ZuckerReportTemplate");
 		$export_types = $mod_list_strings["REPORT_EXPORT_TYPES"];
 		
 		$result = array();
@@ -97,8 +82,9 @@ class ReportTemplate extends SugarBean {
 		return $result;
 	}
 	function get_export_selection_array($selected) {
-		global $mod_list_strings;
-		
+		global $current_language;
+	
+		$mod_list_strings = return_mod_list_strings_language($current_language, "ZuckerReportTemplate");
 		$export_types = $mod_list_strings["REPORT_EXPORT_TYPES"];
 		
 		$result = array();
@@ -115,52 +101,26 @@ class ReportTemplate extends SugarBean {
 		return $result;
 	}
 
-	
-	function retrieve($id = NULL, $encode=false) {		
-		$ret = parent::retrieve($id, $encode);		
-		return $ret;	
-	}			
-	
-	function fill_in_additional_list_fields() {		
-		$this->fill_in_additional_detail_fields();	
-	}	
-	
 	function fill_in_additional_detail_fields() {		
-		global $mod_strings;
-		global $current_language;		
+		global $current_language, $theme;		
 		global $sugar_config;				
+
+		$mod_strings = return_module_language($current_language, "ZuckerReportTemplate");
 		
-		$mod_strings = return_module_language($current_language, 'ZuckerReports');
 		$this->template_url = "modules/ZuckerReports/resources/".($this->filename);
 		$this->compiled_filename = "modules/ZuckerReports/resources/".($this->filename);
 		$this->resources_folder = "modules/ZuckerReports/resources/".($this->filename)."_files/";
 		
 		$this->action_module = $this->module_dir;
 		$this->type_desc = $mod_strings["LBL_REPORT"];
-		$this->icon_url = "modules/ZuckerReports/icons/pdf.gif";
+		$this->image_html = get_image("themes/".$theme."/images/ZuckerReportTemplate", "ZuckerReportTemplate");
 	}			
-	
-	function get_parameter_links() {
-		$query = "SELECT id from zucker_reportparameterlink where template_id='$this->id' AND deleted=0";
-		$seed = new ReportParameterLink();	
-		return $this->build_related_list($query, $seed);
-	}	
-	function get_module_links() {
-		$query = "SELECT rl.id from zucker_reportmodulelink rl, zucker_reportparameterlink rpl where rl.parameterlink_id = rpl.id and rpl.template_id='$this->id' AND rl.deleted = 0 and rpl.deleted=0";		
-		$seed = new ReportModuleLink();
-		return $this->build_related_list($query, $seed);
-	}	
-	function get_module_link($module_name) {
-		$query = "SELECT rl.id from zucker_reportmodulelink rl, zucker_reportparameterlink rpl where rl.parameterlink_id = rpl.id and rpl.template_id='$this->id' and rl.module_name='$module_name' AND rl.deleted = 0 and rpl.deleted=0";		
-		$seed = new ReportModuleLink();
-		$list = $this->build_related_list($query, $seed);
-		if ($list && count($list) > 0) {
-			return $list[0];
-		} 
-		return FALSE;
-	}	
-	
+
 	function getByFilename($filename) {
+		return ReportTemplate::get_by_filename($filename);
+	}	
+	
+	function get_by_filename($filename) {
 		$seed = new ReportTemplate();
 		$results = $seed->get_full_list("", "filename='".$filename."'");
 		if ($results && count($results) > 0) {
@@ -172,36 +132,11 @@ class ReportTemplate extends SugarBean {
 		}
 	}	
 
-	function get_for_module($module_name) {
-		$query = "SELECT distinct(rt.id) from zucker_reporttemplates rt, zucker_reportmodulelink rl, zucker_reportparameterlink rpl where rt.id = rpl.template_id and rl.parameterlink_id = rpl.id and rl.module_name='$module_name' AND rt.deleted = 0 and rl.deleted = 0 and rpl.deleted=0";		
-		$seed = new ReportTemplate();
-		return $this->build_related_list($query, $seed);
-	}
-	
-	function mark_relationships_deleted($id) {
-		$rt = new ReportTemplate();
-		$rt->retrieve($id);
-		
-		$parameter_links = $rt->get_parameter_links();
-		$module_links = $rt->get_module_links();
-
-		foreach ($parameter_links as $pl) {
-			$pl->mark_deleted($pl->id);
-		}
-		foreach ($module_links as $ml) {
-			$ml->mark_deleted($ml->id);
-		}
-	}
-
 	function unlink_all_files() {
 		@unlink($this->compiled_filename);
 		$this->rec_delete($this->resources_folder);
 	}
 	
-	var $report_output;		
-	var $report_outfile;
-	var $outfile;
-
 	function set_reportfile($infile, $orig_filename) {
 		global $mod_strings;
 	
@@ -254,25 +189,28 @@ class ReportTemplate extends SugarBean {
 	//$format = "PDF", "XLS", "CSV", "HTML", "XML", "XML_EMBED"
 	function execute($format = 'PDF', $parameter_values = array(), $archive_dir = "modules/ZuckerReports/archive/") {
 		global $sugar_config, $current_user;
-
+		global $zuckerreports_config;
+		
 		$base = substr($this->filename, 0, strrpos($this->filename, "."));
 		
 		$date = date("ymd_His");
 		if ($format == 'XLS') {
-			$this->outfile = $date."_".$base.".xls";
+			$this->report_result_name = $date."_".$base.".xls";
 		} else if ($format == 'CSV') {
-			$this->outfile = $date."_".$base.".csv";
+			$this->report_result_name = $date."_".$base.".csv";
 		} else if ($format == 'HTML') {
-			$this->outfile = $date."_".$base.".html";
+			$this->report_result_name = $date."_".$base.".html";
 		} else if ($format == 'XML') {
-			$this->outfile = $date."_".$base.".xml";
+			$this->report_result_name = $date."_".$base.".xml";
 		} else if ($format == 'XML_EMBED') {
-			$this->outfile = $date."_".$base.".xml";
+			$this->report_result_name = $date."_".$base.".xml";
 		} else {
-			$this->outfile = $date."_".$base.".pdf";
+			$this->report_result_name = $date."_".$base.".pdf";
 		}
-		$this->outfile = strtolower(join("_", explode(" ", $this->outfile)));
-		$this->report_outfile = $archive_dir."/".$this->outfile;
+		$this->report_result_name = strtolower(join("_", explode(" ", $this->report_result_name)));
+		$this->report_result = $archive_dir."/".$this->report_result_name;
+		$this->report_result_type = "FILE";
+
 		
 		$tempdir = "modules/ZuckerReports/temp/".create_guid();		
 		$cmdfile = $tempdir."/cmd.properties";
@@ -284,7 +222,7 @@ class ReportTemplate extends SugarBean {
 		fwrite($f, "jdbc.user=".($sugar_config["dbconfig"]["db_user_name"])."\n");
 		fwrite($f, "jdbc.password=".($sugar_config["dbconfig"]["db_password"])."\n");
 		fwrite($f, "jasper.sourcefile=".$this->compiled_filename."\n");
-		fwrite($f, "jasper.targetfile=".$this->report_outfile."\n");
+		fwrite($f, "jasper.targetfile=".$this->report_result."\n");
 		fwrite($f, "jasper.format=".$format."\n");
 		fwrite($f, "sugar.site_url=".($sugar_config['site_url'])."/\n");
 		fwrite($f, "parameter.SUGAR_USER_ID=".($current_user->id)."\n");
@@ -401,21 +339,11 @@ class ReportTemplate extends SugarBean {
 		$this->db->query("delete from zucker_reporttemp where current_user_id='".($current_user->id)."'");
 	}
 		
-	function can_attach_to_parent() {
-		if ($_REQUEST["format"] != "HTML") {
-			return TRUE;
-		}
-		return FALSE;
-	}	
-	function can_attach_to_container() {
-		if ($_REQUEST["format"] != "HTML") {
-			return TRUE;
-		}
-		return FALSE;
-	}	
-		
-	function handle_format_selection(&$xtpl) {
-		global $mod_list_strings;
+	function get_format_selection() {
+		global $current_language, $app_strings;
+	
+		$mod_strings = return_module_language($current_language, $this->module_dir);
+		$mod_list_strings = return_mod_list_strings_language($current_language, $this->module_dir);
 	
 		if (isset($_REQUEST["format"])) {
 			if (!array_key_exists($_REQUEST["format"], $mod_list_strings["REPORT_EXPORT_TYPES"])) {
@@ -425,13 +353,12 @@ class ReportTemplate extends SugarBean {
 		if (!isset($_REQUEST["format"])) {
 			$_REQUEST["format"] = "PDF";
 		}
+
+		$this->report_result_type = "FILE";
 		
 		$export_types = $this->get_export_selection_array($_REQUEST['format']);
-		$xtpl->assign("FORMAT_SELECTION", join("\n", $export_types));
+		return join("\n", $export_types);
 	}	
-
-	function handle_format_parameters(&$xtpl) {
-	}
 }
 
 ?>

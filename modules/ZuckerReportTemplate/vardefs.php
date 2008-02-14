@@ -97,8 +97,8 @@ $dictionary['ReportTemplate'] = array(
 			'type' => 'varchar',
 			'source' => 'non-db',
 			),
-		'icon_url' => array (
-			'name' => 'icon_url',
+		'image_html' => array (
+			'name' => 'image_html',
 			'type' => 'varchar',
 			'source' => 'non-db',
 			),

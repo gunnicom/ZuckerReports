@@ -1,0 +1,24 @@
+<!-- BEGIN: queryCSV -->
+<tr>		
+<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_QUERY_ONDEMAND_COLUMN_DELIMITER}</slot></td>		
+<td width="35%" valign="top" class="tabDetailViewDF"><slot><select name='col_delim'>{COL_DELIM_SELECTION}</select></slot></td>
+<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_QUERY_ONDEMAND_ROW_DELIMITER}</slot></td>		
+<td width="35%" valign="top" class="tabDetailViewDF"><slot><select name='row_delim'>{ROW_DELIM_SELECTION}</select></slot></td>
+</tr>
+<tr>		
+<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_QUERY_ONDEMAND_INCLUDE_HEADER}</slot></td>		
+<td width="85%" valign="top" class="tabDetailViewDF" colspan="3"><slot><input type="checkbox" name="include_header" value="true" {INCLUDE_HEADER_CHECKED}/></slot></td>
+</tr>
+<!-- END: queryCSV -->
+<!-- BEGIN: queryTABLE -->
+<tr>		
+<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_QUERY_ONDEMAND_INCLUDE_HEADER}</slot></td>		
+<td width="85%" valign="top" class="tabDetailViewDF" colspan="3"><slot><input type="checkbox" name="include_header" value="true" {INCLUDE_HEADER_CHECKED}/></slot></td>
+</tr>
+<!-- END: queryTABLE -->
+<!-- BEGIN: queryHTML -->
+<tr>		
+<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_QUERY_ONDEMAND_INCLUDE_HEADER}</slot></td>		
+<td width="85%" valign="top" class="tabDetailViewDF" colspan="3"><slot><input type="checkbox" name="include_header" value="true" {INCLUDE_HEADER_CHECKED}/></slot></td>
+</tr>
+<!-- END: queryHTML -->

@@ -1,0 +1,23 @@
+<!-- BEGIN: rows -->
+<table cellpadding="0" cellspacing="0" width="100%" border="0" class="listView">
+	<tr height="20">
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_NAME}</a></slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_STATUS}</slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_ACCOUNT_NAME}</a></slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_EMAIL_ADDRESS}</a></slot></td>
+		<td scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_LIST_PHONE}</a></slot></td>
+	</tr>
+	<!-- BEGIN: row -->
+	<tr height="20"  onmouseover="setPointer(this, '{ROW.LEADS_ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{ROW.LEADS_ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{ROW.LEADS_ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot><a href="{SITE_URL}/index.php?action=DetailView&module=Leads&record={ROW.LEADS_ID}" class="listViewTdLinkS1">{ROW.LEADS_NAME}</a></slot></td>
+		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.LEADS_STATUS}</slot></td>
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.LEADS_ACCOUNT_NAME}</slot></td>
+		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.LEADS_EMAIL1_LINK}{ROW.LEADS_EMAIL1}</a></slot></td>
+		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{ROW.LEADS_PHONE_WORK}</slot></td>
+	</tr>
+	<tr>
+		<td colspan="20" class="listViewHRS1"></td>
+	</tr>
+<!-- END: row -->
+	</table>
+<!-- END: rows -->

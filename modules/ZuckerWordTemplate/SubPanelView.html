@@ -1,0 +1,20 @@
+<!-- BEGIN: wordtemplates -->
+<table cellpadding="0" cellspacing="0" width="100%" border="0" class="listView">
+
+	<tr height="20" >
+	<td scope="col" width="20%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_WORD_NAME}</slot></td>
+	<td scope="col" width="20%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_WORD_FILENAME}</slot></td>
+	<td scope="col" width="*" class="listViewThS1" NOWRAP><slot>{MOD.LBL_WORD_DESCRIPTION}</a></slot></td>
+	</tr>
+
+<!-- BEGIN: row -->
+<tr height="20"  onmouseover="setPointer(this, '{WORD.ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{WORD.ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{WORD.ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
+    	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot><a href="{URL_PREFIX}index.php?action=DetailView&module=ZuckerWordTemplate&record={WORD.ID}&return_module=ZuckerQueryTemplate&return_action=DetailView&return_id={ID}" class="listViewTdLinkS1">{WORD.NAME}</a></slot></td>
+    	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot><a href="{WORD.TEMPLATE_URL}" class="listViewTdLinkS1">{WORD.FILENAME}</a></slot></td>
+     	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{WORD.DESCRIPTION}</slot></td>
+</tr>
+<tr><td colspan="20" class="listViewHRS1"></td></tr>
+<!-- END: row -->
+
+</table>
+<!-- END: wordtemplates -->

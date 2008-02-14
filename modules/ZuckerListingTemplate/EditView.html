@@ -1,0 +1,46 @@
+<!-- BEGIN: main -->
+
+{JAVASCRIPT}
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+	<td style="padding-bottom: 2px;">
+			<form name="ListingTemplateEdit" method="POST" action="index.php">
+			<input type="hidden" name="module" value="ZuckerListingTemplate">
+			<input type="hidden" name="record" value="{ID}">
+			<input type="hidden" name="action">
+			<input type="hidden" name="return_module" value="{RETURN_MODULE}">
+			<input type="hidden" name="return_id" value="{RETURN_ID}">
+			<input type="hidden" name="return_action" value="{RETURN_ACTION}">
+		<input class="button" onclick="this.form.action.value='Save'; return verify_listing_template_data(this.form);" type="submit" name="button" value="  {APP.LBL_SAVE_BUTTON_LABEL}  " > 
+		<input class="button" onclick="this.form.action.value='{RETURN_ACTION}'; this.form.module.value='{RETURN_MODULE}'; this.form.record.value='{RETURN_ID}'" type="submit" name="button" value="  {APP.LBL_CANCEL_BUTTON_LABEL}  ">
+	</td>
+	</tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="tabForm">
+<tr>
+<td>
+	<table width="100%" border="0" cellspacing="1" cellpadding="0">
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_LISTING_NAME}</slot> <span class="required">{APP.LBL_REQUIRED_SYMBOL}</span></td>
+		<td width="85%" class="dataField" colspan=3><slot><input name='name' type='text' size=40 value="{NAME}"></slot></td>		
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_LISTING_MAINMODULE}</slot> <span class="required">{APP.LBL_REQUIRED_SYMBOL}</span></td>
+		<td width="85%" class="dataField" colspan=3><slot><select name='mainmodule' onChange="javascript:alert('{MOD.LBL_LISTING_WARNING_CHANGE_MAINMODULE}');">{MAINMODULE_OPTIONS}</select></slot></td>		
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_LISTING_FILTERTYPE}</slot> <span class="required">{APP.LBL_REQUIRED_SYMBOL}</span></td>
+		<td width="85%" class="dataField" colspan=3><slot><select name='filtertype'>{FILTERTYPE_OPTIONS}</select></slot></td>		
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><slot>{MOD.LBL_LISTING_DESCRIPTION}</slot></td>
+		<td width="85%" class="dataField" colspan="3"  ><slot><textarea name='description' cols="90" rows="4">{DESCRIPTION}</textarea></slot></td>
+	</tr>
+	</table>
+</td>
+</tr>
+</table>
+</form>
+<!-- END: main -->

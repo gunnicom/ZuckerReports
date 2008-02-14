@@ -3,6 +3,7 @@
 require_once('include/logging.php');
 require_once('include/utils.php');
 require_once('data/SugarBean.php');
+require_once('include/TimeDate.php');
 
 class ReportParameter extends SugarBean {
 
@@ -11,7 +12,7 @@ class ReportParameter extends SugarBean {
 	var $default_name;
 	var $default_value;
 	var $description;
-	var $range; //MODULE,SQL,LIST,SIMPLE
+	var $range; //SQL,LIST,SIMPLE,DATE,CURRENT_USER
 	var $range_options; //module to select, sql-query, value-list
 	
 	var $created_by;
@@ -72,6 +73,82 @@ class ReportParameter extends SugarBean {
 	function get_summary_text() {
 		return $this->friendly_name." (".$this->range_description.")";
 	}			
+	
+	function input_required() {
+		if ($this->range == "CURRENT_USER") {
+			return false;
+		}
+		if ($this->range == "SCRIPT") {
+			return false;
+		}
+		return true;
+	}
+	
+	function get_parameter_value($rp, $rpl) {
+		global $current_language, $current_user;
+		
+		if ($rp->range == "CURRENT_USER") {
+			return $current_user->id;
+		} else if ($rp->range == "SCRIPT") {
+			return eval($rp->range_options);
+		} else {
+			return $_REQUEST[$rpl->name];
+		}
+	}
+	
+	
+	function get_parameter_html($rp, $rpl, $selected_val = "") {
+		global $app_strings;
+		global $current_language, $current_user;
+		
+		$mod_strings = return_module_language($current_language, "ZuckerReportParameter");
+	
+		$xtpl = new XTemplate('modules/ZuckerReportParameter/ParameterFill.html');
+		$xtpl->assign("MOD", $mod_strings);
+		$xtpl->assign("APP", $app_strings);
+		
+		if ($rp->range == 'SQL') {
+			$param_table = $rp->get_sql_table();
+			if (is_array($param_table)) {
+				$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
+				$xtpl->assign("PARAM_NAME", $rpl->name);
+				$xtpl->assign("PARAM_SELECTION", get_select_options_with_id($param_table, $selected_val));
+				$xtpl->parse("SQL");
+				$parameter_html = $xtpl->text("SQL");
+			} else {
+				$parameter_html = $param_table."<br/>";
+			}
+		} else if ($rp->range == 'LIST') {
+			$list = $rp->get_list_table();
+			$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
+			$xtpl->assign("PARAM_NAME", $rpl->name);
+			$xtpl->assign("PARAM_SELECTION", get_select_options_with_id($list, $selected_val));
+			$xtpl->parse("LIST");
+			$parameter_html = $xtpl->text("LIST");
+
+		} else if ($rp->range == 'SIMPLE') {
+			$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
+			$xtpl->assign("PARAM_NAME", $rpl->name);
+			$xtpl->assign("PARAM_VALUE", $selected_val);
+			$xtpl->parse("SIMPLE");
+			$parameter_html = $xtpl->text("SIMPLE");
+
+		} else if ($rp->range == 'DATE') {
+			$timedate = new TimeDate();
+				
+			$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
+			$xtpl->assign("PARAM_NAME", $rpl->name);
+			$xtpl->assign("PARAM_VALUE", $selected_val);
+			$xtpl->assign("CALENDAR_LANG", "en");
+			$xtpl->assign("USER_DATEFORMAT", '('. $timedate->get_user_date_format().')');
+			$xtpl->assign("CALENDAR_DATEFORMAT", $timedate->get_cal_date_format());
+			$xtpl->parse("DATE");
+			$parameter_html = $xtpl->text("DATE");
+		
+		}
+	
+		return $parameter_html;
+	}	
 	
 	function get_sql_table($query = "", $limit = "") {		
 		if (empty($query)) {			

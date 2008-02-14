@@ -1,33 +1,17 @@
 <?PHP
 
-// manifest file for information regarding application of new code
 $manifest = array(
-    // only install on the following regex sugar versions (if empty, no check)
     'acceptable_sugar_versions' => array('4.2.*'),
-
-    // name of new code
-    'name' => 'ZuckerReports',
-
-    // description of new code
+	'acceptable_sugar_flavors' => array (
+		0 => 'OS',
+	),
+    'name' => 'ZuckerReportsCE',
     'description' => 'ZuckerReports Community Edition',
-
-    // author of new code
     'author' => 'go-mobile IT GmbH',
-
-    // date published
-    'published_date' => '2006/07/17',
-
-    // version of code
-    'version' => '1.5',
-
-    // type of code (valid choices are: full, langpack, module, patch, theme )
+    'published_date' => '2006/07/24',
+    'version' => '1.6',
     'type' => 'module',
-
-    // icon for displaying in UI (path to graphic contained within zip package)
-    'icon' => '',
-	
-	
-	// is_uninstallable
+    'icon' => 'include/images/ZuckerReports.gif',
 	'is_uninstallable' => 'true',
 );
 
@@ -35,9 +19,117 @@ $manifest = array(
 
 $installdefs = array(
 
-	'id'=> 'ZuckerReports',
-	//'image_dir'=>'<basepath>/images',
+	'id'=> 'ZuckerReportsCE',
 	'copy' => array(
+			array('from'=> '<basepath>/include/images/ZuckerReports.gif',
+				  'to'=> 'include/images/ZuckerReports.gif',
+			),
+			
+			array('from'=> '<basepath>/include/images/ZuckerExcelTemplate.gif',
+				  'to'=> 'themes/Default/images/ZuckerExcelTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerListingTemplate.gif',
+				  'to'=> 'themes/Default/images/ZuckerListingTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerOpenOfficeTemplate.gif',
+				  'to'=> 'themes/Default/images/ZuckerOpenOfficeTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerQueryTemplate.gif',
+				  'to'=> 'themes/Default/images/ZuckerQueryTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportAbout.gif',
+				  'to'=> 'themes/Default/images/ZuckerReportAbout.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportContainer.gif',
+				  'to'=> 'themes/Default/images/ZuckerReportContainer.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportOnDemand.gif',
+				  'to'=> 'themes/Default/images/ZuckerReportOnDemand.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportParameter.gif',
+				  'to'=> 'themes/Default/images/ZuckerReportParameter.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReports.gif',
+				  'to'=> 'themes/Default/images/ZuckerReports.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportTemplate.gif',
+				  'to'=> 'themes/Default/images/ZuckerReportTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerWordTemplate.gif',
+				  'to'=> 'themes/Default/images/ZuckerWordTemplate.gif',
+			),
+
+			array('from'=> '<basepath>/include/images/ZuckerExcelTemplate.gif',
+				  'to'=> 'themes/Sugar/images/ZuckerExcelTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerListingTemplate.gif',
+				  'to'=> 'themes/Sugar/images/ZuckerListingTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerOpenOfficeTemplate.gif',
+				  'to'=> 'themes/Sugar/images/ZuckerOpenOfficeTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerQueryTemplate.gif',
+				  'to'=> 'themes/Sugar/images/ZuckerQueryTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportAbout.gif',
+				  'to'=> 'themes/Sugar/images/ZuckerReportAbout.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportContainer.gif',
+				  'to'=> 'themes/Sugar/images/ZuckerReportContainer.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportOnDemand.gif',
+				  'to'=> 'themes/Sugar/images/ZuckerReportOnDemand.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportParameter.gif',
+				  'to'=> 'themes/Sugar/images/ZuckerReportParameter.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReports.gif',
+				  'to'=> 'themes/Sugar/images/ZuckerReports.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportTemplate.gif',
+				  'to'=> 'themes/Sugar/images/ZuckerReportTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerWordTemplate.gif',
+				  'to'=> 'themes/Sugar/images/ZuckerWordTemplate.gif',
+			),
+
+
+			array('from'=> '<basepath>/include/images/ZuckerExcelTemplate.gif',
+				  'to'=> 'themes/SugarClassic/images/ZuckerExcelTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerListingTemplate.gif',
+				  'to'=> 'themes/SugarClassic/images/ZuckerListingTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerOpenOfficeTemplate.gif',
+				  'to'=> 'themes/SugarClassic/images/ZuckerOpenOfficeTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerQueryTemplate.gif',
+				  'to'=> 'themes/SugarClassic/images/ZuckerQueryTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportAbout.gif',
+				  'to'=> 'themes/SugarClassic/images/ZuckerReportAbout.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportContainer.gif',
+				  'to'=> 'themes/SugarClassic/images/ZuckerReportContainer.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportOnDemand.gif',
+				  'to'=> 'themes/SugarClassic/images/ZuckerReportOnDemand.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportParameter.gif',
+				  'to'=> 'themes/SugarClassic/images/ZuckerReportParameter.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReports.gif',
+				  'to'=> 'themes/SugarClassic/images/ZuckerReports.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerReportTemplate.gif',
+				  'to'=> 'themes/SugarClassic/images/ZuckerReportTemplate.gif',
+			),
+			array('from'=> '<basepath>/include/images/ZuckerWordTemplate.gif',
+				  'to'=> 'themes/SugarClassic/images/ZuckerWordTemplate.gif',
+			),
+			
+			
+			
 			array('from'=> '<basepath>/modules/ZuckerReportContainer',
 		  	'to'=> 'modules/ZuckerReportContainer',
 			),
@@ -55,6 +147,21 @@ $installdefs = array(
 			),
 			array('from'=> '<basepath>/modules/ZuckerReportTemplate',
 		  	'to'=> 'modules/ZuckerReportTemplate',
+			),
+			array('from'=> '<basepath>/modules/ZuckerWordTemplate',
+		  	'to'=> 'modules/ZuckerWordTemplate',
+			),
+			array('from'=> '<basepath>/modules/ZuckerQueryTemplate',
+		  	'to'=> 'modules/ZuckerQueryTemplate',
+			),
+			array('from'=> '<basepath>/modules/ZuckerListingTemplate',
+		  	'to'=> 'modules/ZuckerListingTemplate',
+			),
+			array('from'=> '<basepath>/modules/ZuckerListingTemplateFilter',
+		  	'to'=> 'modules/ZuckerListingTemplateFilter',
+			),
+			array('from'=> '<basepath>/modules/ZuckerListingTemplateOrder',
+		  	'to'=> 'modules/ZuckerListingTemplateOrder',
 			),
 	),
 	
@@ -107,6 +214,31 @@ $installdefs = array(
 				  'path'=> 'modules/ZuckerReportTemplate/ReportTemplate.php',
 				  'tab'=> false,
 			),
+			array('module'=> 'ZuckerWordTemplate',
+				  'class'=> 'WordTemplate',
+				  'path'=> 'modules/ZuckerWordTemplate/WordTemplate.php',
+				  'tab'=> false,
+			),
+			array('module'=> 'ZuckerQueryTemplate',
+				  'class'=> 'QueryTemplate',
+				  'path'=> 'modules/ZuckerQueryTemplate/QueryTemplate.php',
+				  'tab'=> false,
+			),
+			array('module'=> 'ZuckerListingTemplate',
+				  'class'=> 'ListingTemplate',
+				  'path'=> 'modules/ZuckerListingTemplate/ListingTemplate.php',
+				  'tab'=> false,
+			),
+			array('module'=> 'ZuckerListingTemplateFilter',
+				  'class'=> 'ListingTemplateFilter',
+				  'path'=> 'modules/ZuckerListingTemplateFilter/ListingTemplateFilter.php',
+				  'tab'=> false,
+			),
+			array('module'=> 'ZuckerListingTemplateOrder',
+				  'class'=> 'ListingTemplateOrder',
+				  'path'=> 'modules/ZuckerListingTemplateOrder/ListingTemplateOrder.php',
+				  'tab'=> false,
+			),
 	),
 	'relationships'=>array(
 					array(
@@ -114,7 +246,52 @@ $installdefs = array(
 						'meta_data'=>'<basepath>/zuckerreports_MetaData.php',
 						'module_vardefs'=>'<basepath>/modules/ZuckerReportContainer/vardefs.php',
 					),
+	),
+	
+	'menu'=> array(
+		array('from'=> '<basepath>/menu.ext.php',
+			  'to_module'=> 'Accounts',
+		),
+		array('from'=> '<basepath>/menu.ext.php',
+			  'to_module'=> 'Contacts',
+		),
+		array('from'=> '<basepath>/menu.ext.php',
+			  'to_module'=> 'Leads',
+		),
+		array('from'=> '<basepath>/menu.ext.php',
+			  'to_module'=> 'Cases',
+		),
+		array('from'=> '<basepath>/menu.ext.php',
+			  'to_module'=> 'Opportunities',
+		),
+		array('from'=> '<basepath>/menu.ext.php',
+			  'to_module'=> 'Project',
+		),
+		array('from'=> '<basepath>/menu.ext.php',
+			  'to_module'=> 'ProjectTask',
+		),
+		array('from'=> '<basepath>/menu.ext.php',
+			  'to_module'=> 'Quotes',
+		),
+		array('from'=> '<basepath>/menu.ext.php',
+			  'to_module'=> 'Bugs',
+		),
+		array('from'=> '<basepath>/menu.ext.php',
+			  'to_module'=> 'Tasks',
+		),
+		array('from'=> '<basepath>/menu.ext.php',
+			  'to_module'=> 'Emails',
+		),
+		array('from'=> '<basepath>/menu.ext.php',
+			  'to_module'=> 'Calls',
+		),
+		array('from'=> '<basepath>/menu.ext.php',
+			  'to_module'=> 'Meetings',
+		),
 	)
+
+	
+	
 					  
-)
+);
 ?>

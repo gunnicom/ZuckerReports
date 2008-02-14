@@ -15,36 +15,6 @@ $mod_strings = array (
 	'LBL_TEMPLATE_LIST_TYPE' => 'Typ',
 	'LBL_TEMPLATE_LIST_DESCRIPTION' => 'Kommentar',
 
-	'LBL_REPORT_TEMPLATE_NEW' => 'Neue Berichtvorlage',
-	'LBL_REPORT' => 'Bericht',
-	'LBL_REPORT_NAME' => 'Vorlagenname',
-	'LBL_REPORT_FILENAME' => 'Berichtdatei',
-	'LBL_REPORT_DESCRIPTION' => 'Kommentar',
-	'LBL_REPORT_EXPORT_AS' => 'Mögliche Formate',
-	'LBL_SUBREPORTS' => 'Subreports',
-	'LBL_SUBREPORT' => 'Subreport hinzufügen',
-	'LBL_SUBREPORT_HELP' => 'Subreports werden in einer eigenen Datei gespeichert. Um ZuckerReports den Zugriff darauf zu ermöglichen, geben Sie bitte diese Dateien hier an. Wenn Sie diese schon einmal hinaufgeladen haben, brauchen Sie das nicht mehr zu machen.',
-	'LBL_RESOURCES' => 'Weitere Resourcen',
-	'LBL_RESOURCE' => 'Resource hinzufügen',
-	'LBL_RESOURCE_HELP' => 'Bilder und Scriptlets eines Berichtes werden in eigenen Dateien gespeichert. Um ZuckerReports den Zugriff darauf zu ermöglichen, geben Sie bitte diese Dateien hier an. Wenn Sie diese schon einmal hinaufgeladen haben, brauchen Sie das nicht mehr zu machen.',
-
-	'LBL_QUERY_TEMPLATE_NEW' => 'Neue Abfragenvorlage',
-	'LBL_QUERY' => 'Abfrage',
-	'LBL_QUERY_NAME' => 'Abfragenname',
-	'LBL_QUERY_SQL' => 'SQL-Abfrage',
-	'LBL_QUERY_SQL_HELP' => 'Bitte geben Sie hier die SQL-Abfrage ein. Um eine Parameter-Auswahl in die Abfrage zu übernehmen, geben Sie bitte das "$"-Zeichen gefolgt von dem Parameter-Namen ein - an dieser Position wird bei der Berichtsausführung der Parameterwert inkludiert.',
-	'LBL_QUERY_DESCRIPTION' => 'Kommentar',
-	'LBL_QUERY_CREATE_WORD_TEMPLATE' => 'Neue Office-Vorlage',
-	'LBL_QUERY_WORD_TEMPLATES' => 'Office-Vorlagen',
-
-	'LBL_WORD_TEMPLATE_NEW' => 'Neue Office-Vorlage',
-	'LBL_WORD' => 'Word-Vorlage',
-	'LBL_OPENOFFICE' => 'OpenOffice Vorlage',
-	'LBL_WORD_NAME' => 'Vorlagenname',
-	'LBL_WORD_FILENAME' => 'Vorlagendatei',
-	'LBL_WORD_DESCRIPTION' => 'Kommentar',
-	'LBL_WORD_QUERY' => 'Abfrage',
-	
 	'LBL_CREATED_BY'=> 'Created by',
 	'LBL_DATE_ENTERED'=> 'Date Entered',
 	'LBL_DATE_MODIFIED'=> 'Date Modified',
@@ -82,7 +52,9 @@ $mod_strings = array (
 	'LBL_PARAM_RANGE_SQL' => 'Abfrage definieren',
 	'LBL_PARAM_RANGE_SQL_HELP' => 'Bitte geben Sie hier die SQL-Abfrage ein, aus welcher die Auswahlliste bei der Berichtausführung aufgebaut wird. Der Wert in der ersten Spalte des Resultsets wird an den Bericht übergeben, der Wert in der zweiten Spalte wird in der Auswahlliste angezeigt.',
 	'LBL_PARAM_RANGE_SQL_TEST' => 'Abfrage testen',
-	'LBL_PARAM_RANGE_MODULE' => 'SugarSuite Selection',
+	'LBL_PARAM_RANGE_SCRIPT' => 'PHP Skript',
+	'LBL_PARAM_RANGE_SCRIPT_DISABLED' => 'PHP Scripting wurde deaktiviert. Bitte in modules/ZuckerReports/config.php aktivieren.',
+	'LBL_PARAM_RANGE_SCRIPT_HELP' => 'Hier jeden beliebigen PHP code eingeben, und mit einem "return"-Statement abschließen.',
 
 	'LBL_PARAM_LINK_LIST' => 'Berichtparameter',
 	'LBL_PARAM_LINK_NEW' => 'Berichtparameter auswählen',
@@ -102,21 +74,18 @@ $mod_strings = array (
 	
 	'LBL_ONDEMAND_REPORT_SELECTION' => 'Berichtauswahl',
 	'LBL_ONDEMAND_FORMAT_SELECTION' => 'Formateinstellungen',
+	'LBL_ONDEMAND_ATTACH_SELECTION' => 'Zuweisen',
 	'LBL_ONDEMAND_PARAMETERS' => 'Parameter',
 	
 	'LBL_ONDEMAND_TEMPLATE' => 'Bericht',
 	'LBL_ONDEMAND_EXECUTE' => 'Bericht erstellen',
 	'LBL_ONDEMAND_OUTPUT' => 'Ausgabe',
+	'LBL_ONDEMAND_RESULT' => 'Berichtausgabe',
 	'LBL_ONDEMAND_VIEW' => 'Bericht im Browserfenster laden',
 	'LBL_ATTACH_TO' => 'Bericht zuordnen zu',
 	'LBL_ARCHIVE_TO' => 'Bericht archivieren in Kategorie',
  	'LBL_ONDEMAND_ERROR' => 'Fehler beim Erstellen des Berichtes',
 	'LBL_ONDEMAND_FORMAT' => 'Format',
-	'LBL_ONDEMAND_COLUMN_DELIMITER' => 'Spaltentrennzeichen',
-	'LBL_ONDEMAND_ROW_DELIMITER' => 'Zeilentrennzeichen',
-	'LBL_ONDEMAND_INCLUDE_HEADER' => 'Kopfzeile',
-
-	'LBL_ONDEMAND_SAVE_PATH' => 'Speichern in Verzeichnis',
 	
 	'LBL_ONDEMAND_BOUND' => 'Berichte, Abfragen und Briefe',
 	'LBL_ONDEMAND_BOUND_ATTACH' => 'Bericht zuweisen',
@@ -124,61 +93,18 @@ $mod_strings = array (
 	
 	'LBL_ARCHIVE_LIST'=> 'Bericht-Auflistung',
 	
-	//error messages
-	'ERR_TEMPLATE_INVALID_FILE' => 'Es werden nur Bericht-Design-Dateien (*.jrxml) unterstützt',
-	'ERR_TEMPLATE_INVALID_OFFICE_FILE' => 'Es werden nur Word (*.doc) und OpenOffice/StarOffice (*.stw) Dateien unterstützt',
-	
-	'LBL_LOADER_SETUP' => 'Für Microsoft Office und OpenOffice Unterstützung installieren Sie bitte den <a href="modules/ZuckerReports/resources/ZuckerReportsLoaderSetup.msi"><strong>ZuckerReports Loader</strong></a>.',
-	
-	
 );
 
 $mod_list_strings = array (
   'PARAM_RANGE_TYPES' =>
   array (
     'SIMPLE' => 'Eingabe',
+	'DATE' => 'Datumseingabe',
     'SQL' => 'Benutzerdefinierte Abfrage',
     'LIST' => 'Benutzerdefinierte Liste',
-    #'MODULE' => 'SugarSuite Selection',
+	'CURRENT_USER' => 'Aktueller Benutzer',
+	'SCRIPT' => 'PHP Skript',
   ),
-  'REPORT_EXPORT_TYPES' =>
-  array (
-    'PDF' => 'Adobe PDF (*.pdf)',
-    //'XLS' => 'Excel (*.xls)',
-    //'CSV' => 'Comma Separated Values (*.csv)',
-    'HTML' => 'HTML (*.html)',
-    'XML' => 'XML (extern images, *.xml)',
-    'XML_EMBED' => 'XML (embedded images, *.xml)',
-  ),
-  'QUERY_EXPORT_TYPES' =>
-  array (
-    'CSV' => 'Comma Separated Values (*.csv)',
-    'HTML' => 'HTML (*.html)',
-  ),
-  'COL_DELIMS' =>
-  array (
-    ',' => 'Beistrich (,)',
-    ';' => 'Strichpunkt (;)',
-    'tab' => 'Tabulator (\t)',
-    '.' => 'Punkt (.)',
-  ),
-  'ROW_DELIMS' =>
-  array (
-    'newline' => 'Zeilenumbruch (\n)',
-  ),  
-  'WORD_EXPORT_TYPES' =>
-  array (
-    'NewDocument' => 'Neues Dokument',
-    'Print' => 'An Drucker senden',
-    'Mail' => 'Als E-Mail versenden',
-    'Fax' => 'Als Fax versenden (wenn von Ihrer Umgebung unterstützt)',
-  ),
-  'OPENOFFICE_EXPORT_TYPES' =>
-  array (
-    'Print' => 'An Drucker senden',
-    'File' => 'Als Datei speichern',
-  ),
-  
 );
 
 ?>
