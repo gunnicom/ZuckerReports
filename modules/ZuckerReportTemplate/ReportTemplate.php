@@ -241,7 +241,7 @@ class ReportTemplate extends ReportProviderBase {
 		$classpath = $this->get_classpath();
 		$result = $this->execute_java("-classpath ".$classpath." at.go_mobile.zuckerreports.JasperBatchMain ".$cmdfile);
 		
-		$this->rec_delete($tempdir);
+		if ($zuckerreports_config["debug"] != "yes") $this->rec_delete($tempdir);
 		return $result;
 	}
 

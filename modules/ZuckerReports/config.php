@@ -46,7 +46,7 @@ $zuckerreports_config = array(
 	//"jdbc_url_extension" => "?zeroDateTimeBehavior=convertToNull",	
 	
 	//set this to yes/no, if you want to enable/disable debug output when running a report
-	"debug" => "no",
+	"debug" => "yes",
 	
 	//set this to yes/no, if you want to enable/disable php scripting for report parameters
 	"param_script_enabled" => "yes",
@@ -62,7 +62,7 @@ $zuckerreports_config = array(
 	//Unix Environment Default
 	//"java_cmdline" => "java -Djava.awt.headless=true %ARGS% 2>&1",		
 
-	"release_descriptor" => "Version 1.6",
+	"release_descriptor" => "Version 1.6f",
 );
 
 ?>

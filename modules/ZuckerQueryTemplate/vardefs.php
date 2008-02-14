@@ -68,8 +68,7 @@ $dictionary['QueryTemplate'] = array(
 			'name' => 'sql1',
 			'vname' => 'LBL_QUERY_SQL',
 			'required' => true,
-			'type' => 'varchar',
-			'len' => 255,
+			'type' => 'text',
 			),
 		'description' => array (
 			'name' => 'description',

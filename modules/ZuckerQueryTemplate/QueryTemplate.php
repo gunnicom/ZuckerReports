@@ -87,9 +87,9 @@ class QueryTemplate extends ReportProviderBase {
 		}
 		
 		$sql = $this->sql1;
-		foreach ($parameter_values as $name => $value) {			
-			$sql = str_replace('$'.$name, $value, $sql);
-		}		
+		foreach ($parameter_values as $name => $value) {
+			$sql = str_replace('$'.$name, ''.$value, $sql);
+		}
 		$sql = str_replace('$SUGAR_USER_ID', $current_user->id, $sql);
 		$sql = str_replace('$SUGAR_USER_NAME', $current_user->user_name, $sql);
 		$sql = str_replace('$SUGAR_SESSION_ID', $_REQUEST['PHPSESSID'], $sql);
@@ -155,7 +155,7 @@ class QueryTemplate extends ReportProviderBase {
 						if (empty($row[$field])) {
 							$value = "&nbsp;";
 						} else {
-							$value = nl2br($row[$field]);
+							$value = nl2br(htmlentities($row[$field]));
 						}
 						$c = file_get_contents("modules/ZuckerQueryTemplate/html/table_row_col".$ext.".html");
 						$c = str_replace('{VALUE}', $value, $c);
@@ -188,7 +188,7 @@ class QueryTemplate extends ReportProviderBase {
 						if (empty($row[$field])) {
 							fwrite($f, "<td>&nbsp;</td>");
 						} else {
-							fwrite($f, "<td>".nl2br($row[$field])."</td>");
+							fwrite($f, "<td>".nl2br(htmlentities($row[$field]))."</td>");
 						}
 					}
 					fwrite($f, "</tr>");
@@ -214,7 +214,7 @@ class QueryTemplate extends ReportProviderBase {
 						if (empty($row[$field])) {
 							$value = "&nbsp;";
 						} else {
-							$value = nl2br($row[$field]);
+							$value = nl2br(htmlentities($row[$field]));
 						}
 						$c = file_get_contents("modules/ZuckerQueryTemplate/html/table_row_col".$ext.".html");
 						$c = str_replace('{VALUE}', $value, $c);

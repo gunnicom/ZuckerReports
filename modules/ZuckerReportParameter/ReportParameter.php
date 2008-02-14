@@ -91,6 +91,12 @@ class ReportParameter extends SugarBean {
 			return $current_user->id;
 		} else if ($rp->range == "SCRIPT") {
 			return eval($rp->range_options);
+		} else if ($rp->range == "DATE") {
+		
+			$timedate = new TimeDate();
+			$result = $timedate->to_db_date($_REQUEST[$rpl->name], false);
+			return $result;
+			
 		} else {
 			return $_REQUEST[$rpl->name];
 		}
@@ -99,13 +105,14 @@ class ReportParameter extends SugarBean {
 	
 	function get_parameter_html($rp, $rpl, $selected_val = "") {
 		global $app_strings;
-		global $current_language, $current_user;
+		global $current_language, $current_user, $theme;
 		
 		$mod_strings = return_module_language($current_language, "ZuckerReportParameter");
 	
 		$xtpl = new XTemplate('modules/ZuckerReportParameter/ParameterFill.html');
 		$xtpl->assign("MOD", $mod_strings);
 		$xtpl->assign("APP", $app_strings);
+		$xtpl->assign("THEME", $theme);
 		
 		if ($rp->range == 'SQL') {
 			$param_table = $rp->get_sql_table();
@@ -123,6 +130,16 @@ class ReportParameter extends SugarBean {
 			$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
 			$xtpl->assign("PARAM_NAME", $rpl->name);
 			$xtpl->assign("PARAM_SELECTION", get_select_options_with_id($list, $selected_val));
+			$xtpl->parse("LIST");
+			$parameter_html = $xtpl->text("LIST");
+
+		} else if ($rp->range == 'DROPDOWN') {
+			$app_list_strings = return_app_list_strings_language($current_language);
+		
+			$list = $rp->get_list_table();
+			$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
+			$xtpl->assign("PARAM_NAME", $rpl->name);
+			$xtpl->assign("PARAM_SELECTION", get_select_options_with_id($app_list_strings[$rp->range_options], $selected_val));
 			$xtpl->parse("LIST");
 			$parameter_html = $xtpl->text("LIST");
 

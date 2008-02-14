@@ -105,6 +105,18 @@ if ($range == 'LIST') {
 	
 	$xtpl->parse('main.LIST');
 }
+
+if ($range == 'DROPDOWN') {
+	$options = array();
+	foreach (array_keys($app_list_strings) as $app_list_key) {
+		$options[$app_list_key] = $app_list_key;
+	}
+	$xtpl->assign("DROPDOWN_OPTIONS", get_select_options_with_id($options, $range_options));
+	
+	$xtpl->parse('main.DROPDOWN');
+}
+
+
 if ($range == 'SCRIPT') {
 	require_once("modules/ZuckerReports/config.php");
 	

@@ -353,7 +353,7 @@ class ListingTemplate extends ReportProviderBase {
 							if (empty($field)) {
 								fwrite($f, "<td>&nbsp;</td>");
 							} else {
-								fwrite($f, "<td>".nl2br($field)."</td>");
+								fwrite($f, "<td>".nl2br(htmlentities($field))."</td>");
 							}
 						}
 						fwrite($f, "</tr>");

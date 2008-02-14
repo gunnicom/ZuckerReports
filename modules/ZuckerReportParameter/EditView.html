@@ -73,10 +73,15 @@
 		<td width="60%" class="dataField" colspan="2"  ><slot><textarea name='range_options' cols="90" rows="10">{RANGE_OPTIONS}</textarea></slot></td>
 		<td width="25%" class="dataField" ><slot>{MOD.LBL_PARAM_RANGE_LIST_HELP}</slot></td>
 	</tr>
-	
-	
-	
 <!-- END: LIST -->
+
+<!-- BEGIN: DROPDOWN -->	
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><slot>{MOD.LBL_PARAM_RANGE_DROPDOWN}</slot></td>
+		<td width="85%" class="dataField" colspan="2"  ><slot><select name="range_options">{DROPDOWN_OPTIONS}</select></slot></td>
+	</tr>
+<!-- END: DROPDOWN -->
+
 
 <!-- BEGIN: SCRIPT -->	
 	<tr>

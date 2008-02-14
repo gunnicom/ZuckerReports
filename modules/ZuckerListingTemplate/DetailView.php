@@ -8,6 +8,8 @@ global $app_strings;
 global $app_list_strings;
 global $mod_strings;
 global $current_user;
+
+$current_module_strings = return_module_language($current_language, "ZuckerListingTemplate");
 $mod_list_strings = return_mod_list_strings_language($current_language, "ZuckerListingTemplate");
 
 $focus =& new ListingTemplate();
@@ -22,13 +24,13 @@ $image_path=$theme_path."images/";
 require_once($theme_path.'layout_utils.php');
 
 echo "\n<p>\n";
-echo get_module_title("ZuckerListingTemplate", $mod_strings['LBL_MODULE_NAME'].": ".$focus->name, false); 
+echo get_module_title("ZuckerListingTemplate", $current_module_strings['LBL_MODULE_NAME'].": ".$focus->name, false); 
 echo "\n</p>\n";
 
 
 
 $xtpl=new XTemplate ('modules/ZuckerListingTemplate/DetailView.html');
-$xtpl->assign("MOD", $mod_strings);
+$xtpl->assign("MOD", $current_module_strings);
 $xtpl->assign("APP", $app_strings);
 
 if (isset($_REQUEST['return_module'])) $xtpl->assign("RETURN_MODULE", $_REQUEST['return_module']);
@@ -54,7 +56,7 @@ if (file_exists("modules/ZuckerWordTemplate/SubPanelView.php")) include("modules
 echo "\n<p>\n";
 $lv = new ListView();
 $lv->setXTemplate($xtpl);
-$lv->xTemplateAssign("DELETE_INLINE_PNG",  get_image($image_path.'delete_inline','align="absmiddle" alt="'.$app_strings['LNK_DELETE'].'" border="0"'));$lv->setHeaderTitle($mod_strings['LBL_LISTING_FILTER_LIST']);
+$lv->xTemplateAssign("DELETE_INLINE_PNG",  get_image($image_path.'delete_inline','align="absmiddle" alt="'.$app_strings['LNK_DELETE'].'" border="0"'));$lv->setHeaderTitle($current_module_strings['LBL_LISTING_FILTER_LIST']);
 $lv->show_export_button = false;
 $lv->processListView($focus->get_filters(), "filters", "FILTER");
 echo "\n</p>\n";
@@ -62,7 +64,7 @@ echo "\n</p>\n";
 echo "\n<p>\n";
 $lv = new ListView();
 $lv->setXTemplate($xtpl);
-$lv->xTemplateAssign("DELETE_INLINE_PNG",  get_image($image_path.'delete_inline','align="absmiddle" alt="'.$app_strings['LNK_DELETE'].'" border="0"'));$lv->setHeaderTitle($mod_strings['LBL_LISTING_ORDER_LIST']);
+$lv->xTemplateAssign("DELETE_INLINE_PNG",  get_image($image_path.'delete_inline','align="absmiddle" alt="'.$app_strings['LNK_DELETE'].'" border="0"'));$lv->setHeaderTitle($current_module_strings['LBL_LISTING_ORDER_LIST']);
 $lv->show_export_button = false;
 $lv->processListView($focus->get_orders(), "orders", "ORDER");
 echo "\n</p>\n";
@@ -83,7 +85,7 @@ if (is_admin($current_user)) {
 	$options_select = $focus->get_field_options_list($_REQUEST["filter_field_name"]);
 	
 	echo "\n<p/>\n";
-	echo  get_form_header ($mod_strings['LBL_LISTING_FILTER_NEW'], "", false);
+	echo  get_form_header ($current_module_strings['LBL_LISTING_FILTER_NEW'], "", false);
 	
 	$xtpl->assign("TEMPLATE_ID", $focus->id);
 	$xtpl->assign("TEMPLATE_MODULE", $focus->mainmodule);
@@ -106,7 +108,7 @@ if (is_admin($current_user)) {
 	$xtpl->out("filter_add");
 
 	echo "\n<p/>\n";
-	echo  get_form_header ($mod_strings['LBL_LISTING_ORDER_NEW'], "", false);
+	echo  get_form_header ($current_module_strings['LBL_LISTING_ORDER_NEW'], "", false);
 
 	$xtpl->assign("TEMPLATE_ID", $focus->id);
 	$xtpl->assign("TEMPLATE_MODULE", $focus->mainmodule);

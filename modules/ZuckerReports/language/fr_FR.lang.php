@@ -1,6 +1,5 @@
 <?php
-global $mod_strings;
-global $mod_list_strings;
+
 
 $mod_strings = array (
 	//module
@@ -51,6 +50,7 @@ $mod_strings = array (
 	'LBL_PARAM_RANGE' => 'Sélection',
 	'LBL_PARAM_RANGE_LIST' => 'Liste utilisateur',
 	'LBL_PARAM_RANGE_LIST_HELP' => 'Saisir les valeurs de la liste séparées par une virgule (",").',
+	'LBL_PARAM_RANGE_DROPDOWN' => 'Drop-Down List',
 	'LBL_PARAM_RANGE_INPUT' => 'Saisie directe',
 	'LBL_PARAM_RANGE_SQL' => 'Requètes utilisateur',
 	'LBL_PARAM_RANGE_SQL_HELP' => 'Saisir la requète SQL. la valeur de la 1ere colonne est gérée par le rapport, la seconde par l\'utilisateur.',
@@ -107,6 +107,7 @@ $mod_list_strings = array (
 	'DATE' => 'Date Input',
     'SQL' => 'Requètes définie par l\'utilisateur',
     'LIST' => 'Liste définie par l\'utilisateur',
+	'DROPDOWN' => 'Drop-Down List',
 	'CURRENT_USER' => 'Current User',
 	'SCRIPT' => 'PHP Script',
   ),

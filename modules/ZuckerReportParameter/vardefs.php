@@ -89,8 +89,7 @@ $dictionary['ReportParameter'] = array(
 			'name' => 'range_options',
 			'vname' => 'LBL_PARAM_RANGE_OPTIONS',
 			'required' => false,
-			'type' => 'varchar',
-			'len' => 255,
+			'type' => 'text',
 			),
 			
 		'description' => array (

@@ -1,6 +1,5 @@
 <?php
-global $mod_strings;
-global $mod_list_strings;
+
 
 $mod_strings = array (
 	//module
@@ -51,6 +50,7 @@ $mod_strings = array (
 	'LBL_PARAM_RANGE' => 'Auswahl',
 	'LBL_PARAM_RANGE_LIST' => 'Liste eingeben',
 	'LBL_PARAM_RANGE_LIST_HELP' => 'Bitte die möglichen Werte getrennt durch einen Beistrich (",") eingeben.',
+	'LBL_PARAM_RANGE_DROPDOWN' => 'Drop-Down List',
 	'LBL_PARAM_RANGE_INPUT' => 'Wert direkt eingeben',
 	'LBL_PARAM_RANGE_SQL' => 'Abfrage definieren',
 	'LBL_PARAM_RANGE_SQL_HELP' => 'Bitte geben Sie hier die SQL-Abfrage ein, aus welcher die Auswahlliste bei der Berichtausführung aufgebaut wird. Der Wert in der ersten Spalte des Resultsets wird an den Bericht übergeben, der Wert in der zweiten Spalte wird in der Auswahlliste angezeigt.',
@@ -105,6 +105,7 @@ $mod_list_strings = array (
 	'DATE' => 'Datumseingabe',
     'SQL' => 'Benutzerdefinierte Abfrage',
     'LIST' => 'Benutzerdefinierte Liste',
+	'DROPDOWN' => 'Drop-Down List',
 	'CURRENT_USER' => 'Aktueller Benutzer',
 	'SCRIPT' => 'PHP Skript',
   ),

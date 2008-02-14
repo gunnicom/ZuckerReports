@@ -1,6 +1,5 @@
 <?php
-global $mod_strings;
-global $mod_list_strings;
+
 
 $mod_strings = array (
 	//module
@@ -51,6 +50,7 @@ $mod_strings = array (
 	'LBL_PARAM_RANGE' => 'Selección',
 	'LBL_PARAM_RANGE_LIST' => 'Lista definida por el usuario',
 	'LBL_PARAM_RANGE_LIST_HELP' => 'Entre los valores para la lista, separados por una coma (",").',
+	'LBL_PARAM_RANGE_DROPDOWN' => 'Drop-Down List',
 	'LBL_PARAM_RANGE_INPUT' => 'Entrada Directa',
 	'LBL_PARAM_RANGE_SQL' => 'Consulta Definida por el usuario',
 	'LBL_PARAM_RANGE_SQL_HELP' => 'Entre la consulta SQL para construir la lista de selección de parámetro cuando se ejecute el reporte. El valor de la primera columna de resultados será manejada por el reporte, el valor de la segunda columna será mostrada al usuario para la selección.',
@@ -107,6 +107,7 @@ $mod_list_strings = array (
 	'DATE' => 'Date Input',
     'SQL' => 'Consulta definida por el usuario',
     'LIST' => 'Lista definida por el usuario',
+	'DROPDOWN' => 'Drop-Down List',
 	'CURRENT_USER' => 'Current User',
 	'SCRIPT' => 'PHP Script',
   ),
