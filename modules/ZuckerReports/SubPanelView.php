@@ -1,8 +1,6 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('modules/ZuckerReports/ReportTemplate.php');
-require_once('modules/ZuckerReports/QueryTemplate.php');
-require_once('modules/ZuckerReports/WordTemplate.php');
+require_once('modules/ZuckerReportTemplate/ReportTemplate.php');
 
 global $theme;
 $theme_path="themes/".$theme."/";
@@ -22,27 +20,7 @@ echo get_form_header($current_module_strings["LBL_ONDEMAND_BOUND"], "", FALSE);
 echo "</p>\n";
 
 $seed1 = new ReportTemplate();
-$templates1 = $seed1->get_for_module($_REQUEST["module"]);
-
-$seed2 = new QueryTemplate();
-$templates2 = $seed2->get_for_module($_REQUEST["module"]);
-
-$seed3 = new WordTemplate();
-$templates3 = $seed3->get_for_module($_REQUEST["module"]);
-
-$templates = array();
-
-if (is_array($templates1)) {
-	$templates = array_merge($templates, $templates1);
-}
-if (is_array($templates2)) {
-	$templates = array_merge($templates, $templates2);
-}
-if (is_array($templates3)) {
-	$templates = array_merge($templates, $templates3);
-}
-
-
+$templates = $seed1->get_for_module($_REQUEST["module"]);
 
 $template_select = array();
 $javascript_table = "";

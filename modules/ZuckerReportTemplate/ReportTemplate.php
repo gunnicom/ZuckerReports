@@ -7,10 +7,13 @@ require_once('modules/ZuckerReportModuleLink/ReportModuleLink.php');
 // Enter the path to your java executable here, if autodetection doesn't work
 
 //Windows Environment Default
-define("JAVA_CMDLINE", "javaw %ARGS% 2>&1");
+//$JAVA_CMDLINE = "javaw %ARGS% 2>&1";
+
+//For Java Web Start installations
+//$JAVA_CMDLINE = "javaws %ARGS% 2>&1";
 
 //Unix Environment Default
-//define("JAVA_CMDLINE", "java -Djava.awt.headless=true %ARGS% 2>&1");
+//$JAVA_CMDLINE = "java -Djava.awt.headless=true %ARGS% 2>&1";
 
 function endsWith( $str, $sub ) {
 	return ( substr( $str, strlen( $str ) - strlen( $sub ) ) == $sub );
@@ -310,7 +313,9 @@ class ReportTemplate extends SugarBean {
 	}
 
 	function execute_java($args) {
-		$pattern = JAVA_CMDLINE;
+		global $JAVA_CMDLINE;
+	
+		$pattern = $JAVA_CMDLINE;
 		
 		if (empty($pattern)) {
 			if ($this->isWindows()) {
@@ -321,13 +326,14 @@ class ReportTemplate extends SugarBean {
 		}
 		$cmdline = str_replace("%ARGS%", $args, $pattern);
 
-		exec($cmdline, $output, $return_var);		
+		exec($cmdline, $output, $return_var);
 		$GLOBALS['log']->debug("execute_java: ".$cmdline." => ".$return_var);
 		
-		$this->report_output = join("<br/>", $output);				
 		if ($return_var == 0) {			
+			$this->report_output = join("<br/>", $output);
 			return TRUE;		
 		} else {			
+			$this->report_output = "cmdline: ".$cmdline." <br/>".join("<br/>", $output);				
 			return FALSE;		
 		}	
 	}

@@ -15,7 +15,7 @@ global $current_user;
 $focus =& new ReportTemplate();
 
 
-if(isset($_REQUEST['record'])) {
+if(!empty($_REQUEST['record'])) {
     $focus->retrieve($_REQUEST['record']);
 	$title = $mod_strings['LBL_MODULE_NAME'].": ".$focus->name;
 	

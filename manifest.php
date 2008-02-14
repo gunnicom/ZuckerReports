@@ -18,7 +18,7 @@ $manifest = array(
     'published_date' => '2006/06/12',
 
     // version of code
-    'version' => '1.4',
+    'version' => '1.4a',
 
     // type of code (valid choices are: full, langpack, module, patch, theme )
     'type' => 'module',
