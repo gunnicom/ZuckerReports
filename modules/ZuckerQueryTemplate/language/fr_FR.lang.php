@@ -36,6 +36,7 @@ $mod_list_strings = array_merge(return_mod_list_strings_language("fr_FR", "Zucke
 		  array (
 			'newline' => 'Nouvelle ligne (\n)',
 		  ),
+	)
 );
 
 	

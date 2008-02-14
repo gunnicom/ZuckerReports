@@ -89,7 +89,7 @@ function post_install( ) {
 		
 	}
 	if (is_file('modules/ZuckerReports/config.php')) {
-		echo "<h3>Note: Please remember to check your Java installation - you may configure it in the file modules/ZuckerReports/config.php! This is not an error message, but a reminder to check your environment according to the ZuckerReports manual.</h3><br/>";
+		echo "<h3>Note: Please remember to check your Java and/or ZIP installation - you may configure it in the file modules/ZuckerReports/config.php! This is not an error message, but a reminder to check your environment according to the ZuckerReports manual.</h3><br/>";
 		echo "<h2>ZuckerReports is free for Sugar Open Source users. Commercial licenses including support and upgrades are available, please contact us at sales@go-mobile.at.</h3><br/>";
 	}
 }

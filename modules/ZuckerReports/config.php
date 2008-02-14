@@ -46,10 +46,10 @@ $zuckerreports_config = array(
 	//"jdbc_url_extension" => "?zeroDateTimeBehavior=convertToNull",	
 	
 	//set this to yes/no, if you want to enable/disable debug output when running a report
-	"debug" => "yes",
+	"debug" => "no",
 	
 	//set this to yes/no, if you want to enable/disable php scripting for report parameters
-	"param_script_enabled" => "yes",
+	"param_script_enabled" => "no",
 		
 	// Enter the path to your java executable here, if autodetection doesn't work
 	
@@ -62,7 +62,23 @@ $zuckerreports_config = array(
 	//Unix Environment Default
 	//"java_cmdline" => "java -Djava.awt.headless=true %ARGS% 2>&1",		
 
-	"release_descriptor" => "Version 1.6f",
+	
+	//enter the path to your "zip" executable here. if not present, you may use the zip utility integreated in your Java installation instead
+	
+	//If set to "java", the zip utility integrated in your Java installation will be used
+	//"zip_cmdline" => "java",
+
+	//zip.exe included in ZuckerReports (only working on Windows!!!!) or the plain old "zip" command on Linux/Unix
+	"zip_cmdline" => "zip",
+
+	//Linux/Unix zip
+	//"zip_cmdline" => "cd \"%DIR%\" && zip \"%FILE%\" *  2>&1",
+	
+	//Freezip
+	//"zip_cmdline" => "cd \"%DIR%\" && \"C:\\Winnt\\system32\\unknown\\zip\" \"%FILE%\" *",
+	
+	//7-Zip
+	//"zip_cmdline" => "cd \"%DIR%\" && \"C:\\Program Files\\7-Zip\\7z\" a -tzip \"%FILE%\" *",
 );
 
 ?>

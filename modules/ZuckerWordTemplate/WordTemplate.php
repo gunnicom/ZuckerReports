@@ -154,6 +154,10 @@ class WordTemplate extends ReportProviderBase {
 	//$format = Fax, Mail, Print, NewDocument
 	function execute($format, $parameter_values = array()) {
 		global $sugar_config, $current_user;
+		global $zuckerreports_config;
+
+		$result = FALSE;
+		$rt = new ReportTemplate();
 
 		$base = substr($this->filename, 0, strrpos($this->filename, "."));
 		$date = date("ymd_His");
@@ -166,14 +170,21 @@ class WordTemplate extends ReportProviderBase {
 		}
 		$this->report_result_name = strtolower(join("_", explode(" ", $this->report_result_name)));
 		$this->report_result = $this->archive_dir."/".$this->report_result_name;
-		
 
 		$tempdir = "modules/ZuckerReports/temp/".create_guid();		
 		$cmdfile = $tempdir."/cmd.xml";
-		mkdir($tempdir, 0755);		
+		mkdir($tempdir, 0755);
 		
-		$result = FALSE;
-		$rt = new ReportTemplate();
+		if ($rt->isWindows()) {
+			$abs_report_result = realpath(str_replace("/", "\\", $this->archive_dir))."\\".($this->report_result_name);
+			$abs_tempdir = realpath(str_replace("/", "\\", $tempdir));
+		} else {
+			$abs_report_result = realpath($this->archive_dir)."/".($this->report_result_name);
+			$abs_tempdir = realpath($tempdir);
+		}
+		
+
+		
 
 		if ($this->extension == "stw") {
 			$data_format = "CSV";
@@ -226,8 +237,33 @@ class WordTemplate extends ReportProviderBase {
 			}		
 			fwrite($f, "</ZuckerReports></ZuckerReportsCommand>\n");
 			fclose($f);
+
+		
+			$zip_pattern = $zuckerreports_config["zip_cmdline"];
+			if (empty($zip_pattern) || $zip_pattern == "java") {
+				$success = $rt->execute_java("sun.tools.jar.Main cfM ".($this->report_result)." -C ".$tempdir." .");
+				
+			} else if ($zip_pattern == "zip") {
 			
-			$success = $rt->execute_java("sun.tools.jar.Main cfM ".($this->report_result)." -C ".$tempdir." .");
+				if ($rt->isWindows()) {
+					$exec_path = realpath("modules\\ZuckerReports\\resources")."\\zip.exe";
+				} else {
+					$exec_path = "zip";
+				}
+				$cmdline = "cd \"".$abs_tempdir."\" && \"".$exec_path."\" \"".$abs_report_result."\" *";
+				$success = $rt->execute_cmd($cmdline);
+				
+			} else {
+				$cmdline = $zip_pattern;
+				$cmdline = str_replace("%DIR%", $abs_tempdir, $cmdline);
+				$cmdline = str_replace("%FILE%", $abs_report_result, $cmdline);
+				
+				$success = $rt->execute_cmd($cmdline);
+			}
+			
+
+
+			
 			if ($success) {
 				$result = TRUE;
 			} else {
@@ -247,7 +283,9 @@ class WordTemplate extends ReportProviderBase {
 	
 		$mod_strings = return_module_language($current_language, $this->module_dir);
 		$mod_list_strings = return_mod_list_strings_language($current_language, $this->module_dir);
-	
+
+		$this->report_result_type = "FORWARD";
+		
 		if ($this->extension == "stw") {
 			if (isset($_REQUEST["format"])) {
 				if (!array_key_exists($_REQUEST["format"], $mod_list_strings["OPENOFFICE_EXPORT_TYPES"])) {

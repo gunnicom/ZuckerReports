@@ -270,6 +270,18 @@ class ReportTemplate extends ReportProviderBase {
 			return FALSE;		
 		}	
 	}
+	function execute_cmd($cmdline) {
+		exec($cmdline, $output, $return_var);
+		$GLOBALS['log']->debug("execute_cmd: ".$cmdline." => ".$return_var);
+		
+		if ($return_var == 0) {			
+			$this->report_output = join("<br/>", $output);
+			return TRUE;		
+		} else {			
+			$this->report_output = "cmdline: ".$cmdline." <br/>".join("<br/>", $output);				
+			return FALSE;		
+		}	
+	}
 
 	function get_classpath() {
 	
