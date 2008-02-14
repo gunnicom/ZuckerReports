@@ -1,19 +1,9 @@
 <?php
 require_once('include/logging.php');
 require_once('data/SugarBean.php');
+require_once('modules/ZuckerReports/config.php');
 require_once('modules/ZuckerReportParameterLink/ReportParameterLink.php');
 require_once('modules/ZuckerReportModuleLink/ReportModuleLink.php');
-
-// Enter the path to your java executable here, if autodetection doesn't work
-
-//Windows Environment Default
-//$JAVA_CMDLINE = "javaw %ARGS% 2>&1";
-
-//For Java Web Start installations
-//$JAVA_CMDLINE = "javaws %ARGS% 2>&1";
-
-//Unix Environment Default
-//$JAVA_CMDLINE = "java -Djava.awt.headless=true %ARGS% 2>&1";
 
 function endsWith( $str, $sub ) {
 	return ( substr( $str, strlen( $str ) - strlen( $sub ) ) == $sub );
@@ -313,9 +303,9 @@ class ReportTemplate extends SugarBean {
 	}
 
 	function execute_java($args) {
-		global $JAVA_CMDLINE;
+		global $zuckerreports_config;
 	
-		$pattern = $JAVA_CMDLINE;
+		$pattern = $zuckerreports_config["java_cmdline"];
 		
 		if (empty($pattern)) {
 			if ($this->isWindows()) {

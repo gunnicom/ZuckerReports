@@ -6,7 +6,7 @@ $manifest = array(
     'acceptable_sugar_versions' => array('4.2.*'),
 
     // name of new code
-    'name' => 'ZuckerReportsCE',
+    'name' => 'ZuckerReports',
 
     // description of new code
     'description' => 'ZuckerReports Community Edition',
@@ -15,10 +15,10 @@ $manifest = array(
     'author' => 'go-mobile IT GmbH',
 
     // date published
-    'published_date' => '2006/06/12',
+    'published_date' => '2006/07/17',
 
     // version of code
-    'version' => '1.4a',
+    'version' => '1.5',
 
     // type of code (valid choices are: full, langpack, module, patch, theme )
     'type' => 'module',
@@ -67,10 +67,14 @@ $installdefs = array(
 			'to_module'=> 'application',
 			'language'=>'ge_ge'
 			),
-/*			array('from'=> '<basepath>/application/app_strings.ge_at.lang.php', 
+			array('from'=> '<basepath>/application/app_strings.es_es.lang.php', 
 			'to_module'=> 'application',
-			'language'=>'ge_at'
-			),*/
+			'language'=>'es_es'
+			),
+			array('from'=> '<basepath>/application/app_strings.fr_FR.lang.php', 
+			'to_module'=> 'application',
+			'language'=>'fr_FR'
+			),
 		),
 	'beans'=> array(
 			array('module'=> 'ZuckerReports',

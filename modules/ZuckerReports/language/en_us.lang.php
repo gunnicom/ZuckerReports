@@ -146,7 +146,7 @@ $mod_list_strings = array (
   'REPORT_EXPORT_TYPES' =>
   array (
     'PDF' => 'Adobe PDF (*.pdf)',
-    'XLS' => 'Excel (*.xls)',
+    //'XLS' => 'Excel (*.xls)',
     //'CSV' => 'Comma Separated Values (*.csv)',
     'HTML' => 'HTML (*.html)',
     'XML' => 'XML (extern images, *.xml)',

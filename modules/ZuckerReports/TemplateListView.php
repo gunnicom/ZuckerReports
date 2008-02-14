@@ -1,10 +1,10 @@
 <?php
 require_once('XTemplate/xtpl.php');
 require_once("data/Tracker.php");
-require_once('modules/ZuckerReportTemplate/ReportTemplate.php');
 require_once('themes/'.$theme.'/layout_utils.php');
 require_once('include/logging.php');
 require_once('include/ListView/ListView.php');
+require_once('modules/ZuckerReports/config.php');
 
 global $app_strings;
 global $app_list_strings;
@@ -27,13 +27,21 @@ if (is_admin($current_user)) {
 	$button .= "<input type='hidden' name='action'>\n";
 	$button .= "<input type='hidden' name='return_module' value='ZuckerReports'>\n";
 	$button .= "<input type='hidden' name='return_action' value='TemplateListView'>\n";
-	$button .= "<input class='button' onclick='this.form.module.value=\"ZuckerReportTemplate\";this.form.action.value=\"EditView\"' type='submit' value=' ".$mod_strings['LBL_REPORT_TEMPLATE_NEW']."  '>\n";
+	foreach ($zuckerreports_config["providers"] as $provider) {
+		$button .= "<input class='button' onclick='this.form.module.value=\"".$provider["module"]."\";this.form.action.value=\"EditView\"' type='submit' value=' ".$mod_strings[$provider["lang_key_new"]]."  '>\n";
+	}
 	$button .= "</form>\n";
 }
 
-$seed1 = new ReportTemplate();
-$list = $seed1->get_full_list("name");
-if (empty($list)) $list = array();
+$list = array();
+foreach ($zuckerreports_config["providers"] as $provider) {
+	if (!empty($provider["include"])) require_once($provider["include"]);
+	
+	$seed = new $provider["class_name"];
+	if (empty($seed)) continue;
+	$list1 = $seed->get_full_list("name");
+	if (is_array($list1)) $list = array_merge($list, $list1);
+}
 
 $lv = new ListView();
 $lv->initNewXTemplate('modules/ZuckerReports/TemplateListView.html', $current_module_strings);

@@ -2,6 +2,9 @@
 global $theme;
 $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
+
+require_once("modules/ZuckerReports/config.php");
+
 ?>
 
 <table width='100%' cellpadding='0' cellspacing='0' border='0' class='moduleTitle'>
@@ -27,7 +30,7 @@ $image_path=$theme_path."images/";
 <table width="100%" cellspacing="0" cellpadding="0" border="0" class="tabForm">
 	<tr>
 		<td class="tabDetailViewDL">ZuckerReports</td>
-		<td class="tabDetailViewDF">Community Edition, Version 1.4</td>
+		<td class="tabDetailViewDF"><? echo $zuckerreports_config["release_descriptor"]; ?></td>
 	</tr><tr>
 		<td width="15%" class="tabDetailViewDL">Company</td>
 		<td class="tabDetailViewDF">go-mobile<br/>Grillparzerstraﬂe 26<br/>A-4020 Linz<br/></td>
@@ -47,6 +50,13 @@ $image_path=$theme_path."images/";
 		This product includes software developed by the <strong>Apache Software Foundation (<a href="http://www.apache.org/" target="_blank">http://www.apache.org/</a>)</strong>.
 		<br/>
 		This product includes software developed by <strong>Teodor Danciu (<a href="http://jasperreports.sourceforge.net" target="_blank">http://jasperreports.sourceforge.net</a>)</strong>.
+		</td>
+	</tr><tr>
+		<td class="tabDetailViewDL">Special Thanks</td>
+		<td class="tabDetailViewDF"> 
+		<strong>Spanish language pack: </strong> Frank, <a href="mailto:fhprietor@hotmail.com">fhprietor@hotmail.com</a>
+		<br/>
+		<strong>French language pack: </strong> Jean Jacques Serpoul	
 		</td>
 	</tr>
 </table>

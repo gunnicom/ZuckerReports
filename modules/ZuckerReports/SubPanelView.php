@@ -1,6 +1,6 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('modules/ZuckerReportTemplate/ReportTemplate.php');
+require_once('modules/ZuckerReports/config.php');
 
 global $theme;
 $theme_path="themes/".$theme."/";
@@ -19,8 +19,16 @@ echo "<p>\n";
 echo get_form_header($current_module_strings["LBL_ONDEMAND_BOUND"], "", FALSE);
 echo "</p>\n";
 
-$seed1 = new ReportTemplate();
-$templates = $seed1->get_for_module($_REQUEST["module"]);
+
+$templates = array();
+foreach ($zuckerreports_config["providers"] as $provider) {
+	if (!empty($provider["include"])) require_once($provider["include"]);
+	
+	$seed = new $provider["class_name"];
+	if (empty($seed)) continue;
+	$templates1 = $seed->get_full_list("name");
+	if (is_array($templates1)) $templates = array_merge($templates, $templates1);
+}
 
 $template_select = array();
 $javascript_table = "";

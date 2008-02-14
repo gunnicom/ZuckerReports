@@ -22,8 +22,6 @@ function post_install( ) {
 		$seed = new ReportContainer();
 		$seed->name = "Other Reports";
 		$seed->save();
-		
-		echo "Created sample containers<br/>";
 	}
 	if (is_file('modules/ZuckerReportParameter/ReportParameter.php')) {
 		require_once('modules/ZuckerReportParameter/ReportParameter.php');
@@ -64,10 +62,12 @@ function post_install( ) {
 		$seed->range_options = 'select id, name from project where deleted = 0 order by name';
 		$seed->save();
 		
-		echo "created basic report parameters<br/>";
+		
 	}
+
 	
-	echo "<h1>Please remember to check your Java installation - you may configure it in the file modules/ZuckerReportTemplate/ReportTemplate.php at the top!</h1><br/>";
+	echo "<h1>Note: Please remember to check your Java installation - you may configure it in the file modules/ZuckerReports/config.php!</h1><br/>";
+	
 	
 }
 

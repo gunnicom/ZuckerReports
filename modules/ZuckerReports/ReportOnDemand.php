@@ -1,8 +1,8 @@
 <?php
 require_once('XTemplate/xtpl.php');
 require_once('data/Tracker.php');
+require_once('modules/ZuckerReports/config.php');
 require_once('modules/ZuckerReports/Report.php');
-require_once('modules/ZuckerReportTemplate/ReportTemplate.php');
 require_once('modules/ZuckerReportContainer/ReportContainer.php');
 require_once('modules/ZuckerReportParameter/ReportParameter.php');
 require_once('modules/ZuckerReportParameterLink/ReportParameterLink.php');
@@ -19,18 +19,15 @@ global $current_user;
 $mod_list_strings = return_mod_list_strings_language($current_language, "ZuckerReports");
 
 $focus = NULL;
-if (isset($_REQUEST['filename'])) {
-	$rt = ReportTemplate::getByFilename($_REQUEST['filename']);
-	if ($rt) {
-		$focus = $rt;
-	}
-} else if (isset($_REQUEST['record'])) {
-	
-	$rt = new ReportTemplate();
-	$rt = $rt->retrieve($_REQUEST['record']);
-	if ($rt) {
-		$focus = new ReportTemplate();
-		$focus->retrieve($_REQUEST['record']);
+
+if (isset($_REQUEST['record'])) {
+	foreach ($zuckerreports_config["providers"] as $provider) {
+		if (!empty($provider["include"])) require_once($provider["include"]);
+		
+		$seed = new $provider["class_name"];
+		if (empty($seed)) continue;
+		$focus = $seed->retrieve($_REQUEST['record']);
+		if ($focus) break;
 	}
 }
 
@@ -58,9 +55,16 @@ $xtpl->assign("APP", $app_strings);
 $xtpl->assign("THEME", $theme);
 $xtpl->assign("IMAGE_PATH", $image_path);
 
-$seed1 = new ReportTemplate();
-$templates = $seed1->get_full_list("name");
 
+$templates = array();
+foreach ($zuckerreports_config["providers"] as $provider) {
+	if (!empty($provider["include"])) require_once($provider["include"]);
+	
+	$seed = new $provider["class_name"];
+	if (empty($seed)) continue;
+	$templates1 = $seed->get_full_list("name");
+	if (is_array($templates1)) $templates = array_merge($templates, $templates1);
+}
 
 if (count($templates) > 0) {
 
