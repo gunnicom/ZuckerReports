@@ -218,7 +218,7 @@ class ReportTemplate extends ReportProviderBase {
 		$f = fopen($cmdfile, "w");
 		fwrite($f, "jasper.datasource=jdbc\n");
 		fwrite($f, "jdbc.driver=com.mysql.jdbc.Driver\n");
-		fwrite($f, "jdbc.url=jdbc:mysql://".($sugar_config["dbconfig"]["db_host_name"]).":3306/".($sugar_config["dbconfig"]["db_name"])."\n");
+		fwrite($f, "jdbc.url=jdbc:mysql://".($sugar_config["dbconfig"]["db_host_name"]).":3306/".($sugar_config["dbconfig"]["db_name"]).$zuckerreports_config["jdbc_url_extension"]."\n");
 		fwrite($f, "jdbc.user=".($sugar_config["dbconfig"]["db_user_name"])."\n");
 		fwrite($f, "jdbc.password=".($sugar_config["dbconfig"]["db_password"])."\n");
 		fwrite($f, "jasper.sourcefile=".$this->compiled_filename."\n");

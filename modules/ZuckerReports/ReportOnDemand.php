@@ -188,7 +188,7 @@ if (!empty($focus->id) && $_REQUEST['run'] == "true") {
 			if (!empty($_REQUEST['parent_category'])) {
 				$report = new ZuckerReport();
 				$report->container_id = $_REQUEST['parent_category'];
-				$report->description = $focus->report_output;
+				if ($zuckerreports_config["debug"] == "yes") $report->description = $focus->report_output;
 				$report->filename = $focus->report_result_name;
 				$report->published = 0;
 				$report->save();
@@ -203,7 +203,7 @@ if (!empty($focus->id) && $_REQUEST['run'] == "true") {
 			
 				$note = new Note();
 				$note->name = $focus->name;
-				$note->description = $focus->report_output;
+				if ($zuckerreports_config["debug"] == "yes") $note->description = $focus->report_output;
 				$note->filename = $focus->report_result_name;
 				if ($_REQUEST['parent_module'] == 'Contacts') {
 					$note->contact_id = $_REQUEST['parent_id'];
@@ -231,7 +231,7 @@ if (!empty($focus->id) && $_REQUEST['run'] == "true") {
 				?>
 				<script language="javascript">window.open('<? echo $focus->report_result; ?>', '_blank');</script>
 				<?
-				//echo $focus->report_output;
+				if ($zuckerreports_config["debug"] == "yes") echo $focus->report_output;
 			}
 		} else if ($focus->report_result_type == "FORWARD") {
 			header("Location: ".($focus->report_result));

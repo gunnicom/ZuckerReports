@@ -1,4 +1,6 @@
 <?php
+global $mod_strings;
+global $mod_list_strings;
 
 require_once("modules/ZuckerReports/language/fr_FR.lang.php");
 

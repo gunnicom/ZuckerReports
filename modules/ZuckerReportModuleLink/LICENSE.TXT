@@ -41,9 +41,6 @@
  *                       Florian Treml
  *                       2006-06-01 office@go-mobile.at
  *
- * This license does not apply when installed on other Sugar flavour than Open Source.
- * Please contact original author for licensing information.
- *
  * The Initial Developer of the Original Code is go-mobile IT GmbH
  * Portions created by go-mobile IT GmbH are Copyright (C) 2006 go-mobile IT GmbH
  * All Rights Reserved.

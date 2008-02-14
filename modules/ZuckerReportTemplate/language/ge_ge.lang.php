@@ -1,4 +1,7 @@
 <?php
+global $mod_strings;
+global $mod_list_strings;
+
 require_once("modules/ZuckerReports/language/ge_ge.lang.php");
 
 $mod_strings = array_merge($mod_strings, 

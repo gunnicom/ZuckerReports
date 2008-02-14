@@ -54,7 +54,7 @@ class QueryTemplate extends ReportProviderBase {
 	
 	function execute_request($parameter_values = array(), $archive_dir = "modules/ZuckerReports/archive") {
 
-		$this->archive_dir = "modules/ZuckerReports/archive";
+		$this->archive_dir = $archive_dir;
 		
 		if ($_REQUEST["format"] == "CSV") {
 			$this->col_delim = $this->get_delim($_REQUEST["col_delim"]);
@@ -75,12 +75,12 @@ class QueryTemplate extends ReportProviderBase {
 			$this->report_result_type = "FILE";
 			$this->report_result_name = $date."_".$this->name.".csv";
 			$this->report_result_name = strtolower(join("_", explode(" ", $this->report_result_name)));
-			$this->report_result = $archive_dir."/".$this->report_result_name;
+			$this->report_result = $this->archive_dir."/".$this->report_result_name;
 		} else if ($format == 'HTML' || $format == 'SIMPLEHTML') {
 			$this->report_result_type = "FILE";
 			$this->report_result_name = $date."_".$this->name.".html";
 			$this->report_result_name = strtolower(join("_", explode(" ", $this->report_result_name)));
-			$this->report_result = $archive_dir."/".$this->report_result_name;
+			$this->report_result = $this->archive_dir."/".$this->report_result_name;
 		} else {
 			$this->report_result_type = "INLINE";
 		}
