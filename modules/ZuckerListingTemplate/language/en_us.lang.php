@@ -1,16 +1,12 @@
 <?php
 
-global $mod_strings;
-global $mod_list_strings;
-
-require_once("modules/ZuckerReports/language/en_us.lang.php");
-
-$mod_strings = array_merge($mod_strings, 
+$mod_strings = array_merge(return_module_language("en_us", "ZuckerReports"),
 	array(
 		'LBL_LISTING_TEMPLATE_NEW' => 'New Listing Template',
 		'LBL_LISTING' => 'Listing',
 		'LBL_LISTING_NAME' => 'Listing Name',
 		'LBL_LISTING_MAINMODULE' => 'Listing Module',
+		'LBL_LISTING_SUBMODULES' => 'Related Modules',
 		'LBL_LISTING_FILTERTYPE' => 'Filter Type',
 		'LBL_LISTING_DESCRIPTION' => 'Description',
 		
@@ -53,7 +49,7 @@ $mod_strings = array_merge($mod_strings,
 );
 
 
-$mod_list_strings = array_merge($mod_list_strings,
+$mod_list_strings = array_merge(return_mod_list_strings_language("en_us", "ZuckerReports"),
 	array (
 		'LISTING_FILTER_TYPES' =>
 		  array (

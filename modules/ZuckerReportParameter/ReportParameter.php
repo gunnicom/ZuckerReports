@@ -43,7 +43,7 @@ class ReportParameter extends SugarBean {
 	function getByDefaultname($default_name) {
 		$seed = new ReportParameter();
 		$results = $seed->get_full_list("", "default_name='".$default_name."'");
-		if ($results && count($results) > 0) {
+		if (!empty($results)) {
 			$result = $results[0];
 			$result->retrieve();
 			return $result;

@@ -14,6 +14,7 @@ class ReportProviderBase extends SugarBean {
 	var $modified_user_id;		
 	
 	var $image_html;
+	var $image_module;
 	var $action_module;
 	var $type_desc;
 

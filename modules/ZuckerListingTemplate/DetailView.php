@@ -75,7 +75,7 @@ if (is_admin($current_user)) {
 	$rp = new ReportParameter();
 	$rps = $rp->get_full_list();
 	$param_select = array("" => "");
-	if (count($rps) > 0) {
+	if (!empty($rps)) {
 		foreach ($rps as $rp) {
 			$param_select[$rp->id] = $rp->get_summary_text();
 		}

@@ -69,15 +69,18 @@ $qtselect = array();
 
 $qtseed = new QueryTemplate();
 $qtlist = $qtseed->get_full_list("name");
-foreach ($qtlist as $qt) {
-	$qtselect[$qt->id] = $qt->name;
+if (!empty($qtlist)) {
+	foreach ($qtlist as $qt) {
+		$qtselect[$qt->id] = $qt->name;
+	}
 }
 $ltseed = new ListingTemplate();
 $ltlist = $ltseed->get_full_list("name");
-foreach ($ltlist as $lt) {
-	$qtselect[$lt->id] = $lt->name;
+if (!empty($ltlist)) {
+	foreach ($ltlist as $lt) {
+		$qtselect[$lt->id] = $lt->name;
+	}
 }
-
 $xtpl->assign("QUERYTEMPLATE_SELECTION", get_select_options_with_id($qtselect, $querytemplate_id));
 
 $xtpl->parse("main");

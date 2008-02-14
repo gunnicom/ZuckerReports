@@ -1,4 +1,4 @@
-<?
+<?php
 
 global $zuckerreports_config;
 
@@ -42,7 +42,7 @@ $zuckerreports_config = array(
 		),
 
 	
-	//if you get the error "Value '0000-00-00' can not be represented as java.sql.Date", then uncomment this line and it my work
+	//if you get the error "Value '0000-00-00' can not be represented as java.sql.Date", then uncomment this line and it may work
 	//"jdbc_url_extension" => "?zeroDateTimeBehavior=convertToNull",	
 	
 	//set this to yes/no, if you want to enable/disable debug output when running a report

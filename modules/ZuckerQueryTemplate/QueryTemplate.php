@@ -30,6 +30,7 @@ class QueryTemplate extends ReportProviderBase {
 		$this->action_module = $this->module_dir;
 		$this->type_desc = $mod_strings["LBL_QUERY"];
 		$this->image_html = get_image("themes/".$theme."/images/ZuckerQueryTemplate", "ZuckerQueryTemplate");
+		$this->image_module = "ZuckerQueryTemplate";
 	}			
 
 	function getByName($name) {
@@ -39,7 +40,7 @@ class QueryTemplate extends ReportProviderBase {
 	function get_by_name($name) {
 		$seed = new QueryTemplate();
 		$results = $seed->get_full_list("", "name='".$name."'");
-		if ($results && count($results) > 0) {
+		if (!empty($results)) {
 			$result = $seed->retrieve($results[0]->id);
 			return $result;
 		} else {

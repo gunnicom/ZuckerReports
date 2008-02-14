@@ -35,7 +35,7 @@ if (is_admin($current_user)) {
 
 	if (!$skip_parameter_links) {
 		$rps = $rp->get_full_list();
-		if (count($rps) > 0) {
+		if (!empty($rps)) {
 		
 			echo "\n<p/>\n";
 			echo  get_form_header ($mod_strings['LBL_PARAM_LINK_NEW'], "", false);

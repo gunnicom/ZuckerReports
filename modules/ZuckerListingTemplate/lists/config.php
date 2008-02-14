@@ -1,4 +1,4 @@
-<?
+<?php
 $zuckerreports_lists = array(
 	
 	"Contacts" => array(

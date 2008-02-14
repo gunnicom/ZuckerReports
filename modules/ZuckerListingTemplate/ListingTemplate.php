@@ -38,7 +38,7 @@ class ListingTemplate extends ReportProviderBase {
 	
 	function get_summary_text() {
 		return $this->name;	
-	}	
+	}
 	
 	function fill_in_additional_detail_fields() {		
 		global $current_language, $theme;
@@ -49,12 +49,13 @@ class ListingTemplate extends ReportProviderBase {
 		$this->action_module = $this->module_dir;
 		$this->type_desc = $mod_strings["LBL_LISTING"];
 		$this->image_html = get_image("themes/".$theme."/images/".$this->mainmodule, $this->mainmodule);
+		$this->image_module = $this->mainmodule;
 	}			
 
 	function get_by_name($name) {
 		$seed = new ListingTemplate();
 		$results = $seed->get_full_list("", "name='".$name."'");
-		if ($results && count($results) > 0) {
+		if (!empty($results)) {
 			$result = $seed->retrieve($results[0]->id);
 			return $result;
 		} else {
@@ -80,7 +81,6 @@ class ListingTemplate extends ReportProviderBase {
 		
 		$filters = $t->get_filters();
 		$orders = $t->get_orders();
-
 		foreach ($filters as $f) {
 			$f->mark_deleted($f->id);
 		}
@@ -270,6 +270,7 @@ class ListingTemplate extends ReportProviderBase {
 			}
 			
 			$rows = $seed->get_full_list($order_clause, $where_clause);
+			if (empty($rows)) $rows = array();
 			
 			$this->report_output .= "Found ".count($rows)." rows<br/>";
 

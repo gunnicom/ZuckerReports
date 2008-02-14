@@ -1,10 +1,6 @@
 <?php
-global $mod_strings;
-global $mod_list_strings;
 
-require_once("modules/ZuckerReports/language/en_us.lang.php");
-
-$mod_strings = array_merge($mod_strings, 
+$mod_strings = array_merge(return_module_language("en_us", "ZuckerReports"),
 	array(
 	'LBL_QUERY_TEMPLATE_NEW' => 'New Query Template',
 	'LBL_QUERY' => 'Custom Query',
@@ -20,7 +16,7 @@ $mod_strings = array_merge($mod_strings,
 );
 
 
-$mod_list_strings = array_merge($mod_list_strings,
+$mod_list_strings = array_merge(return_mod_list_strings_language("en_us", "ZuckerReports"),
 	array (
 		  'QUERY_EXPORT_TYPES' =>
 		  array (

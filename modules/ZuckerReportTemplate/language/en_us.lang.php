@@ -1,10 +1,6 @@
 <?php
-global $mod_strings;
-global $mod_list_strings;
 
-require_once("modules/ZuckerReports/language/en_us.lang.php");
-
-$mod_strings = array_merge($mod_strings, 
+$mod_strings = array_merge(return_module_language("en_us", "ZuckerReports"),
 	array(
 	'LBL_REPORT_TEMPLATE_NEW' => 'New JasperReports Template',
 	'LBL_REPORT' => 'JasperReports',
@@ -23,7 +19,7 @@ $mod_strings = array_merge($mod_strings,
 	)
 );
 
-$mod_list_strings = array_merge($mod_list_strings,
+$mod_list_strings = array_merge(return_mod_list_strings_language("en_us", "ZuckerReports"),
 	array (
 		  'REPORT_EXPORT_TYPES' =>
 		  array (

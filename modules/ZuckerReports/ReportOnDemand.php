@@ -229,8 +229,8 @@ if (!empty($focus->id) && $_REQUEST['run'] == "true") {
 				sugar_die();
 			} else {
 				?>
-				<script language="javascript">window.open('<? echo $focus->report_result; ?>', '_blank');</script>
-				<?
+				<script language="javascript">window.open('<?php echo $focus->report_result; ?>', '_blank');</script>
+				<?php
 				if ($zuckerreports_config["debug"] == "yes") echo $focus->report_output;
 			}
 		} else if ($focus->report_result_type == "FORWARD") {

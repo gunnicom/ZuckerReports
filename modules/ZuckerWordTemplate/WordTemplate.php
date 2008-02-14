@@ -60,9 +60,11 @@ class WordTemplate extends ReportProviderBase {
 		if ($this->extension == "stw") {
 			$this->type_desc = $mod_strings["LBL_OPENOFFICE"];
 			$this->image_html = get_image("themes/".$theme."/images/ZuckerOpenOfficeTemplate", "ZuckerOpenOfficeTemplate");
+			$this->image_module = "ZuckerOpenOfficeTemplate";
 		} else if ($this->extension == "doc") {
 			$this->type_desc = $mod_strings["LBL_WORD"];
 			$this->image_html = get_image("themes/".$theme."/images/ZuckerWordTemplate", "ZuckerWordTemplate");
+			$this->image_module = "ZuckerWordTemplate";
 		}
 	}			
 
@@ -84,7 +86,7 @@ class WordTemplate extends ReportProviderBase {
 	function get_by_name($name) {
 		$seed = new WordTemplate();
 		$results = $seed->get_full_list("", "name='".$name."'");
-		if ($results && count($results) > 0) {
+		if (!empty($results)) {
 			$result = $seed->retrieve($results[0]->id);
 			return $result;
 		} else {
@@ -94,7 +96,7 @@ class WordTemplate extends ReportProviderBase {
 	function get_by_filename($filename) {
 		$seed = new WordTemplate();
 		$results = $seed->get_full_list("", "filename='".$filename."'");
-		if ($results && count($results) > 0) {
+		if (!empty($results)) {
 			$result = $seed->retrieve($results[0]->id);
 			return $result;
 		} else {
@@ -103,7 +105,9 @@ class WordTemplate extends ReportProviderBase {
 	}	
 	function get_by_query($query_id) {
 		$seed = new WordTemplate();
-		return $seed->get_full_list("name", "querytemplate_id='".$query_id."'");
+		$result = $seed->get_full_list("name", "querytemplate_id='".$query_id."'");
+		if (empty($result)) $result = array();
+		return $result;
 	}
 
 	

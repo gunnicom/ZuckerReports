@@ -1,10 +1,6 @@
 <?php
-global $mod_strings;
-global $mod_list_strings;
 
-require_once("modules/ZuckerReports/language/ge_ge.lang.php");
-
-$mod_strings = array_merge($mod_strings, 
+$mod_strings = array_merge(return_module_language("ge_ge", "ZuckerReports"),
 	array(
 		'LBL_LISTING_TEMPLATE_NEW' => 'Neue Listenvorlage',
 		'LBL_LISTING' => 'Liste',
@@ -51,7 +47,7 @@ $mod_strings = array_merge($mod_strings,
 );
 
 
-$mod_list_strings = array_merge($mod_list_strings,
+$mod_list_strings = array_merge(return_mod_list_strings_language("ge_ge", "ZuckerReports"),
 	array (
 		'LISTING_FILTER_TYPES' =>
 		  array (

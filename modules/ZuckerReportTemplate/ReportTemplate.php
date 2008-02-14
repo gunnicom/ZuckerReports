@@ -114,6 +114,7 @@ class ReportTemplate extends ReportProviderBase {
 		$this->action_module = $this->module_dir;
 		$this->type_desc = $mod_strings["LBL_REPORT"];
 		$this->image_html = get_image("themes/".$theme."/images/ZuckerReportTemplate", "ZuckerReportTemplate");
+		$this->image_module = "ZuckerReportTemplate";
 	}			
 
 	function getByFilename($filename) {
@@ -123,7 +124,7 @@ class ReportTemplate extends ReportProviderBase {
 	function get_by_filename($filename) {
 		$seed = new ReportTemplate();
 		$results = $seed->get_full_list("", "filename='".$filename."'");
-		if ($results && count($results) > 0) {
+		if (!empty($results)) {
 			$result = $results[0];
 			$result->retrieve();
 			return $result;
@@ -209,8 +210,12 @@ class ReportTemplate extends ReportProviderBase {
 		}
 		$this->report_result_name = strtolower(join("_", explode(" ", $this->report_result_name)));
 		$this->report_result = $archive_dir."/".$this->report_result_name;
-		$this->report_result_type = "FILE";
-
+		
+		if ($format == 'HTML') {
+			$this->report_result_type = "FORWARD";
+		} else {
+			$this->report_result_type = "FILE";
+		}
 		
 		$tempdir = "modules/ZuckerReports/temp/".create_guid();		
 		$cmdfile = $tempdir."/cmd.properties";
@@ -353,8 +358,12 @@ class ReportTemplate extends ReportProviderBase {
 		if (!isset($_REQUEST["format"])) {
 			$_REQUEST["format"] = "PDF";
 		}
-
-		$this->report_result_type = "FILE";
+		
+		if ($_REQUEST["format"] == "HTML") {
+			$this->report_result_type = "FORWARD";
+		} else {
+			$this->report_result_type = "FILE";
+		}
 		
 		$export_types = $this->get_export_selection_array($_REQUEST['format']);
 		return join("\n", $export_types);

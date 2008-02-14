@@ -15,6 +15,13 @@ if (!empty($_REQUEST['record'])) {
 }
 
 $filter = populateFromPost("filter_", $filter);
+
+echo $_REQUEST["filter_field"];
+
+$arr = explode(".", $_REQUEST["filter_field"]);
+$filter->module_name = $arr[0];
+$filter->field_name = $arr[1];
+
 $lt = new ListingTemplate();
 $lt->retrieve($filter->listing_template_id);
 

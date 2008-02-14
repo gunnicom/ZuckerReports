@@ -1,7 +1,4 @@
 <?php
-global $mod_strings;
-global $mod_list_strings;
-
 $mod_strings = array (
 	//module
 	'LBL_MODULE_NAME' => 'ZuckerReports',

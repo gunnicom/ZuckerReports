@@ -1,10 +1,6 @@
 <?php
-global $mod_strings;
-global $mod_list_strings;
 
-require_once("modules/ZuckerReports/language/fr_FR.lang.php");
-
-$mod_strings = array_merge($mod_strings, 
+$mod_strings = array_merge(return_module_language("fr_FR", "ZuckerReports"),
 	array(
 	'LBL_WORD_TEMPLATE_NEW' => 'Nouveau modèle office',
 	'LBL_WORD' => 'Modèle Word',
@@ -27,7 +23,7 @@ $mod_strings = array_merge($mod_strings,
 );
 
 
-$mod_list_strings = array_merge($mod_list_strings,
+$mod_list_strings = array_merge(return_mod_list_strings_language("fr_FR", "ZuckerReports"),
 	array (
 		  'WORD_EXPORT_TYPES' =>
 		  array (
