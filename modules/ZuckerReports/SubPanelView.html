@@ -1,0 +1,63 @@
+<!-- BEGIN: main -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+	<td style="padding-bottom: 2px;">
+		<form name="ZuckerReportSubPanelView" method="GET" action="index.php">
+			<input type="hidden" name="module" value="ZuckerReports">
+			<input type="hidden" name="action" value="ReportOnDemand">
+			<input type="hidden" name="run" value="{REPORT_RUN}">
+			<input type="hidden" name="format" value="{REPORT_FORMAT}">
+
+			<input type="hidden" name="return_module" value="{RETURN_MODULE}">
+			<input type="hidden" name="return_id" value="{RETURN_ID}">
+			<input type="hidden" name="return_action" value="{RETURN_ACTION}">
+
+			<input type="hidden" name="parent_module">
+			<input type="hidden" name="parent_id">
+			<input type="hidden" name="parent_name">
+			
+			
+			{JAVASCRIPT_PARAMS}
+			
+			<select name='record' onchange='set_param(this.form)'>{TEMPLATE_SELECTION}</select>
+			<!-- BEGIN: attach -->
+			<input type='checkbox' name='attach' onclick='toggle_parent(this.form)'>{MOD.LBL_ONDEMAND_BOUND_ATTACH}
+			<!-- END: attach -->
+			<input class="button" type="submit" name="button" value="  {MOD.LBL_ONDEMAND_BOUND_RUN}  ">
+
+		</form>
+	</td>
+</tr>
+</table>
+
+<script language="javascript">
+
+var mapping = new Array();
+{JAVASCRIPT_TABLE}
+
+function set_param(form) {
+	var id = form.record.value;
+	if (mapping[id]) {
+		form.elements[mapping[id]].value = "{JAVASCRIPT_PARAM}";
+	}
+}
+set_param(document.forms["ZuckerReportSubPanelView"]);
+
+<!-- BEGIN: attachscript -->
+function toggle_parent(form) {
+	if (form.attach.checked) {
+		form.parent_module.value = "{PARENT_MODULE}";
+		form.parent_id.value = "{PARENT_ID}";
+		form.parent_name.value = "{PARENT_NAME}";
+	} else {
+		form.parent_module.value = "";
+		form.parent_id.value = "";
+		form.parent_name.value = "";
+	}	
+}
+toggle_parent(document.forms["ZuckerReportSubPanelView"]);
+<!-- END: attachscript -->
+
+</script>
+
+<!-- END: main -->

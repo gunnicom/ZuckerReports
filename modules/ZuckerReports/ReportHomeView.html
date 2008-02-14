@@ -1,0 +1,19 @@
+<!-- BEGIN: main -->
+<table cellpadding="0" cellspacing="0" width="100%" border="0" class="listView">
+	<tr height="20">
+		<td scope="col" width="30%" class="listViewThS1" nowrap><slot>{MOD.LBL_ZUCKERREPORT_NAME}</a></slot></td>
+		<td scope="col" width="30%" class="listViewThS1" nowrap><slot>{MOD.LBL_CONTAINER}</a></slot></td>
+		<td scope="col" width="*" class="listViewThS1" nowrap><slot>{MOD.LBL_DATE_MODIFIED}</slot></td>
+	</tr>
+	<!-- BEGIN: row -->
+	<tr height="20"  onmouseover="setPointer(this, '{DOCUMENT.ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{REPORT.ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{REPORT.ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
+  		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot><a href="{URL_PREFIX}index.php?action=ReportDetailView&module=ZuckerReports&record={REPORT.ID}" class="listViewTdLinkS1"> {REPORT.FILENAME} </a></slot></td>
+		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot><a href="{URL_PREFIX}index.php?action=ReportContainerDetailView&module=ZuckerReports&record={REPORT.CONTAINER_ID}" class="listViewTdLinkS1"> {REPORT.CONTAINER_NAME} </a></slot></td>
+		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{REPORT.DATE_MODIFIED}</slot></td>
+	</tr>
+	<tr>
+		<td colspan="20" class="listViewHRS1"></td>
+	</tr>
+<!-- END: row -->
+	</table>
+<!-- END: main -->

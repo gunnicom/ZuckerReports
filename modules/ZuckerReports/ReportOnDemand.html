@@ -1,0 +1,141 @@
+<!-- BEGIN: main -->
+<form name="EditView" method="GET" action="index.php">	
+<input type="hidden" name="module" value="ZuckerReports">	
+<input type="hidden" name="action" value="ReportOnDemand">	
+<input type="hidden" name="run">
+
+{REPORT_SELECTION}
+
+{FORMAT_SELECTION}
+
+{PARAMETERS}
+
+{EXEC_BUTTON}
+
+</form>
+<script type="text/javascript" src="include/javascript/popup_parent_helper.js"></script>
+<script type='text/javascript' language='JavaScript'>
+if (document.EditView.parent_module) {
+	if (document.EditView.parent_module.value == '') {
+		document.EditView.parent_button.disabled = true;
+	} else {
+		document.EditView.parent_button.disabled = false;
+	}
+}
+function moduleChanged(form) {
+	form.parent_name.value='';
+	form.parent_id.value='';
+	if (form.parent_module.value == '') {
+		form.parent_button.disabled = true;
+	} else {
+		form.parent_button.disabled = false;
+	}
+}
+</script>
+<!-- END: main -->
+
+
+<!-- BEGIN: report_selection -->
+{REPORT_SELECTION_HEADER}
+<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView">
+<tr>		
+<td width="30%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ONDEMAND_TEMPLATE}</slot></td>
+<td width="*" valign="top" class="tabDetailViewDF" colspan="3"><slot><select name='record' onChange="this.form.run.value='false';this.form.submit();">{TEMPLATE_SELECTION}</select></slot></td>
+</tr>
+<!-- BEGIN: attach_to_parent -->
+<tr>
+<td width="30%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ATTACH_TO}</slot></td>
+<td width="*" valign="top" class="tabDetailViewDF" colspan="3"><slot><select name='parent_module' onChange="javascript:moduleChanged(this.form);">{TYPE_OPTIONS}</select><input name='parent_id' type="hidden" value='{PARENT_ID}'><input name='parent_name' readonly type='text' value="{PARENT_NAME}"><input title="{APP.LBL_CHANGE_BUTTON_TITLE}" type="button" class="button" value="{APP.LBL_CHANGE_BUTTON_LABEL}" name='parent_button' onclick='open_popup(document.EditView.parent_module.value, 600, 400, "", true, false, {encoded_popup_request_data});'/></slot></td>
+</tr>
+<!-- END: attach_to_parent -->
+<!-- BEGIN: attach_to_container -->
+<tr>
+<td width="30%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ARCHIVE_TO}</slot></td>
+<td width="*" valign="top" class="tabDetailViewDF" colspan="3"><slot><select name='parent_category'>{CAT_OPTIONS}</select></slot></td>
+</tr>
+<!-- END: attach_to_container -->
+
+</table>
+<!-- END: report_selection -->
+
+<!-- BEGIN: format_selection -->
+{FORMAT_SELECTION_HEADER}
+<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView">
+<tr>		
+<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ONDEMAND_FORMAT}</slot></td>		
+<td width="85%" valign="top" class="tabDetailViewDF" colspan="3"><slot><select name='format' onChange="this.form.run.value='false';this.form.submit();">{FORMAT_SELECTION}</select></slot></td>
+</tr>
+
+<!-- BEGIN: report -->
+<!-- END: report -->
+
+<!-- BEGIN: queryCSV -->
+<tr>		
+<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ONDEMAND_COLUMN_DELIMITER}</slot></td>		
+<td width="35%" valign="top" class="tabDetailViewDF"><slot><select name='col_delim'>{COL_DELIM_SELECTION}</select></slot></td>
+<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ONDEMAND_ROW_DELIMITER}</slot></td>		
+<td width="35%" valign="top" class="tabDetailViewDF"><slot><select name='row_delim'>{ROW_DELIM_SELECTION}</select></slot></td>
+</tr>
+<tr>		
+<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ONDEMAND_INCLUDE_HEADER}</slot></td>		
+<td width="85%" valign="top" class="tabDetailViewDF" colspan="3"><slot><input type="checkbox" name="include_header" value="true" {INCLUDE_HEADER_CHECKED}/></slot></td>
+</tr>
+<!-- END: queryCSV -->
+<!-- BEGIN: queryHTML -->
+<tr>		
+<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ONDEMAND_INCLUDE_HEADER}</slot></td>		
+<td width="85%" valign="top" class="tabDetailViewDF" colspan="3"><slot><input type="checkbox" name="include_header" value="true" {INCLUDE_HEADER_CHECKED}/></slot></td>
+</tr>
+<!-- END: queryHTML -->
+
+<!-- BEGIN: wordSAVE -->
+<tr>		
+<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ONDEMAND_SAVE_PATH}</slot></td>		
+<td width="85%" valign="top" class="tabDetailViewDF" colspan="3"><slot><input type="text" name="save_path" value="{SAVE_PATH}" size="50"/></slot></td>
+</tr>
+<!-- END: wordSAVE -->
+<!-- BEGIN: word -->
+<tr>		
+<td width="100%" colspan="2" valign="top" class="tabDetailViewDF"><slot>{MOD.LBL_LOADER_SETUP}</slot></td>		
+</tr>
+<!-- END: word -->
+
+</table>
+<!-- END: format_selection -->
+
+<!-- BEGIN: parameters -->
+{PARAMETER_HEADER}
+<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView">
+{PARAMETERS}
+</table>
+<!-- END: parameters -->
+
+<!-- BEGIN: execbutton -->
+<p/>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">	<tr>		
+<td style="padding-bottom: 2px;">			
+<input class="button" onclick="this.form.run.value='true'" type="submit" name="button" value="  {MOD.LBL_ONDEMAND_EXECUTE}  ">		
+</td>	
+</tr></table>
+<!-- END: execbutton -->
+
+
+
+
+<!-- BEGIN: run -->
+<form name="EditView" method="GET" action="{REPORT_URL}" target="_blank">	
+<table width="100%" cellpadding="0" cellspacing="0" border="0">	<tr>		
+<td style="padding-bottom: 2px;">			
+<input class="button" type="submit" name="button" value="  {MOD.LBL_ONDEMAND_VIEW}  ">		
+</td>	
+</tr></table>
+</form>
+<!-- END: run -->
+
+<!-- BEGIN: runerror -->
+<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView">	
+<tr>		
+<td valign="top" class="tabDetailViewDF">{REPORT_OUTPUT}</td>			
+</tr>
+</table>
+<!-- END: runerror -->

@@ -1,0 +1,87 @@
+<!-- BEGIN: main -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+	<td style="padding-bottom: 2px;">
+			<form name="ReportParameterEdit" method="POST" action="index.php">
+			<input type="hidden" name="module" value="ZuckerReportParameter">
+			<input type="hidden" name="record" value="{ID}">
+			<input type="hidden" name="action">
+			<input type="hidden" name="return_module" value="{RETURN_MODULE}">
+			<input type="hidden" name="return_id" value="{RETURN_ID}">
+			<input type="hidden" name="return_action" value="{RETURN_ACTION}">
+
+		<!-- BEGIN: save -->
+		<input class="button" onclick="this.form.action.value='Save'; return verify_param_data(this.form);" type="submit" name="button" value="  {APP.LBL_SAVE_BUTTON_LABEL}  " > 
+		<!-- END: save -->
+		<!-- BEGIN: delete -->
+		<input class="button" onclick="this.form.return_module.value='ZuckerReportParameter'; this.form.return_action.value='ListView'; this.form.action.value='Delete'; return confirm('{APP.NTC_DELETE_CONFIRMATION}')" type="submit" name="button" value=" {APP.LBL_DELETE_BUTTON_LABEL} ">
+		<!-- END: delete -->
+
+		<input class="button" onclick="this.form.action.value='{RETURN_ACTION}'; this.form.module.value='{RETURN_MODULE}'; this.form.record.value='{RETURN_ID}'" type="submit" name="button" value="  {APP.LBL_CANCEL_BUTTON_LABEL}  ">
+	</td></tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="tabForm">
+<tr>
+<td>
+	<table width="100%" border="0" cellspacing="1" cellpadding="0">
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_PARAM_FRIENDLYNAME}</slot> <span class="required">{APP.LBL_REQUIRED_SYMBOL}</span></td>
+		<td width="85%" class="dataField" colspan=3><slot><input name='friendly_name' type='text' size=40 value="{FRIENDLY_NAME}"></slot></td>		
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_PARAM_DEFAULTNAME}</slot> <span class="required">{APP.LBL_REQUIRED_SYMBOL}</span></td>
+		<td width="85%" class="dataField" colspan=3><slot><input name='default_name' type='text' size=40 value="{DEFAULT_NAME}"></slot></td>		
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_PARAM_DEFAULTVALUE}</slot></td>
+		<td width="85%" class="dataField" colspan=3><slot><input name='default_value' type='text' size=40 value="{DEFAULT_VALUE}"></slot></td>		
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><slot>{MOD.LBL_PARAM_DESCRIPTION}</slot></td>
+		<td width="85%" class="dataField" colspan="3"  ><slot><textarea name='description' cols="90" rows="4">{DESCRIPTION}</textarea></slot></td>
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_PARAM_RANGE}</slot></td>
+		<td width="85%" class="dataField" colspan=3><slot><select name='range' onChange="this.form.action.value='EditView'; this.form.submit();">{RANGE_SELECTION}</select></slot></td>		
+	</tr>
+	
+<!-- BEGIN: SQL -->	
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><slot>{MOD.LBL_PARAM_RANGE_SQL}</slot></td>
+		<td width="60%" class="dataField" colspan="2"  ><slot><textarea name='range_options' cols="90" rows="10">{RANGE_OPTIONS}</textarea></slot></td>
+		<td width="25%" class="dataField" ><slot>{MOD.LBL_PARAM_RANGE_SQL_HELP}</slot></td>
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><slot>&nbsp;</slot></td>
+		<td width="85%" class="dataField" colspan="3"  >
+			<input type="hidden" name="sqltest">
+			<slot>
+			<input class="button" onclick="this.form.action.value='EditView'; this.form.sqltest.value='true'" type="submit" name="button" value="  {MOD.LBL_PARAM_RANGE_SQL_TEST}  " >
+			<br/>{SQL_RESULT}<br/>
+			</slot>
+		</td>
+	</tr>
+
+				
+
+	
+<!-- END: SQL -->
+<!-- BEGIN: LIST -->	
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><slot>{MOD.LBL_PARAM_RANGE_LIST}</slot></td>
+		<td width="60%" class="dataField" colspan="2"  ><slot><textarea name='range_options' cols="90" rows="10">{RANGE_OPTIONS}</textarea></slot></td>
+		<td width="25%" class="dataField" ><slot>{MOD.LBL_PARAM_RANGE_LIST_HELP}</slot></td>
+	</tr>
+	
+	
+	
+<!-- END: LIST -->
+	
+	</table>
+</td>
+</tr>
+</table>
+</form>
+{JAVASCRIPT}
+<!-- END: main -->

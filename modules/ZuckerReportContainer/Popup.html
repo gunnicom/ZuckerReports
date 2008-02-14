@@ -1,0 +1,20 @@
+<!-- BEGIN: main -->
+{SET_RETURN_JS}
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="listView">
+	<tr height="20">
+		<td width="20%" scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_CONTAINER_NAME}</slot></td>
+		<td width="40%" scope="col" class="listViewThS1" nowrap><slot>{MOD.LBL_CONTAINER_DESCRIPTION}</slot></td>
+		<td width="*" scope="col" class="listViewThS1" nowrap><slot>&nbsp;</slot></td>
+	</tr>
+<!-- BEGIN: row -->
+	<tr height="20"  onmouseover="setPointer(this, '{CONTAINER.ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{CONTAINER.ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{CONTAINER.ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
+		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot><a href="index.php?module=ZuckerReports&action=PopupReportContainer&record={CONTAINER.ID}&form={FORM}" class="listViewTdLinkS1">{CONTAINER.NAME}</a></slot></td>
+   		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot>{CONTAINER.DESCRIPTION}</slot></td>
+		<td class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}"><slot><a href="a" class="listViewTdLinkS1" LANGUAGE=javascript onclick='set_return("{CONTAINER.ID}", "{CONTAINER.NAME}"); window.close()'>{MOD.LBL_CONTAINER_SELECT}</a></slot></td>
+	</tr>
+	<tr><td colspan="20" class="listViewHRS1"></td></tr>
+<!-- END: row -->
+</table>
+<!-- END: main -->
+

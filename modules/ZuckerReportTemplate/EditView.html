@@ -1,0 +1,122 @@
+<!-- BEGIN: main -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+	<td style="padding-bottom: 2px;">
+			<form name="ReportTemplateEdit" method="POST" action="index.php" enctype="multipart/form-data">
+			<input type="hidden" name="module" value="ZuckerReportTemplate">
+			<input type="hidden" name="record" value="{ID}">
+			<input type="hidden" name="action">
+			<input type="hidden" name="return_module" value="{RETURN_MODULE}">
+			<input type="hidden" name="return_id" value="{RETURN_ID}">
+			<input type="hidden" name="return_action" value="{RETURN_ACTION}">
+		<input class="button" onclick="this.form.action.value='CheckAndSave'; return verify_report_template_data(this.form);" type="submit" name="button" value="  {APP.LBL_SAVE_BUTTON_LABEL}  " > 
+		<input class="button" onclick="this.form.action.value='{RETURN_ACTION}'; this.form.module.value='{RETURN_MODULE}'; this.form.record.value='{RETURN_ID}'" type="submit" name="button" value="  {APP.LBL_CANCEL_BUTTON_LABEL}  ">
+	</td>
+	</tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="tabForm">
+<tr>
+<td>
+	<table width="100%" border="0" cellspacing="1" cellpadding="0">
+	<tr>
+		<td width="15%" class="dataLabel">&nbsp;</td>
+		<td width="85%" class="dataField" colspan=3><font color="red"><slot>{ERROR_MSG}</slot></font></td>		
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel"><slot>{MOD.LBL_REPORT_NAME}</slot> <span class="required">{APP.LBL_REQUIRED_SYMBOL}</span></td>
+		<td width="85%" class="dataField" colspan=3><slot><input name='name' type='text' size=40 value="{NAME}"></slot></td>		
+	</tr>
+	<tr>
+        <td width="15%" class="dataLabel"><slot>{MOD.LBL_REPORT_FILENAME}</slot></td>
+        <td width="85%" class="dataField" colspan=3><slot><input name="reportfile" type="file" size="20" onchange="setvalue(this);"/></slot></td>	
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><slot>{MOD.LBL_REPORT_DESCRIPTION}</slot></td>
+		<td width="85%" class="dataField" colspan="3"  ><slot><textarea name='description' cols="90" rows="4">{DESCRIPTION}</textarea></slot></td>
+	</tr>
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><slot>{MOD.LBL_REPORT_EXPORT_AS}</slot></td>
+		<td width="85%" class="dataField" colspan="3"  ><slot>{EXPORT_TYPES}</slot></td>
+	</tr>
+	
+	<tr>
+	<th align="left" class="dataLabel" colspan="2"><h4 class="dataLabel"><slot>{MOD.LBL_RESOURCES}</h4></slot></th>
+	</tr>
+	<tr>
+        <td width="100%" colspan="2"><slot>{MOD.LBL_RESOURCE_HELP}</slot></td>
+	</tr>
+	<tr>
+        <td width="15%" class="dataLabel"><slot>{MOD.LBL_RESOURCE}</slot></td>
+        <td width="85%" class="dataField" colspan=3><slot><input name="resource0" type="file" size="20"/></slot></td>	
+	</tr>
+	<tr>
+        <td width="15%" class="dataLabel"><slot>{MOD.LBL_RESOURCE}</slot></td>
+        <td width="85%" class="dataField" colspan=3><slot><input name="resource1" type="file" size="20"/></slot></td>	
+	</tr>
+	<tr>
+        <td width="15%" class="dataLabel"><slot>{MOD.LBL_RESOURCE}</slot></td>
+        <td width="85%" class="dataField" colspan=3><slot><input name="resource2" type="file" size="20"/></slot></td>	
+	</tr>
+	<tr>
+        <td width="15%" class="dataLabel"><slot>{MOD.LBL_RESOURCE}</slot></td>
+        <td width="85%" class="dataField" colspan=3><slot><input name="resource3" type="file" size="20"/></slot></td>	
+	</tr>
+	<tr>
+        <td width="15%" class="dataLabel"><slot>{MOD.LBL_RESOURCE}</slot></td>
+        <td width="85%" class="dataField" colspan=3><slot><input name="resource4" type="file" size="20"/></slot></td>	
+	</tr>
+	
+	
+	<tr>
+	<th align="left" class="dataLabel" colspan="2"><h4 class="dataLabel"><slot>{MOD.LBL_SUBREPORTS}</h4></slot></th>
+	</tr>
+	<tr>
+        <td width="100%" colspan="2"><slot>{MOD.LBL_SUBREPORT_HELP}</slot></td>
+	</tr>
+	<tr>
+        <td width="15%" class="dataLabel"><slot>{MOD.LBL_SUBREPORT}</slot></td>
+        <td width="85%" class="dataField" colspan=3><slot><input name="subreport0" type="file" size="20"/></slot></td>	
+	</tr>
+	<tr>
+        <td width="15%" class="dataLabel"><slot>{MOD.LBL_SUBREPORT}</slot></td>
+        <td width="85%" class="dataField" colspan=3><slot><input name="subreport1" type="file" size="20"/></slot></td>	
+	</tr>
+	<tr>
+        <td width="15%" class="dataLabel"><slot>{MOD.LBL_SUBREPORT}</slot></td>
+        <td width="85%" class="dataField" colspan=3><slot><input name="subreport2" type="file" size="20"/></slot></td>	
+	</tr>
+	<tr>
+        <td width="15%" class="dataLabel"><slot>{MOD.LBL_SUBREPORT}</slot></td>
+        <td width="85%" class="dataField" colspan=3><slot><input name="subreport3" type="file" size="20"/></slot></td>	
+	</tr>
+	<tr>
+        <td width="15%" class="dataLabel"><slot>{MOD.LBL_SUBREPORT}</slot></td>
+        <td width="85%" class="dataField" colspan=3><slot><input name="subreport4" type="file" size="20"/></slot></td>	
+	</tr>
+
+
+	</table>
+</td>
+</tr>
+</table>
+</form>
+<script type="text/javascript" language="JavaScript">
+	function setvalue(source) {
+		src= new String(source.value);
+		target=new String(source.form.name.value);
+
+		if (target.length == 0) {
+			lastindex=src.lastIndexOf("/");
+			if (lastindex == -1) {
+				lastindex=src.lastIndexOf("\\");
+			} 
+			if (lastindex == -1) {
+				source.form.name.value=src;
+			} else {
+				source.form.name.value=src.substr(++lastindex, src.length);
+			}			
+		}			
+	}
+</script>
+<!-- END: main -->

@@ -1,0 +1,46 @@
+<!-- BEGIN: main -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+	<td style="padding-bottom: 2px;">
+		<form name="ReportDetail" method="POST" action="index.php">
+			<input type="hidden" name="module" value="ZuckerReports">
+			<input type="hidden" name="record" value="{ID}">
+			<input type="hidden" name="action">
+			<input type="hidden" name="return_module" value="{RETURN_MODULE}">
+			<input type="hidden" name="return_id" value="{RETURN_ID}">
+			<input type="hidden" name="return_action" value="{RETURN_ACTION}">
+
+			<input class="button" onclick="this.form.action.value='ReportContainerDetailView'; this.form.record.value='{CONTAINER_ID}';" type="submit" name="button" value=" {MOD.LBL_CONTAINER_UP} ">
+
+			<!-- BEGIN: publish -->
+				<input class="button" onclick="this.form.return_module.value='ZuckerReports'; this.form.return_action.value='ReportDetailView'; this.form.action.value='ReportPublish'" type="submit" name="button" value=" {MOD.LBL_ZUCKERREPORT_PUBLISH} ">
+			<!-- END: publish -->
+			<!-- BEGIN: unpublish -->
+				<input class="button" onclick="this.form.return_module.value='ZuckerReports'; this.form.return_action.value='ReportDetailView'; this.form.action.value='ReportUnpublish'" type="submit" name="button" value=" {MOD.LBL_ZUCKERREPORT_UNPUBLISH} ">
+			<!-- END: unpublish -->
+				
+			<input class="button" onclick="this.form.return_module.value='ZuckerReports'; this.form.return_action.value='ReportContainerDetailView'; this.form.return_id.value='{CONTAINER_ID}'; this.form.action.value='ReportDelete'; return confirm('{APP.NTC_DELETE_CONFIRMATION}')" type="submit" name="button" value=" {APP.LBL_DELETE_BUTTON_LABEL} ">
+		</form>
+	</td>
+</tr>
+</table>
+
+
+	<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView">
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ZUCKERREPORT_NAME}</slot></td>
+		<td width="85%" valign="top" class="tabDetailViewDF"><slot>{FILELINK}</slot></td>		
+	</tr>
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL"><slot>&nbsp;</slot></td>
+		<td width="85%" valign="top" class="tabDetailViewDF"><slot>{PUBLISHED_TEXT}</slot></td>		
+	</tr>
+
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ZUCKERREPORT_DESCRIPTION}</slot></td>
+		<td width="85%" class="tabDetailViewDF"><slot><textarea name='description' readonly cols="90" rows="4">{DESCRIPTION}</textarea></slot></td>
+	</tr>
+	</table>
+
+{JAVASCRIPT}
+<!-- END: main -->
