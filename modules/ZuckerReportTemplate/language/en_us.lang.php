@@ -3,6 +3,7 @@
 $mod_strings = array_merge(return_module_language("en_us", "ZuckerReports"),
 	array(
 	'LBL_REPORT_TEMPLATE_NEW' => 'New JasperReports Template',
+	'LBL_ASSIGNED_USER_ID' => 'Assigned To:',
 	'LBL_REPORT' => 'JasperReports',
 	'LBL_REPORT_NAME' => 'Template Name',
 	'LBL_REPORT_FILENAME' => 'Template File (*.jrxml)',

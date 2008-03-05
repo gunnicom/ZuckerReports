@@ -1,6 +1,5 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('data/Tracker.php');
 require_once('modules/ZuckerQueryTemplate/QueryTemplate.php');
 require_once('modules/ZuckerWordTemplate/WordTemplate.php');
 require_once('include/ListView/ListView.php');

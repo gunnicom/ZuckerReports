@@ -3,6 +3,7 @@ require_once('include/logging.php');
 require_once('data/SugarBean.php');
 require_once('modules/ZuckerReports/config.php');
 require_once('modules/ZuckerReports/ReportProviderBase.php');
+require_once('modules/ZuckerReports/SimpleTeams.php');
 
 function endsWith( $str, $sub ) {
 	return ( substr( $str, strlen( $str ) - strlen( $sub ) ) == $sub );
@@ -14,7 +15,7 @@ class ReportTemplate extends ReportProviderBase {
 	var $filename;
 	var $description;
 	var $export_as;
-	
+
 	var $template_url;		
 	var $compiled_filename;
 	var $resources_folder;
@@ -24,7 +25,8 @@ class ReportTemplate extends ReportProviderBase {
 	var $module_dir = "ZuckerReportTemplate";
 	
 	function ReportTemplate() {		
-		parent::ReportProviderBase();		
+		parent::ReportProviderBase();
+		$this->new_schema = true;
 	}	
 	
 	function get_summary_text() {		
@@ -101,6 +103,8 @@ class ReportTemplate extends ReportProviderBase {
 		return $result;
 	}
 
+
+	
 	function fill_in_additional_detail_fields() {		
 		global $current_language, $theme;		
 		global $sugar_config;				
@@ -115,6 +119,9 @@ class ReportTemplate extends ReportProviderBase {
 		$this->type_desc = $mod_strings["LBL_REPORT"];
 		$this->image_html = get_image("themes/".$theme."/images/ZuckerReportTemplate", "ZuckerReportTemplate");
 		$this->image_module = "ZuckerReportTemplate";
+
+		$this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
+		$this->team_name = SimpleTeams::get_assigned_team_name($this);
 	}			
 
 	function getByFilename($filename) {
@@ -233,6 +240,7 @@ class ReportTemplate extends ReportProviderBase {
 		fwrite($f, "parameter.SUGAR_USER_ID=".($current_user->id)."\n");
 		fwrite($f, "parameter.SUGAR_USER_NAME=".($current_user->user_name)."\n");
 		fwrite($f, "parameter.SUGAR_SESSION_ID=".($_REQUEST['PHPSESSID'])."\n");
+		fwrite($f, "parameter.SUBREPORT_DIR=".($this->resources_folder)."\n");
 		foreach ($parameter_values as $name => $value) {			
 			fwrite($f, "parameter.".$name."=".$value."\n");
 		}		
@@ -380,6 +388,16 @@ class ReportTemplate extends ReportProviderBase {
 		$export_types = $this->get_export_selection_array($_REQUEST['format']);
 		return join("\n", $export_types);
 	}	
+	
+	function get_format_scheduler_parameters(&$params) {
+		if (!isset($_REQUEST["format"])) {
+			$params["format"] = "PDF";
+		} else {
+			$params["format"] = $_REQUEST["format"];
+		}
+	}
+	
+	
 }
 
 ?>

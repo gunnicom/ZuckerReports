@@ -13,6 +13,10 @@ $lbl_param_friendlyname = $mod_strings['LBL_PARAM_FRIENDLYNAME'];
 $lbl_param_defaultname = $mod_strings['LBL_PARAM_DEFAULTNAME'];
 $lbl_paramlink_name = $mod_strings['LBL_PARAM_LINK_NAME'];
 $lbl_container_name = $mod_strings['LBL_CONTAINER_NAME'];
+$lbl_runnablereport_name = $mod_strings['LBL_RUNNABLEREPORT_NAME'];
+$lbl_runnablereport_interval = $mod_strings['LBL_RUNNABLEREPORT_INTERVAL'];
+
+
 $err_missing_required_fields = $app_strings['ERR_MISSING_REQUIRED_FIELDS'];
 
 $the_script  = <<<EOQ
@@ -91,6 +95,22 @@ function verify_container_data(form) {
 		isError = true;
 		errorMessage += "\\n$lbl_container_name";
 	}
+
+	if (isError == true) {
+		alert("$err_missing_required_fields" + errorMessage);
+		return false;
+	}
+	return true;
+}
+
+function verify_runnablereport_data(form) {
+	var isError = false;
+	var errorMessage = "";
+	if (trim(form.name.value) == "") {
+		isError = true;
+		errorMessage += "\\n$lbl_runnablereport_name";
+	}
+
 
 	if (isError == true) {
 		alert("$err_missing_required_fields" + errorMessage);

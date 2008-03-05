@@ -1,11 +1,6 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('data/Tracker.php');
 require_once('modules/ZuckerQueryTemplate/QueryTemplate.php');
-
-if (!is_admin($current_user)) {
-	sugar_die("only admin allowed");
-}
 
 global $app_strings;
 global $app_list_strings;
@@ -16,7 +11,9 @@ $focus =& new QueryTemplate();
 
 
 if(isset($_REQUEST['record'])) {
-    $focus->retrieve($_REQUEST['record']);
+    $focus = $focus->retrieve($_REQUEST['record']);
+	if ($focus == null) { echo "no access"; exit; }
+	
 	$title = $mod_strings['LBL_MODULE_NAME'].": ".$focus->name;
 	
 	$name = $focus->name;
@@ -55,12 +52,35 @@ if (isset($_REQUEST['return_action'])) $xtpl->assign("RETURN_ACTION", $_REQUEST[
 if (isset($_REQUEST['return_id'])) $xtpl->assign("RETURN_ID", $_REQUEST['return_id']);
 $xtpl->assign("THEME", $theme);
 $xtpl->assign("IMAGE_PATH", $image_path);$xtpl->assign("PRINT_URL", "index.php?".$GLOBALS['request_string']);
-$xtpl->assign("JAVASCRIPT", get_validate_js());
+$xtpl->assign("JAVASCRIPT", get_set_focus_js().get_validate_js());
 $xtpl->assign("ERROR_MSG", $_REQUEST['ERROR_MSG']);
 $xtpl->assign("ID", $focus->id);
 $xtpl->assign("NAME", $name);
 $xtpl->assign("SQL", $sql);
 $xtpl->assign("DESCRIPTION", $description);
+
+$json = getJSONobj();
+
+if (empty($focus->assigned_user_id) && empty($focus->id))  $focus->assigned_user_id = $current_user->id;
+if (empty($focus->assigned_name) && empty($focus->id))  $focus->assigned_user_name = $current_user->user_name;
+$xtpl->assign("ASSIGNED_USER_OPTIONS", get_select_options_with_id(get_user_array(TRUE, "Active", $focus->assigned_user_id), $focus->assigned_user_id));
+$xtpl->assign("ASSIGNED_USER_NAME", $focus->assigned_user_name);
+$xtpl->assign("ASSIGNED_USER_ID", $focus->assigned_user_id );
+
+/// Users Popup
+$popup_request_data = array(
+	'call_back_function' => 'set_return',
+	'form_name' => 'EditView',
+	'field_to_name_array' => array(
+		'id' => 'assigned_user_id',
+		'user_name' => 'assigned_user_name',
+		),
+	);
+$xtpl->assign('encoded_users_popup_request_data', $json->encode($popup_request_data));
+
+require_once('modules/ZuckerReports/SimpleTeams.php');
+$xtpl->assign("TEAM_SELECTION", SimpleTeams::xtplGetTeamSelection($xtpl, $focus));
+
 
 $xtpl->parse("main");
 $xtpl->out("main");

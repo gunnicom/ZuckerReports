@@ -1,6 +1,5 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('data/Tracker.php');
 require_once('modules/ZuckerReports/Report.php');
 require_once('modules/ZuckerReportContainer/ReportContainer.php');
 require_once('modules/ZuckerReports/Forms.php');
@@ -18,7 +17,8 @@ require_once($theme_path.'layout_utils.php');
 
 $container = new ReportContainer();
 if(!empty($_REQUEST['record']) && $_REQUEST["record"] != "root") {
-	$container->retrieve($_REQUEST['record']);
+	$container = $container->retrieve($_REQUEST['record']);
+	if ($container == null) { echo "no access"; exit; }
 } else {
 	$_REQUEST["record"] = null;
 	$container->name = $mod_strings['LBL_CONTAINER_TOP'];
@@ -31,6 +31,7 @@ echo "\n</p>\n";
 if (!empty($_REQUEST['record'])) {
 	echo "\n<p>\n";
 	echo ReportContainer::get_root_line_links($_REQUEST['record']);
+	echo "<a href='index.php?module=ZuckerReportContainer&action=EditView&record=".$_REQUEST['record']."'> (".$app_strings['LBL_EDIT_BUTTON_LABEL'].")</a>";
 	echo "\n</p>\n";
 }
 
@@ -49,13 +50,16 @@ if (!empty($container->description)) {
 	echo "<p/>\n";
 }
 
-
+/*
 if(!empty($_REQUEST['createcontainername'])) {
 	$newone = new ReportContainer();
 	$newone->name = $_REQUEST['createcontainername'];
 	$newone->parent_id = $container->id;
+	$newone->assigned_user_id = $current_user->id;
+	$newone->team_id = $container->team_id;
 	$newone->save();
 }
+*/
 
 $button = "";
 $button .= "<form action='index.php' method='post'>\n";
@@ -77,6 +81,9 @@ if (empty($container->id)) {
 	$child_containers = $container->get_linked_beans("containers", "ReportContainer");
 	$child_reports = $container->get_linked_beans("reports", "ZuckerReport");
 }
+
+$child_containers = SimpleTeams::filterBeanList($child_containers);
+
 
 
 require_once('include/ListView/ListView.php');

@@ -1,6 +1,5 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('data/Tracker.php');
 require_once('modules/ZuckerReports/Report.php');
 require_once('include/upload_file.php');
 

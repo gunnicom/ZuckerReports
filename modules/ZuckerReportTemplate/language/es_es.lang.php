@@ -3,6 +3,7 @@
 $mod_strings = array_merge(return_module_language("es_es", "ZuckerReports"),
 	array(
 	'LBL_REPORT_TEMPLATE_NEW' => 'Nueva Plantilla de JasperReports',
+	'LBL_ASSIGNED_USER_ID' => 'Assigned To:',
 	'LBL_REPORT' => 'JasperReports',
 	'LBL_REPORT_NAME' => 'Nombre de Plantilla',
 	'LBL_REPORT_FILENAME' => 'Archivo de Plantilla',

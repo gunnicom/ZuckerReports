@@ -1,6 +1,5 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('data/Tracker.php');
 require_once('modules/ZuckerListingTemplate/ListingTemplate.php');
 require_once('include/ListView/ListView.php');
 
@@ -43,11 +42,14 @@ $xtpl->assign("NAME",$focus->name);
 $xtpl->assign("MAINMODULE", $app_list_strings["moduleList"][$focus->mainmodule]);
 $xtpl->assign("FILTERTYPE", $mod_list_strings["LISTING_FILTER_TYPES"][$focus->filtertype]);
 $xtpl->assign("DESCRIPTION",$focus->description);
+$xtpl->assign("CUSTOMWHERE1",$focus->customwhere1);
+$xtpl->assign("CUSTOMWHERE2",$focus->customwhere2);
+$xtpl->assign('assigned_user_name', $focus->assigned_user_name);
+$xtpl->assign('TEAM', $focus->team_name);
 
-if (is_admin($current_user)) {
-	$xtpl->parse("main.edit");
-	$xtpl->parse("main.delete");
-}
+if ($focus->ACLAccess('edit')) $xtpl->parse("main.edit");
+if ($focus->ACLAccess('delete')) $xtpl->parse("main.delete");
+
 $xtpl->parse("main");
 $xtpl->out("main");
 

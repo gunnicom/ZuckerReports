@@ -9,6 +9,8 @@ $fields_array['WordTemplate'] = array (
 		"date_modified",
 		"created_by",
 		"modified_user_id",
+		'team_id',
+		'assigned_user_id',
 	),
         'list_fields' =>  array(
 		"id",
@@ -19,6 +21,8 @@ $fields_array['WordTemplate'] = array (
 		"date_modified",
 		"created_by",
 		"modified_user_id",
+		'team_id',
+		'assigned_user_id',
 	),
     	'required_fields' =>  array('name'=>1, 'sql'=>1),
 );

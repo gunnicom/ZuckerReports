@@ -10,6 +10,8 @@ $mod_strings = array_merge(return_module_language("nb_no", "ZuckerReports"),
 	'LBL_WORD_FILENAME' => 'Mal-fil',
 	'LBL_WORD_DESCRIPTION' => 'Beskrivelse',
 	'LBL_WORD_QUERY' => 'Spørring',
+
+	'LBL_ASSIGNED_USER_ID' => 'Assigned To:',
 	
 	'LBL_WORD_CREATE_WORD_TEMPLATE' => 'Link en ny Office-mal',
 	'LBL_WORD_WORD_TEMPLATES' => 'Linket Office-mal',

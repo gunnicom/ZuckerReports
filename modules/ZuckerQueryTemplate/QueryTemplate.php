@@ -1,5 +1,6 @@
 <?php
 require_once('include/logging.php');
+require_once('include/utils/db_utils.php');
 require_once('data/SugarBean.php');
 require_once('modules/ZuckerReports/ReportProviderBase.php');
 
@@ -16,6 +17,7 @@ class QueryTemplate extends ReportProviderBase {
 
 	function QueryTemplate() {		
 		parent::ReportProviderBase();		
+		$this->new_schema = true;
 	}	
 	
 	function get_summary_text() {		
@@ -31,6 +33,9 @@ class QueryTemplate extends ReportProviderBase {
 		$this->type_desc = $mod_strings["LBL_QUERY"];
 		$this->image_html = get_image("themes/".$theme."/images/ZuckerQueryTemplate", "ZuckerQueryTemplate");
 		$this->image_module = "ZuckerQueryTemplate";
+
+		$this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
+		$this->team_name = SimpleTeams::get_assigned_team_name($this);
 	}			
 
 	function getByName($name) {
@@ -69,7 +74,6 @@ class QueryTemplate extends ReportProviderBase {
 
 	function execute($format = 'CSV', $parameter_values = array()) {
 		global $sugar_config, $current_user, $theme;
-
 		$date = date("ymd_His");
 		
 		if ($format == 'CSV') {
@@ -86,7 +90,10 @@ class QueryTemplate extends ReportProviderBase {
 			$this->report_result_type = "INLINE";
 		}
 		
-		$sql = $this->sql1;
+		$seed = new QueryTemplate();
+		$bean = $seed->retrieve($this->id, false);
+		
+		$sql = $bean->sql1;
 		foreach ($parameter_values as $name => $value) {
 			$sql = str_replace('$'.$name, ''.$value, $sql);
 		}
@@ -136,6 +143,7 @@ class QueryTemplate extends ReportProviderBase {
 				$c = file_get_contents("modules/ZuckerQueryTemplate/html/header.html");
 				$c = str_replace("{SITE_URL}", $sugar_config["site_url"], $c);
 				$c = str_replace("{THEME_URL}", $sugar_config["site_url"]."/themes/".$theme, $c);
+				$c = str_replace("{CHARSET}", $this->get_charset(), $c);
 				fwrite($f, $c);
 				
 				fwrite($f, file_get_contents("modules/ZuckerQueryTemplate/html/table_header.html"));
@@ -151,11 +159,12 @@ class QueryTemplate extends ReportProviderBase {
 				$ext = "1";
 				for($row = $this->db->fetchByAssoc($rs); $row; $row = $this->db->fetchByAssoc($rs))	{
 					fwrite($f, file_get_contents("modules/ZuckerQueryTemplate/html/table_row_start.html"));
+					
 					foreach ($fields as $field) {
 						if (empty($row[$field])) {
 							$value = "&nbsp;";
 						} else {
-							$value = nl2br(htmlentities($row[$field]));
+							$value = $this->format_value_for_html($row[$field]);
 						}
 						$c = file_get_contents("modules/ZuckerQueryTemplate/html/table_row_col".$ext.".html");
 						$c = str_replace('{VALUE}', $value, $c);
@@ -172,9 +181,10 @@ class QueryTemplate extends ReportProviderBase {
 
 			} else if ($format == "SIMPLEHTML") {
 				$f = fopen($this->report_result, "w");
-				
-				fwrite($f, "<!DOCTYPE html PUBLIC \"-//W3C//DTD html 4.01 Transitional//EN\">\n");
-				fwrite($f, "<html><body><table border=\"1\">");
+
+ 				fwrite($f, "<!DOCTYPE html PUBLIC \"-//W3C//DTD html 4.01 Transitional//".$this->get_charset()."\">\n");
+ 				fwrite($f, "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=".$this->get_charset()."\"></head>");
+ 				fwrite($f, "<body><table border=\"1\">");
 				if ($this->include_header) {
 					fwrite($f, "\n<tr>");
 					foreach ($fields as $field) {
@@ -188,7 +198,7 @@ class QueryTemplate extends ReportProviderBase {
 						if (empty($row[$field])) {
 							fwrite($f, "<td>&nbsp;</td>");
 						} else {
-							fwrite($f, "<td>".nl2br(htmlentities($row[$field]))."</td>");
+							fwrite($f, "<td>".$this->format_value_for_html($row[$field])."</td>");
 						}
 					}
 					fwrite($f, "</tr>");
@@ -214,7 +224,7 @@ class QueryTemplate extends ReportProviderBase {
 						if (empty($row[$field])) {
 							$value = "&nbsp;";
 						} else {
-							$value = nl2br(htmlentities($row[$field]));
+							$value = $this->format_value_for_html($row[$field]);
 						}
 						$c = file_get_contents("modules/ZuckerQueryTemplate/html/table_row_col".$ext.".html");
 						$c = str_replace('{VALUE}', $value, $c);
@@ -269,7 +279,7 @@ class QueryTemplate extends ReportProviderBase {
 			$this->report_result_type = "FILE";
 		} else if ($_REQUEST["format"] == "TABLE") {
 			$this->report_result_type = "INLINE";
-		} else if ($_REQUEST["format"] == "HTML") {
+		} else if ($_REQUEST["format"] == "HTML" || $_REQUEST["format"] == "SIMPLEHTML") {
 			$this->report_result_type = "FILE";
 		}
 		
@@ -309,6 +319,25 @@ class QueryTemplate extends ReportProviderBase {
 			return $xtpl->text("queryTABLE");
 		}
 	}
+	
+	function get_format_scheduler_parameters(&$params) {
+		$params["format"] = $_REQUEST["format"];
+		if ($_REQUEST["format"] == "CSV") {
+			$params["col_delim"] = $_REQUEST["col_delim"];
+			$params["row_delim"] = $_REQUEST["row_delim"];
+			if (isset($_REQUEST["include_header"])) {
+				$params["include_header"] = $_REQUEST["include_header"];
+			}
+		} else if ($_REQUEST["format"] == "HTML"  || $_REQUEST["format"] == "SIMPLEHTML") {
+			if (isset($_REQUEST["include_header"])) {
+				$params["include_header"] = $_REQUEST["include_header"];
+			}
+		} else if ($_REQUEST["format"] == "TABLE") {
+			if (isset($_REQUEST["include_header"])) {
+				$params["include_header"] = $_REQUEST["include_header"];
+			}
+		}
+	}	
 }
 
 ?>

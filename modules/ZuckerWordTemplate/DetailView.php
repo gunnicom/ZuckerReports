@@ -1,6 +1,5 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('data/Tracker.php');
 require_once('modules/ZuckerWordTemplate/WordTemplate.php');
 require_once('modules/ZuckerQueryTemplate/QueryTemplate.php');
 
@@ -12,7 +11,8 @@ global $current_user;
 $focus =& new WordTemplate();
 
 if(isset($_REQUEST['record'])) {
-    $focus->retrieve($_REQUEST['record']);
+    $focus = $focus->retrieve($_REQUEST['record']);
+	if ($focus == null) { echo "no access"; exit; }
 }
 
 global $theme;
@@ -42,14 +42,15 @@ $xtpl->assign("FILENAME", $focus->filename);
 $xtpl->assign("TEMPLATE_URL", $focus->template_url);
 $xtpl->assign("URL", $focus->template_url);
 $xtpl->assign("DESCRIPTION", $focus->description);
+$xtpl->assign('assigned_user_name', $focus->assigned_user_name);
+$xtpl->assign('TEAM', $focus->team_name);
 
 $xtpl->assign("QUERYTEMPLATE_NAME", $focus->querytemplate_name);
 $xtpl->assign("QUERYTEMPLATE_LINK", $focus->querytemplate_link);
 
-if (is_admin($current_user)) {
-	$xtpl->parse("main.edit");
-	$xtpl->parse("main.delete");
-}
+if ($focus->ACLAccess('edit')) $xtpl->parse("main.edit");
+if ($focus->ACLAccess('delete')) $xtpl->parse("main.delete");
+
 $xtpl->parse("main");
 $xtpl->out("main");
 

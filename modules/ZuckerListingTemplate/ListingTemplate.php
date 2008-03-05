@@ -28,6 +28,8 @@ class ListingTemplate extends ReportProviderBase {
 	var $mainmodule;
 	var $filtertype;
 	var $description;
+	var $customwhere1;
+	var $customwhere2;
 
 	var $table_name = "zucker_listingtemplates";
 	var $object_name = "ListingTemplate";
@@ -35,6 +37,7 @@ class ListingTemplate extends ReportProviderBase {
 
 	function ListingTemplate() {		
 		parent::ReportProviderBase();		
+		$this->new_schema = true;
 	}	
 	
 	function get_summary_text() {
@@ -51,6 +54,9 @@ class ListingTemplate extends ReportProviderBase {
 		$this->type_desc = $mod_strings["LBL_LISTING"];
 		$this->image_html = get_image("themes/".$theme."/images/".$this->mainmodule, $this->mainmodule);
 		$this->image_module = $this->mainmodule;
+
+		$this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
+		$this->team_name = SimpleTeams::get_assigned_team_name($this);
 	}			
 
 	function get_by_name($name) {
@@ -270,6 +276,13 @@ class ListingTemplate extends ReportProviderBase {
 				$order_clause = join(", ", $sql_order);
 			}
 			
+			if (!empty($this->customwhere1)) {
+				$where_clause = $this->customwhere1." ".$where_clause;
+			}
+			if (!empty($this->customwhere2)) {
+				$where_clause = $where_clause." ".$this->customwhere1;
+			}
+			
 			$rows = $seed->get_full_list($order_clause, $where_clause);
 			if (empty($rows)) $rows = array();
 			
@@ -296,13 +309,34 @@ class ListingTemplate extends ReportProviderBase {
 				
 				if ($format == "HTML" || $format == "TABLE") {
 				
-					require_once('include/ListView/ListView.php');
-					$lv = new ListView();
-					$lv->initNewXTemplate('modules/ZuckerListingTemplate/lists/'.$this->list_template, return_module_language($current_language, $this->mainmodule));
-					$lv->xTemplateAssign("SITE_URL", $sugar_config["site_url"]);					
-					ob_start();
-					$lv->processListViewTwo($list_data, "rows", "ROW");
-		
+					if ($this->list_template == "default") {
+						require_once('include/ListView/ListViewSmarty.php');
+						if(file_exists('custom/modules/'.$this->mainmodule.'/metadata/listviewdefs.php')){
+							require_once('custom/modules/'.$this->mainmodule.'/metadata/listviewdefs.php');	
+						}else{
+							require_once('modules/'.$this->mainmodule.'/metadata/listviewdefs.php');
+						}
+	
+						$lv = new ListViewSmarty();
+						$displayColumns = array();					
+						foreach($listViewDefs[$this->mainmodule] as $col => $params) {
+							if(!empty($params['default']) && $params['default'])
+								$displayColumns[$col] = $params;
+						}
+						$lv->displayColumns = $displayColumns;
+						$lv->setup($seed, 'include/ListView/ListViewGeneric.tpl', $where_clause, $params);
+						ob_start();
+						echo $lv->display();
+					
+					} else {
+						require_once('include/ListView/ListView.php');
+						$lv = new ListView();
+						$lv->initNewXTemplate('modules/ZuckerListingTemplate/lists/'.$this->list_template, return_module_language($current_language, $this->mainmodule));
+						$lv->xTemplateAssign("SITE_URL", $sugar_config["site_url"]);
+						
+						ob_start();
+						$lv->processListViewTwo($list_data, "rows", "ROW");
+					}
 					
 					if ($format == "HTML") {
 					
@@ -354,7 +388,7 @@ class ListingTemplate extends ReportProviderBase {
 							if (empty($field)) {
 								fwrite($f, "<td>&nbsp;</td>");
 							} else {
-								fwrite($f, "<td>".nl2br(htmlentities($field))."</td>");
+								fwrite($f, "<td>".$this->format_value_for_html($field)."</td>");
 							}
 						}
 						fwrite($f, "</tr>");
@@ -480,8 +514,10 @@ class ListingTemplate extends ReportProviderBase {
 		
 		if ($_REQUEST["format"] == "TABLE" || $_REQUEST["format"] == "HTML") {
 			require_once("modules/ZuckerListingTemplate/lists/config.php");
-		
+
 			$templates = $zuckerreports_lists[$this->mainmodule];
+			$templates["default"] = $mod_strings['LBL_LISTING_ONDEMAND_TEMPLATE_LV'].$this->mainmodule;
+			
 			if (empty($templates)) {
 				$xtpl->parse("listTableEmpty");
 				return $xtpl->text("listTableEmpty");
@@ -517,6 +553,25 @@ class ListingTemplate extends ReportProviderBase {
 			return $xtpl->text("listProspectlist");
 		}
 	}
+	
+	function get_format_scheduler_parameters(&$params) {
+		$params["format"] = $_REQUEST["format"];
+		if ($_REQUEST["format"] == "TABLE" || $_REQUEST["format"] == "HTML") {
+			$params["list_template"] = $_REQUEST["list_template"];
+		} else if ($_REQUEST["format"] == "SIMPLEHTML") {
+			if (isset($_REQUEST["include_header"])) {
+				$params["include_header"] = $_REQUEST["include_header"];
+			}
+		} else if ($_REQUEST["format"] == "CSV") {
+			$params["col_delim"] = $_REQUEST["col_delim"];
+			$params["col_delim"] = $_REQUEST["row_delim"];
+			if (isset($_REQUEST["include_header"])) {
+				$params["include_header"] = $_REQUEST["include_header"];
+			}
+		} else if ($_REQUEST["format"] == "PROSPECTLIST") {
+			$params["prospect_list_name"] = $_REQUEST["prospect_list_name"];
+		}
+	}		
 }
 
 ?>

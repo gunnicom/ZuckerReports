@@ -34,6 +34,25 @@
 
 <!-- END: DATE -->
 
+<!-- BEGIN: DATE_CALC -->
+<tr>
+ <td width="15%" class="tabDetailViewDL">{PARAM_FRIENDLY_NAME}</td>
+ <td width="85%" class="tabDetailViewDF" colspan="3">
+	<input name="{PARAM_NAME}_COUNT" type="text" size="5" value="{PARAM_VALUE_COUNT}" onBlur="javascript:{PARAM_NAME}Changed(this.form);">
+	<select name="{PARAM_NAME}_TYPE" onChange="javascript:{PARAM_NAME}Changed(this.form);">{PARAM_SELECTION}</select>
+    <input name="{PARAM_NAME}" type="hidden" value="{PARAM_VALUE}">
+ </td>
+</tr>
+<script type='text/javascript' language='JavaScript'>
+function {PARAM_NAME}Changed(form) {
+	form.{PARAM_NAME}.value = form.{PARAM_NAME}_COUNT.value + "::" + form.{PARAM_NAME}_TYPE.value;
+}
+</script>
+<!-- END: DATE_CALC -->
+
+
+
+
 <!-- BEGIN: HIDDEN -->
 <input name="{PARAM_NAME}" type="hidden" value="{PARAM_VALUE}">
 <!-- END: HIDDEN -->

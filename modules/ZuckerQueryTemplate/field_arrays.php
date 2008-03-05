@@ -9,6 +9,8 @@ $fields_array['QueryTemplate'] = array (
 		"date_modified",
 		"created_by",
 		"modified_user_id",
+		'team_id',
+		'assigned_user_id',
 	),
         'list_fields' =>  array(
 		"id",
@@ -20,6 +22,8 @@ $fields_array['QueryTemplate'] = array (
 		"created_by",
 		'type_desc',		
 		"modified_user_id",
+		'team_id',
+		'assigned_user_id',
 	),
     	'required_fields' =>  array('name'=>1, 'sql1'=>1),
 );

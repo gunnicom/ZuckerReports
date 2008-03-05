@@ -12,6 +12,6 @@ $container = populateFromPost("", $container);
 $container->parent_id = (!empty($_REQUEST["parent_id"]) ? $_REQUEST["parent_id"] : "");
 $_REQUEST['return_id'] = $container->save();
 $_REQUEST['return_action'] = "DetailView";
-handleRedirect($return_id, "ZuckerReports");
+handleRedirect($return_id, "ZuckerReportContainer");
 
 ?>

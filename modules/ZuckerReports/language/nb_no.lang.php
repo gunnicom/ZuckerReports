@@ -6,9 +6,12 @@ $mod_strings = array (
 	'LNK_TEMPLATE_LIST'=> 'Rapport og Spørringsmaler',
 	'LNK_PARAMETER_LIST'=> 'Rapport og Spørringsparametre',
 	'LNK_REPORT_ONDEMAND'=> 'Anfordringsrapportering',
-	'LNK_REPORT_SCHEDULER'=> 'Rapportplanlegger',
+	'LNK_RUNNABLE_REPORTS' => 'Rapportplanlegger',
 	'LNK_ARCHIVE_LIST'=> 'Rapportarkiv',
 	'LBL_MENU_ABOUT' => 'Om oss',
+
+	'LBL_ASSIGNED_USER_ID' => 'Assigned To:',
+	'LBL_ASSIGNED_TEAM' => 'Team:',
 
 	'LBL_TEMPLATE_LIST_HEADER' => 'Mal-liste',
 	'LBL_TEMPLATE_LIST_NAME' => 'Navn',
@@ -39,6 +42,14 @@ $mod_strings = array (
 	'LBL_CONTAINER_DESCRIPTION' => 'Beskrivelse',
 	'LBL_CONTAINER_UP' => 'Opp',
 	
+	'LBL_RUNNABLEREPORT' => 'Scheduled Report',
+	'LBL_RUNNABLEREPORT_NAME' => 'Name',
+	'LBL_RUNNABLEREPORT_DESCRIPTION' => 'Description',
+	'LBL_RUNNABLEREPORT_SETTINGS' => 'Settings (encoded)',
+	'LBL_RUNNABLEREPORT_NEXTRUN' => 'Next Run',
+	'LBL_RUNNABLEREPORT_START' => 'Schedule Start',
+	'LBL_RUNNABLEREPORT_INTERVAL' => 'Schedule Interval',
+	'LBL_RUNNABLEREPORT_LASTLOG' => 'Last Log',
 	
 	'LBL_PARAM_NEW' => 'Ny rapportparameter',
 	'LBL_PARAM_FRIENDLYNAME' => 'Vennlig navn',
@@ -79,6 +90,7 @@ $mod_strings = array (
 	
 	'LBL_ONDEMAND_TEMPLATE' => 'Rapport',
 	'LBL_ONDEMAND_EXECUTE' => 'Kjør Rapport',
+	'LBL_ADD_SCHEDULER' => 'Save for later execution',
 	'LBL_ONDEMAND_OUTPUT' => 'Output',
 	'LBL_ONDEMAND_RESULT' => 'Rapportresultat',
 	'LBL_ONDEMAND_VIEW' => 'Les rapport',
@@ -86,6 +98,11 @@ $mod_strings = array (
 	'LBL_ARCHIVE_TO' => 'Arkiver rapport i kategori',
 	'LBL_ONDEMAND_ERROR' => 'Feil under kjøring av rapporten',
 	'LBL_ONDEMAND_FORMAT' => 'Format',
+	'LBL_SEND_EMAIL' => 'Send as Email To',
+	'LBL_SEND_EMAIL_HINTS' => '(separate multiple email recipients by using a ",")',
+	'LBL_SEND_EMAIL_SUBJECT' => 'ZuckerReports Notification: %s',
+	'LBL_SEND_EMAIL_BODY' => "Attached you can find an auto-generated report sent to you from ZuckerReports. \n\nCreated on: %s\nReport: %s\n",
+	'LBL_SEND_EMAIL_OK' => 'Sent Email To %s',
 
 	'LBL_ONDEMAND_BOUND' => 'Rapporter, spørringer og brev',
 	'LBL_ONDEMAND_BOUND_ATTACH' => 'Legg ved resultat',
@@ -100,11 +117,34 @@ $mod_list_strings = array (
   array (
     'SIMPLE' => 'Direkteinput',
 	'DATE' => 'Datoinput',
+	'DATE_NOW' => 'Current Time and Date',
+	'DATE_ADD' => 'Future Timestamp',
+	'DATE_SUB' => 'Past Timestamp',
     'SQL' => 'Brukerdefinert spørring',
     'LIST' => 'Brukerdefinert liste',
+	'DROPDOWN' => 'Drop-Down List',
 	'CURRENT_USER' => 'Aktuell bruker',
 	'SCRIPT' => 'PHP script',
   ),
+  'PARAM_DATE_TYPES' =>
+  array (
+	'MINUTE' => 'Minute(s)',
+	'HOUR' => 'Hour(s)',
+	'DAY' => 'Day(s)',
+	'WEEK' => 'Week(s)',
+	'MONTH' => 'Month(s)',
+	'YEAR' => 'Year(s)',
+  ),
+   'SCHEDULE_INTERVALS'=>array(
+ 	''=>'Inactive',
+ 	'3600'=>'Hourly',
+ 	'21600'=>'Every 6 Hours',
+ 	'43200'=>'Every 12 Hours',
+ 	'86400'=>'Daily',
+ 	'604800'=>'Weekly',
+ 	'1209600'=>'Every 2 Weeks',
+ 	'2419200'=>'Every 4 Weeks',
+ 	), 
 );
 
 ?>

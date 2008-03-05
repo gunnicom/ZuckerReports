@@ -1,6 +1,5 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('data/Tracker.php');
 require_once('modules/ZuckerQueryTemplate/QueryTemplate.php');
 require_once('modules/ZuckerWordTemplate/WordTemplate.php');
 require_once('modules/ZuckerReportParameter/ReportParameter.php');
@@ -42,11 +41,12 @@ $xtpl->assign("ID", $focus->id);
 $xtpl->assign("NAME",$focus->name);
 $xtpl->assign("SQL",$focus->sql1);
 $xtpl->assign("DESCRIPTION",$focus->description);
+$xtpl->assign('assigned_user_name', $focus->assigned_user_name);
+$xtpl->assign('TEAM', $focus->team_name);
 
-if (is_admin($current_user)) {
-	$xtpl->parse("main.edit");
-	$xtpl->parse("main.delete");
-}
+if ($focus->ACLAccess('edit')) $xtpl->parse("main.edit");
+if ($focus->ACLAccess('delete')) $xtpl->parse("main.delete");
+
 $xtpl->parse("main");
 $xtpl->out("main");
 

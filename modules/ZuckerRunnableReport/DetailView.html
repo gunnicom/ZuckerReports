@@ -1,0 +1,68 @@
+<!-- BEGIN: main -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+	<td style="padding-bottom: 2px;">
+		<form name="RunnableReportDetail" method="POST" action="index.php">
+			<input type="hidden" name="module" value="ZuckerRunnableReport">
+			<input type="hidden" name="record" value="{ID}">
+			<input type="hidden" name="action">
+			<input type="hidden" name="return_module" value="{RETURN_MODULE}">
+			<input type="hidden" name="return_id" value="{RETURN_ID}">
+			<input type="hidden" name="return_action" value="{RETURN_ACTION}">
+			
+			<!-- BEGIN: edit -->		
+			<input class="button" onclick="this.form.return_module.value='ZuckerRunnableReport'; this.form.return_action.value='DetailView'; this.form.return_id.value='{ID}'; this.form.action.value='EditView'" type="submit" name="button" value="  {APP.LBL_EDIT_BUTTON_LABEL}  ">
+			<!-- END: edit -->		
+			<!-- BEGIN: delete -->		
+			<input class="button" onclick="this.form.return_module.value='ZuckerRunnableReport'; this.form.return_action.value='ListView'; this.form.action.value='Delete'; return confirm('{APP.NTC_DELETE_CONFIRMATION}')" type="submit" name="button" value=" {APP.LBL_DELETE_BUTTON_LABEL} ">
+			<!-- END: delete -->		
+			<input class="button" onclick="this.form.return_module.value='ZuckerRunnableReport'; this.form.return_action.value='DetailView'; this.form.return_id.value='{ID}'; this.form.action.value='TestRun'" type="submit" name="button" value="  {MOD.LBL_RUNNABLEREPORT_TESTRUN}  ">
+		</form>
+	</td>
+</tr>
+</table>
+
+
+	<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabDetailView">
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_RUNNABLEREPORT_NAME}</slot></td>
+		<td width="85%" valign="top" class="tabDetailViewDF"><slot>{NAME}</slot></td>		
+	</tr>
+	<!-- BEGIN: schedule -->		
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_RUNNABLEREPORT_INTERVAL}</slot></td>
+		<td width="85%" valign="top" class="tabDetailViewDF"><slot>{SCHEDULE_INTERVAL}</slot></td>		
+	</tr>
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_RUNNABLEREPORT_NEXTRUN}</slot></td>
+		<td width="85%" valign="top" class="tabDetailViewDF"><slot>{NEXT_RUN}</slot></td>		
+	</tr>
+	<!-- END: schedule -->		
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_RUNNABLEREPORT_DESCRIPTION}</slot></td>
+		<td width="85%" class="tabDetailViewDF"><slot><textarea name='description' readonly cols="90" rows="4">{DESCRIPTION}</textarea></slot></td>
+	</tr>
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_RUNNABLEREPORT_SETTINGS}</slot></td>
+		<td width="85%" class="tabDetailViewDF"><slot><textarea name='description' readonly cols="90" rows="4">{SETTINGS}</textarea></slot></td>
+	</tr>
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL" ><slot>{MOD.LBL_ASSIGNED_USER_ID}</slot></td>
+		<td width="85%" valign="top" class="tabDetailViewDF"><slot>{assigned_user_name}</slot></td>
+	</tr>
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL" ><slot>{APP.LBL_TEAM}</slot></td>
+		<td width="85%" valign="top" class="tabDetailViewDF"><slot>{TEAM}</slot></td>
+	</tr>	
+	</table>
+
+	<table width="100%" border="0" cellspacing="{GRIDLINE}" cellpadding="0" class="tabLog">
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_RUNNABLEREPORT_LASTLOG}</slot></td>
+		<td width="85%" class="tabDetailViewDF"><slot><textarea name='description' readonly cols="90" rows="4">{LASTLOG}</textarea></slot></td>
+	</tr>
+	</table>	
+	
+	
+{JAVASCRIPT}
+<!-- END: main -->

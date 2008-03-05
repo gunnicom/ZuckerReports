@@ -13,7 +13,7 @@ if (!empty($_REQUEST['record'])) {
 	$link->retrieve($_REQUEST['record']);
 }
 $link = populateFromPost("module_", $link);
-$return_id = $link->save();
+$link->save();
 
-handleRedirect($return_id, "ZuckerReportModuleLink");
+handleRedirect();
 ?>

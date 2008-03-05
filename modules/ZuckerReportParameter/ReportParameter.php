@@ -29,6 +29,7 @@ class ReportParameter extends SugarBean {
 	function ReportParameter() {
 		parent::SugarBean();
 		$this->new_schema = true;
+		$this->disable_row_level_security = true;
 	}
 
 	function save($check_notify = false) {	
@@ -73,9 +74,12 @@ class ReportParameter extends SugarBean {
 	function get_summary_text() {
 		return $this->friendly_name." (".$this->range_description.")";
 	}			
-	
+
 	function input_required() {
 		if ($this->range == "CURRENT_USER") {
+			return false;
+		}
+		if ($this->range == "DATE_NOW") {
 			return false;
 		}
 		if ($this->range == "SCRIPT") {
@@ -96,6 +100,43 @@ class ReportParameter extends SugarBean {
 			$timedate = new TimeDate();
 			$result = $timedate->to_db_date($_REQUEST[$rpl->name], false);
 			return $result;
+		} else if ($rp->range == "DATE_NOW") {
+		
+			$timedate = new TimeDate();
+			$result = $timedate->get_gmt_db_datetime();
+			return $result;
+		
+		} else if ($rp->range == "DATE_ADD" || $rp->range == "DATE_SUB") {
+			$timedate = new TimeDate();
+			
+			$arr = split("::", $_REQUEST[$rpl->name]);
+			if (count($arr) == 2) {
+				$count = $arr[0];
+				$type = $arr[1];
+				
+				if ($type == "MINUTE") {
+					$count *= 60;
+				} else if ($type == "HOUR") {
+					$count *= 60 * 60;
+				} else if ($type == "DAY") {
+					$count *= 60 * 60 * 24;
+				} else if ($type == "WEEK") {
+					$count *= 60 * 60 * 24 * 7;
+				} else if ($type == "MONTH") {
+					$count *= 60 * 60 * 24 * 30;
+				} else if ($type == "YEAR") {
+					$count *= 60 * 60 * 24 * 365;
+				}
+				if ($rp->range == "DATE_SUB") $count *= -1;
+			} else {
+				$count = 0;
+			}
+			
+			$time = time();
+			$time += $count;
+			$result = date('Y-m-d H:i:s', $time);
+			$result = $timedate->to_db($result);
+			return $result;
 			
 		} else {
 			return $_REQUEST[$rpl->name];
@@ -103,16 +144,22 @@ class ReportParameter extends SugarBean {
 	}
 	
 	
-	function get_parameter_html($rp, $rpl, $selected_val = "") {
+	function get_parameter_html($rp, $rpl) {
 		global $app_strings;
 		global $current_language, $current_user, $theme;
 		
 		$mod_strings = return_module_language($current_language, "ZuckerReportParameter");
+		$mod_list_strings = return_mod_list_strings_language($current_language, "ZuckerReportParameter");
 	
 		$xtpl = new XTemplate('modules/ZuckerReportParameter/ParameterFill.html');
 		$xtpl->assign("MOD", $mod_strings);
 		$xtpl->assign("APP", $app_strings);
 		$xtpl->assign("THEME", $theme);
+		
+		$selected_val = $rpl->default_value;
+		if (!empty($_REQUEST[$rpl->name])) {
+			$selected_val = $_REQUEST[$rpl->name];
+		}
 		
 		if ($rp->range == 'SQL') {
 			$param_table = $rp->get_sql_table();
@@ -161,34 +208,55 @@ class ReportParameter extends SugarBean {
 			$xtpl->assign("CALENDAR_DATEFORMAT", $timedate->get_cal_date_format());
 			$xtpl->parse("DATE");
 			$parameter_html = $xtpl->text("DATE");
-		
+
+		} else if ($rp->range == 'DATE_ADD' || $rp->range == 'DATE_SUB') {
+
+			$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
+			$xtpl->assign("PARAM_NAME", $rpl->name);
+			$xtpl->assign("PARAM_VALUE", $selected_val);
+			
+			$arr = split("::", $selected_val);
+			if (count($arr) == 2) {
+				$count = $arr[0];
+				$type = $arr[1];
+			} else {
+				$count = 0;
+				$type = NULL;
+			}
+			$xtpl->assign("PARAM_VALUE_COUNT", $count);
+			$xtpl->assign("PARAM_SELECTION", get_select_options_with_id($mod_list_strings['PARAM_DATE_TYPES'], $type));
+			
+			$xtpl->parse("DATE_CALC");
+			$parameter_html = $xtpl->text("DATE_CALC");
 		}
 	
 		return $parameter_html;
 	}	
 	
-	function get_sql_table($query = "", $limit = "") {		
+	function get_sql_table($query = "", $limit = -1) {
 		if (empty($query)) {			
 			$query = $this->range_options;		
 		}
-		if (!empty($limit)) {
-			$query .= " ".$limit;
+		if ($limit > 0) {
+			$rs = $this->db->limitQuery($query,0,$limit,false);
+		} else {
+			$rs = $this->db->query($query, false);
 		}
-		$rs = mysql_query($query);		
-		if ($rs) {			
-			$result = array();			
-			if (mysql_num_fields($rs) == 1) {				
-				while ($row = mysql_fetch_row($rs)) {					
-					$result[$row[0]] = $row[0];				
-				}			
-			} else {				
-				while ($row = mysql_fetch_row($rs)) {					
-					$result[$row[0]] = $row[1];				
-				}			
+		if(!empty($rs)) {
+			$result = array();
+			while(($row = $this->db->fetchByAssoc($rs)) != null) {
+				$keys = array_keys($row);
+				$key = $row[$keys[0]];
+				if (count($row) == 1) {
+					$value = $key;
+				} else {
+					$value = $row[$keys[1]];
+				}
+				$result[$key] = $value;
 			}		
 		} else {			
-			$result = mysql_errno().": ".mysql_error();		
-		}			
+			$result = $this->db->last_error;
+		}
 		return $result;	
 	}		
 	

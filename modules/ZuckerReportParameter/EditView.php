@@ -1,6 +1,5 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('data/Tracker.php');
 require_once('include/formbase.php');
 require_once('modules/ZuckerReportParameter/ReportParameter.php');
 
@@ -9,6 +8,8 @@ global $app_list_strings;
 global $mod_strings;
 global $current_user;
 global $current_language;
+
+echo get_set_focus_js();
 
 $mod_list_strings = return_mod_list_strings_language($current_language, "ZuckerReports");
 
@@ -83,7 +84,7 @@ if ($range == 'SQL') {
 	$xtpl->assign("RANGE_OPTIONS", $range_options);
 	if ($_REQUEST['sqltest'] == 'true') {
 		if (is_admin($current_user)) {
-			$table = $focus->get_sql_table(html_entity_decode($range_options), "LIMIT 0,20");		
+			$table = $focus->get_sql_table(html_entity_decode($range_options), 20);		
 			if (is_array($table)) {			
 				$text = "<table><tr><th>KEY</th><th>VALUE</th></tr>";			
 				foreach ($table as $key => $value) {				

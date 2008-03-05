@@ -1,0 +1,15 @@
+<!-- BEGIN: sugarpro -->
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><span sugar='slot4'>{APP.LBL_TEAM} <span class="required">{APP.LBL_REQUIRED_SYMBOL}</span></span sugar='slot'></td>
+		<td width="85%" class="dataField" colspan="3"  ><span sugar='slot4b'><input class="sqsEnabled" tabindex="2" autocomplete="off" id="team_name" name='team_name' type="text" value="{TEAM_NAME}"><input id='team_id' name='team_id' type="hidden" value="{TEAM_ID}" />
+<input title="{APP.LBL_SELECT_BUTTON_TITLE}" accessKey="{APP.LBL_SELECT_BUTTON_KEY}" type="button" tabindex='2' class="button" value='{APP.LBL_SELECT_BUTTON_LABEL}' name=btn1
+		onclick='open_popup("Teams", 600, 400, "", true, false, {encoded_team_popup_request_data});' /></span sugar='slot'></td>
+	</tr>
+<!-- END: sugarpro -->
+	
+<!-- BEGIN: simpleteams -->	
+	<tr>
+		<td width="15%" class="dataLabel" valign="top"><span sugar='slot4'>{MOD.LBL_ASSIGNED_TEAM} <span class="required">{APP.LBL_REQUIRED_SYMBOL}</span></span sugar='slot'></td>
+		<td width="85%" class="dataField" colspan="3"><span sugar='slot4b'><select name="team_id">{TEAM_OPTIONS}</select></span sugar='slot'></td>
+	</tr>	
+<!-- END: simpleteams -->

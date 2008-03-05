@@ -1,6 +1,5 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once("data/Tracker.php");
 require_once('modules/ZuckerReportParameter/ReportParameter.php');
 require_once('themes/'.$theme.'/layout_utils.php');
 require_once('include/logging.php');
@@ -39,6 +38,8 @@ $lv->setHeaderTitle($current_module_strings['LNK_PARAMETER_LIST']);
 $lv->setHeaderText($button);
 $lv->show_export_button = false;
 $lv->show_mass_update = false;
+$lv->show_delete_button = false;
+$lv->show_select_menu = false;
 $lv->setQuery("", "", "default_name", "PARAM");
 $lv->processListView($seed, "main", "PARAM");
 ?>

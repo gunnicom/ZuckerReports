@@ -40,6 +40,14 @@
 		<td width="15%" valign="top" class="tabDetailViewDL" ><slot>{MOD.LBL_WORD_QUERY}</slot></td>
 		<td width="85%" valign="top" class="tabDetailViewDF"><slot><a href="{URL_PREFIX}{QUERYTEMPLATE_LINK}">{QUERYTEMPLATE_NAME}</a></slot></td>
 	</tr>
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL" ><slot>{MOD.LBL_ASSIGNED_USER_ID}</slot></td>
+		<td width="85%" valign="top" class="tabDetailViewDF"><slot>{assigned_user_name}</slot></td>
+	</tr>
+	<tr>
+		<td width="15%" valign="top" class="tabDetailViewDL" ><slot>{APP.LBL_TEAM}</slot></td>
+		<td width="85%" valign="top" class="tabDetailViewDF"><slot>{TEAM}</slot></td>
+	</tr>
 	</table>
 
 {JAVASCRIPT}

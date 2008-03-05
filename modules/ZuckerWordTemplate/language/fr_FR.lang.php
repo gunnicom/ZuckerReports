@@ -10,6 +10,8 @@ $mod_strings = array_merge(return_module_language("fr_FR", "ZuckerReports"),
 	'LBL_WORD_DESCRIPTION' => 'Description',
 	'LBL_WORD_QUERY' => 'Requètes',
 
+	'LBL_ASSIGNED_USER_ID' => 'Assigned To:',
+
 	'LBL_WORD_CREATE_WORD_TEMPLATE' => 'Nouveau lien avec un modèle Office',
 	'LBL_WORD_WORD_TEMPLATES' => 'Lien avec le modèle office',
 

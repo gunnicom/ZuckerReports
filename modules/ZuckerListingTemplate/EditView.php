@@ -1,11 +1,6 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('data/Tracker.php');
 require_once('modules/ZuckerListingTemplate/ListingTemplate.php');
-
-if (!is_admin($current_user)) {
-	sugar_die("only admin allowed");
-}
 
 global $app_strings;
 global $app_list_strings;
@@ -16,13 +11,18 @@ $mod_list_strings = return_mod_list_strings_language($current_language, "ZuckerL
 $focus =& new ListingTemplate();
 
 if(isset($_REQUEST['record'])) {
-    $focus->retrieve($_REQUEST['record']);
+    $focus = $focus->retrieve($_REQUEST['record']);
+	if ($focus == null) { echo "no access"; exit; }
+	
 	$title = $mod_strings['LBL_MODULE_NAME'].": ".$focus->name;
 	
 	$name = $focus->name;
 	$description = $focus->description;
 	$mainmodule = $focus->mainmodule;
 	$filtertype = $focus->filtertype;
+	$customwhere1 = $focus->customwhere1;
+	$customwhere2 = $focus->customwhere2;
+	
 	
 } else {
 	$title = $mod_strings['LBL_LISTING_TEMPLATE_NEW'];
@@ -39,6 +39,12 @@ if (!empty($_REQUEST['filtertype'])) {
 }
 if (!empty($_REQUEST['description'])) {
 	$description = $_REQUEST['description'];
+}
+if (!empty($_REQUEST['customwhere1'])) {
+	$customwhere1 = $_REQUEST['customwhere1'];
+}
+if (!empty($_REQUEST['customwhere2'])) {
+	$customwhere2 = $_REQUEST['customwhere2'];
 }
 
 global $theme;
@@ -61,11 +67,35 @@ if (isset($_REQUEST['return_action'])) $xtpl->assign("RETURN_ACTION", $_REQUEST[
 if (isset($_REQUEST['return_id'])) $xtpl->assign("RETURN_ID", $_REQUEST['return_id']);
 $xtpl->assign("THEME", $theme);
 $xtpl->assign("IMAGE_PATH", $image_path);
-$xtpl->assign("JAVASCRIPT", get_validate_js());
+$xtpl->assign("JAVASCRIPT", get_set_focus_js().get_validate_js());
 $xtpl->assign("ERROR_MSG", $_REQUEST['ERROR_MSG']);
 $xtpl->assign("ID", $focus->id);
 $xtpl->assign("NAME", $name);
 $xtpl->assign("DESCRIPTION", $description);
+$xtpl->assign("CUSTOMWHERE1",$focus->customwhere1);
+$xtpl->assign("CUSTOMWHERE2",$focus->customwhere2);
+
+$json = getJSONobj();
+
+if (empty($focus->assigned_user_id) && empty($focus->id))  $focus->assigned_user_id = $current_user->id;
+if (empty($focus->assigned_name) && empty($focus->id))  $focus->assigned_user_name = $current_user->user_name;
+$xtpl->assign("ASSIGNED_USER_OPTIONS", get_select_options_with_id(get_user_array(TRUE, "Active", $focus->assigned_user_id), $focus->assigned_user_id));
+$xtpl->assign("ASSIGNED_USER_NAME", $focus->assigned_user_name);
+$xtpl->assign("ASSIGNED_USER_ID", $focus->assigned_user_id );
+
+/// Users Popup
+$popup_request_data = array(
+	'call_back_function' => 'set_return',
+	'form_name' => 'EditView',
+	'field_to_name_array' => array(
+		'id' => 'assigned_user_id',
+		'user_name' => 'assigned_user_name',
+		),
+	);
+$xtpl->assign('encoded_users_popup_request_data', $json->encode($popup_request_data));
+
+require_once('modules/ZuckerReports/SimpleTeams.php');
+$xtpl->assign("TEAM_SELECTION", SimpleTeams::xtplGetTeamSelection($xtpl, $focus));
 
 
 $xtpl->assign("MAINMODULE_OPTIONS", get_select_options_with_id($focus->get_full_beans_list(), $mainmodule));

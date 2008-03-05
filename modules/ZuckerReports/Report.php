@@ -5,6 +5,8 @@ require_once('include/utils.php');
 require_once('data/SugarBean.php');
 require_once('modules/ZuckerReportContainer/ReportContainer.php');
 
+global $icon_map;
+
 $icon_map = array(
 	"csv" => "excel.gif",
 	"html" => "html.gif",
@@ -50,6 +52,7 @@ class ZuckerReport extends SugarBean {
 	function ZuckerReport() {
 		parent::SugarBean();
 		$this->new_schema = true;
+		$this->disable_row_level_security = true;
 	}
 
 	function save($check_notify = false) {	
@@ -61,28 +64,31 @@ class ZuckerReport extends SugarBean {
 		return $ret;
 	}	
 
+	function populateFromRow($row) {
+		//print_r($row);
+		$ret = parent::populateFromRow($row);
+		return $ret;
+	}
+	
 	function fill_in_additional_list_fields() {
 		$this->fill_in_additional_detail_fields();
 	}
 
 	function fill_in_additional_detail_fields() {
 		global $mod_strings, $icon_map;
-
+		
 		if ($this->published) {
 			$this->published_text = $mod_strings["LBL_ZUCKERREPORT_PUBLISHED"];
 		} else {
 			$this->published_text = $mod_strings["LBL_ZUCKERREPORT_UNPUBLISHED"];
 		}
-		
 		$this->container_name = "";
-		if (!empty($this->container_id)) {
-			$query = "select * from zucker_reportcontainer where id = '$this->container_id' and deleted=0";
-			$result =& $this->db->query($query);
-			if ($result) {
-				$row = $this->db->fetchByAssoc($result);
-				if ($row) {
-					$this->container_name = $row["name"];
-				}
+		$query = "select * from zucker_reportcontainer where id = '$this->container_id'";
+		$result =& $this->db->query($query);
+		if ($result) {
+			$row = $this->db->fetchByAssoc($result);
+			if ($row) {
+				$this->container_name = $row["name"];
 			}
 		}
 		
@@ -99,7 +105,7 @@ class ZuckerReport extends SugarBean {
 	}
 	
 	function get_parent_container() {
-		if (!empty($this->parent_id)) {
+		if (!empty($this->container_id)) {
 			$parent = new ReportContainer();
 			return $parent->retrieve($this->container_id);
 		}

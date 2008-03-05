@@ -4,6 +4,7 @@ require_once('data/SugarBean.php');
 require_once('modules/ZuckerReportModuleLink/ReportModuleLink.php');
 require_once('modules/ZuckerReportParameterLink/ReportParameterLink.php');
 require_once('modules/ZuckerReportParameter/ReportParameter.php');
+require_once('modules/ZuckerReports/SimpleTeams.php');
 
 class ReportProviderBase extends SugarBean {
 
@@ -12,6 +13,11 @@ class ReportProviderBase extends SugarBean {
 	var $date_entered;	
 	var $date_modified;	
 	var $modified_user_id;		
+
+	var $assigned_user_id;
+	var $assigned_user_name;
+	var $team_id;
+	var $team_name;
 	
 	var $image_html;
 	var $image_module;
@@ -21,21 +27,66 @@ class ReportProviderBase extends SugarBean {
 	function ReportProviderBase() {		
 		parent::SugarBean();		
 		$this->new_schema = true;
+		global $current_user;
+		if(empty($current_user))
+		{
+			$this->assigned_user_id = 1;
+			$this->assigned_user_name = 'admin';
+		}
+		else
+		{
+			$this->assigned_user_id = $current_user->id;
+			$this->assigned_user_name = $current_user->user_name;
+		}
+		SimpleTeams::prepareBean($this);
 	}	
+
+	function bean_implements($interface){
+		switch($interface){
+			case 'ACL':return true;
+		}
+		return false;
+	}
 
 	function save($check_notify = false) {			
 		return parent::save($check_notify);			
 	}	
 	
 	function retrieve($id = NULL, $encode=false) {		
-		$ret = parent::retrieve($id, $encode);		
-		return $ret;	
-	}			
+		$bean = parent::retrieve($id, $encode);
+		if ($bean != null) {
+			if (!SimpleTeams::checkAccess($bean)) {
+				$bean = null;
+			}
+		}
+		return $bean;
+	}
+	function get_all($order_by = "", $where = "") {
+		$list = parent::get_list($order_by, $where, 0, 1000, 1000, 0);
+		$list = $list["list"];
+		
+		if (!empty($list)) $list = SimpleTeams::filterBeanList($list);
+		return $list;
+	}
+	
+	function get_charset() {
+		global $sugar_config;
+		global $zuckerreports_config;
+		
+		if (empty($zuckerreports_config["charset"])) {
+			return $sugar_config["default_charset"];
+		} else {
+			return $zuckerreports_config["charset"];
+		}
+	}
 	
 	function fill_in_additional_list_fields() {		
 		$this->fill_in_additional_detail_fields();	
 	}	
 
+	function format_value_for_html($value) {
+		return nl2br(htmlentities(from_html($value), ENT_COMPAT, $this->get_charset()));
+	}
 	
 	function get_parameter_links() {
 		$query = "SELECT id from zucker_reportparameterlink where template_id='".$this->id."' AND deleted=0";

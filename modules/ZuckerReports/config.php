@@ -1,6 +1,7 @@
 <?php
 
 global $zuckerreports_config;
+global $sugar_config;
 
 $zuckerreports_config = array(
 	
@@ -11,6 +12,7 @@ $zuckerreports_config = array(
 	
 	//This is the list of supported report providers - don't change it unless you know what you are doing
 	"providers" => array(
+	
 			array(
 				"module" => "ZuckerListingTemplate",
 				"class_name" => "ListingTemplate",
@@ -50,7 +52,11 @@ $zuckerreports_config = array(
 	
 	//set this to yes/no, if you want to enable/disable php scripting for report parameters
 	"param_script_enabled" => "no",
-		
+
+	//enter your encoding here, if different from sugar default. see http://www.php.net/htmlentities for supported encodings
+	//"charset" => "UTF-8"
+
+	
 	// Enter the path to your java executable here, if autodetection doesn't work
 	
 	//Windows Environment Default
@@ -79,6 +85,22 @@ $zuckerreports_config = array(
 	
 	//7-Zip
 	//"zip_cmdline" => "cd \"%DIR%\" && \"C:\\Program Files\\7-Zip\\7z\" a -tzip \"%FILE%\" *",
+	
+	"team_implementation" => "auto",
+	//"team_implementation" => "sugar",
+	//"team_implementation" => "simple",
+	//"team_implementation" => "none",
+	
+	"teams" => array(
+		"teamchris" => array(
+			"name" => "Team Chris",
+			"users" => array("chris", "admin"),
+		),
+		"teamadmin" => array(
+			"name" => "Team Admin",
+			"users" => array("admin"),
+		),
+	),
 );
 
 ?>

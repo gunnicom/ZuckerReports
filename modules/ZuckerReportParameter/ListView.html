@@ -11,7 +11,7 @@
 	</tr>
 
 <!-- BEGIN: row -->
-<tr height="20"  onmouseover="setPointer(this, '{TEMPLATE.ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{PARAM.ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{PARAM.ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
+<tr height="20"  onmouseover="setPointer(this, '{PARAM.ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{PARAM.ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{PARAM.ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
 		<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot><a href="{URL_PREFIX}index.php?action=EditView&module=ZuckerReportParameter&record={PARAM.ID}&return_module=ZuckerReportParameter&return_action=ListView" class="listViewTdLinkS1">{PARAM.FRIENDLY_NAME}</a></slot></td>
 		<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{PARAM.DEFAULT_NAME}</slot></td>
     	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{PARAM.DEFAULT_VALUE}</slot></td>

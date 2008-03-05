@@ -10,6 +10,8 @@ $mod_strings = array_merge(return_module_language("es_es", "ZuckerReports"),
 	'LBL_WORD_FILENAME' => 'Archivo de Plantilla',
 	'LBL_WORD_DESCRIPTION' => 'Descripción',
 	'LBL_WORD_QUERY' => 'Consulta',
+
+	'LBL_ASSIGNED_USER_ID' => 'Assigned To:',
 	
 	'LBL_WORD_CREATE_WORD_TEMPLATE' => 'Combinar nueva Plantilla de Office',
 	'LBL_WORD_WORD_TEMPLATES' => 'Plantillas de Office Combinadas',

@@ -29,6 +29,7 @@ class ReportParameterLink extends SugarBean {
 	function ReportParameterLink() {
 		parent::SugarBean();
 		$this->new_schema = true;
+		$this->disable_row_level_security = true;
 	}
 
 	function save($check_notify = false) {	
@@ -43,6 +44,15 @@ class ReportParameterLink extends SugarBean {
 		return $ret;
 	}	
 
+	function get_scheduler_parameters(&$params) {
+		if (empty($this->parameter)) {
+			$this->fill_in_additional_detail_fields();
+		}
+		if ($this->parameter->input_required()) {
+			$params[$this->name] = $_REQUEST[$this->name];
+		}
+	}
+	
 	function fill_in_additional_list_fields() {
 		$this->fill_in_additional_detail_fields();
 	}

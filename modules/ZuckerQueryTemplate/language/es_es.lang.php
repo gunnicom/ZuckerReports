@@ -6,8 +6,10 @@ $mod_strings = array_merge(return_module_language("es_es", "ZuckerReports"),
 	'LBL_QUERY' => 'Consulta',
 	'LBL_QUERY_NAME' => 'Nombre Consulta',
 	'LBL_QUERY_SQL' => 'Consulta',
-	'LBL_QUERY_SQL_HELP' => 'Por favor escriba la consulta SQL para este reporte. Para incluir una selección de parametro, escriba "$" seguido del nombre del parámetro, y su valor será insertado en esta posición al ejecutar el reportee.',
+	'LBL_QUERY_SQL_HELP' => 'Por favor escriba la consulta SQL para este reporte. Para incluir una selección de parametro, escriba "$" seguido del nombre del parámetro, y su valor será insertado en esta posición al ejecutar el reportee.<br/><br/>The following placeholders are supported as well: <br/><b>$SUGAR_USER_ID</b> - contains the ID of the currently logged on user<br/><b>$SUGAR_USER_NAME</b> - contains the name of the currently logged on user<br/><b>$SUGAR_SESSION_ID</b> - contains the ID of the current session',
 	'LBL_QUERY_DESCRIPTION' => 'Descripción',
+
+	'LBL_ASSIGNED_USER_ID' => 'Assigned To:',
 
 	'LBL_QUERY_ONDEMAND_COLUMN_DELIMITER' => 'Separador de Columna',
 	'LBL_QUERY_ONDEMAND_ROW_DELIMITER' => 'Seperador de fila',

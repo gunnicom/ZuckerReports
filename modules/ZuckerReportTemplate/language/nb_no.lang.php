@@ -3,6 +3,7 @@
 $mod_strings = array_merge(return_module_language("no_nb", "ZuckerReports"),
 	array(
 	'LBL_REPORT_TEMPLATE_NEW' => 'Ny JasperReportsmal',
+	'LBL_ASSIGNED_USER_ID' => 'Assigned To:',
 	'LBL_REPORT' => 'JasperReports',
 	'LBL_REPORT_NAME' => 'Navn på mal',
 	'LBL_REPORT_FILENAME' => 'Template fil (*.jrxml)',
@@ -14,6 +15,7 @@ $mod_strings = array_merge(return_module_language("no_nb", "ZuckerReports"),
 	'LBL_RESOURCES' => 'Andre ressurser',
 	'LBL_RESOURCE' => 'Last opp ressurs',
 	'LBL_RESOURCE_HELP' => 'Rapport bilder og scriptlets blir lagret i egne filer. For at JasperReports skal kunne ha adgang til filene må du laste dem her. Hvis du har lastet opp en subrapport før, trenger du ikke laste den opp på nytt.',
+
 	'ERR_TEMPLATE_INVALID_FILE' => 'Kun rapportdesignfiler (*.jrxml) er støttet.',
 	)
 );

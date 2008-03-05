@@ -1,6 +1,5 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('data/Tracker.php');
 require_once('modules/ZuckerReportTemplate/ReportTemplate.php');
 require_once('modules/ZuckerReportParameter/ReportParameter.php');
 require_once('modules/ZuckerReportParameterLink/ReportParameterLink.php');
@@ -14,7 +13,8 @@ global $current_user;
 $focus =& new ReportTemplate();
 
 if(isset($_REQUEST['record'])) {
-    $focus->retrieve($_REQUEST['record']);
+    $focus = $focus->retrieve($_REQUEST['record']);
+	if ($focus == null) { echo "no access"; exit; }
 }
 
 global $theme;
@@ -42,15 +42,16 @@ $xtpl->assign("NAME",$focus->name);
 $xtpl->assign("FILENAME",$focus->filename);
 $xtpl->assign("URL",$focus->template_url);
 $xtpl->assign("DESCRIPTION",$focus->description);
+$xtpl->assign('assigned_user_name', $focus->assigned_user_name);
+$xtpl->assign('TEAM', $focus->team_name);
 
 
 $strings = $focus->get_export_array();
 $xtpl->assign("EXPORT_TYPES", join("<br/>", $strings));
 
-if (is_admin($current_user)) {
-	$xtpl->parse("main.edit");
-	$xtpl->parse("main.delete");
-}
+if ($focus->ACLAccess('edit')) $xtpl->parse("main.edit");
+if ($focus->ACLAccess('delete')) $xtpl->parse("main.delete");
+
 $xtpl->parse("main");
 $xtpl->out("main");
 

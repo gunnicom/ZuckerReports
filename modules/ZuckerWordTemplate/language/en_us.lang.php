@@ -10,6 +10,8 @@ $mod_strings = array_merge(return_module_language("en_us", "ZuckerReports"),
 	'LBL_WORD_FILENAME' => 'Template File',
 	'LBL_WORD_DESCRIPTION' => 'Description',
 	'LBL_WORD_QUERY' => 'Query',
+
+	'LBL_ASSIGNED_USER_ID' => 'Assigned To:',
 	
 	'LBL_WORD_CREATE_WORD_TEMPLATE' => 'Link new Office Template',
 	'LBL_WORD_WORD_TEMPLATES' => 'Linked Office Templates',

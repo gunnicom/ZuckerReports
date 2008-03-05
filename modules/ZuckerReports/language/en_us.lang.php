@@ -6,10 +6,13 @@ $mod_strings = array (
 	'LNK_TEMPLATE_LIST'=> 'Report and Query Templates',
 	'LNK_PARAMETER_LIST'=> 'Report and Query Parameters',
 	'LNK_REPORT_ONDEMAND'=> 'On-Demand Reporting',
-	'LNK_REPORT_SCHEDULER'=> 'Report Scheduler',
+	'LNK_RUNNABLE_REPORTS' => 'Report Scheduler',
 	'LNK_ARCHIVE_LIST'=> 'Report Archive',
 	'LBL_MENU_ABOUT' => 'About us',
 
+	'LBL_ASSIGNED_USER_ID' => 'Assigned To:',
+	'LBL_ASSIGNED_TEAM' => 'Team:',
+	
 	'LBL_TEMPLATE_LIST_HEADER' => 'Template List',
 	'LBL_TEMPLATE_LIST_NAME' => 'Name',
 	'LBL_TEMPLATE_LIST_TYPE' => 'Type',
@@ -39,6 +42,15 @@ $mod_strings = array (
 	'LBL_CONTAINER_DESCRIPTION' => 'Description',
 	'LBL_CONTAINER_UP' => 'Up',
 	
+	'LBL_RUNNABLEREPORT' => 'Scheduled Report',
+	'LBL_RUNNABLEREPORT_NAME' => 'Name',
+	'LBL_RUNNABLEREPORT_DESCRIPTION' => 'Description',
+	'LBL_RUNNABLEREPORT_SETTINGS' => 'Settings (encoded)',
+	'LBL_RUNNABLEREPORT_NEXTRUN' => 'Next Run',
+	'LBL_RUNNABLEREPORT_START' => 'Schedule Start',
+	'LBL_RUNNABLEREPORT_INTERVAL' => 'Schedule Interval',
+	'LBL_RUNNABLEREPORT_LASTLOG' => 'Last Log',
+	'LBL_RUNNABLEREPORT_TESTRUN' => 'Test Schedule',
 	
 	'LBL_PARAM_NEW' => 'New Report Parameter',
 	'LBL_PARAM_FRIENDLYNAME' => 'Friendly Name',
@@ -80,6 +92,7 @@ $mod_strings = array (
 	
 	'LBL_ONDEMAND_TEMPLATE' => 'Report',
 	'LBL_ONDEMAND_EXECUTE' => 'Run Report',
+	'LBL_ADD_SCHEDULER' => 'Save for later execution',
 	'LBL_ONDEMAND_OUTPUT' => 'Output',
 	'LBL_ONDEMAND_RESULT' => 'Report Result',
 	'LBL_ONDEMAND_VIEW' => 'View Report',
@@ -87,12 +100,19 @@ $mod_strings = array (
 	'LBL_ARCHIVE_TO' => 'Archive Report to category',
 	'LBL_ONDEMAND_ERROR' => 'Error while running Report',
 	'LBL_ONDEMAND_FORMAT' => 'Format',
-
+	'LBL_SEND_EMAIL' => 'Send as Email To',
+	'LBL_SEND_EMAIL_HINTS' => '(separate multiple email recipients by using a ",")',
+	'LBL_SEND_EMAIL_SUBJECT' => 'ZuckerReports Notification: %s',
+	'LBL_SEND_EMAIL_BODY' => "Attached you can find an auto-generated report sent to you from ZuckerReports. \n\nCreated on: %s\nReport: %s\n",
+	'LBL_SEND_EMAIL_OK' => 'Sent Email To %s',
+	
+	
 	'LBL_ONDEMAND_BOUND' => 'Reports, Queries and Letters',
 	'LBL_ONDEMAND_BOUND_ATTACH' => 'Attach result',
 	'LBL_ONDEMAND_BOUND_RUN' => 'Run',
 	
 	'LBL_ARCHIVE_LIST'=> 'Reports Listing',
+
 	
 );
 
@@ -101,12 +121,37 @@ $mod_list_strings = array (
   array (
     'SIMPLE' => 'Direct Input',
 	'DATE' => 'Date Input',
+	'DATE_NOW' => 'Current Time and Date',
+	'DATE_ADD' => 'Future Timestamp',
+	'DATE_SUB' => 'Past Timestamp',
     'SQL' => 'User-Defined Query',
     'LIST' => 'User-Defined List',
 	'DROPDOWN' => 'Drop-Down List',
 	'CURRENT_USER' => 'Current User',
 	'SCRIPT' => 'PHP Script',
   ),
+  'PARAM_DATE_TYPES' =>
+  array (
+	'MINUTE' => 'Minute(s)',
+	'HOUR' => 'Hour(s)',
+	'DAY' => 'Day(s)',
+	'WEEK' => 'Week(s)',
+	'MONTH' => 'Month(s)',
+	'YEAR' => 'Year(s)',
+  ),
+  'SCHEDULE_INTERVALS'=>array(
+ 	''=>'Inactive',
+ 	'3600'=>'Hourly',
+ 	'21600'=>'Every 6 Hours',
+ 	'43200'=>'Every 12 Hours',
+ 	'86400'=>'Daily',
+ 	'604800'=>'Weekly',
+ 	'1209600'=>'Every 2 Weeks',
+ 	'2419200'=>'Every 4 Weeks',
+ 	),
+  
+  
+  
 );
 
 ?>

@@ -8,6 +8,7 @@
 	<td scope="col" width="20%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_TEMPLATE_LIST_NAME}</slot></td>
 	<td scope="col" width="20%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_TEMPLATE_LIST_TYPE}</slot></td>
 	<td scope="col" width="*" class="listViewThS1" NOWRAP><slot>{MOD.LBL_TEMPLATE_LIST_DESCRIPTION}</slot></td>
+	<td scope="col" width="10%" class="listViewThS1" NOWRAP><slot>&nbsp;</slot></td>
 	</tr>
 
 <!-- BEGIN: row -->
@@ -16,6 +17,11 @@
 		<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot><a href="{URL_PREFIX}index.php?module={TEMPLATE.ACTION_MODULE}&action=DetailView&record={TEMPLATE.ID}&return_module=ZuckerReports&return_action=TemplateListView" class="listViewTdLinkS1">{TEMPLATE.NAME}</a></slot></td>
     	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{TEMPLATE.TYPE_DESC}</slot></td>
     	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{TEMPLATE.DESCRIPTION}</slot></td>
+		<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap>
+			<slot><a href="{URL_PREFIX}index.php?module={TEMPLATE.ACTION_MODULE}&action=EditView&record={TEMPLATE.ID}&return_module=ZuckerReports&return_action=TemplateListView" class="listViewTdLinkS1">{APP.LBL_EDIT_BUTTON_LABEL}</a></slot>
+			|
+			<slot><a href="{URL_PREFIX}index.php?module=ZuckerReports&action=ReportOnDemand&record={TEMPLATE.ID}" class="listViewTdLinkS1">{MOD.LBL_ONDEMAND_EXECUTE}</a></slot>
+		</td>
 </tr>
 <tr><td colspan="20" class="listViewHRS1"></td></tr>
 <!-- END: row -->

@@ -3,6 +3,8 @@
 <input type="hidden" name="module" value="ZuckerReports">	
 <input type="hidden" name="action" value="ReportOnDemand">	
 <input type="hidden" name="run">
+<input type="hidden" name="is_scheduler" value="false">
+<input type="hidden" name="schedule">
 
 {REPORT_SELECTION}
 
@@ -14,10 +16,12 @@
 
 {EXEC_BUTTON}
 
+{SCHEDULE_BUTTON}
+
 </form>
 <script type="text/javascript" src="include/javascript/popup_parent_helper.js"></script>
 <script type='text/javascript' language='JavaScript'>
-if (document.EditView.parent_module) {
+if (document.EditView.parent_module && document.EditView.parent_button) {
 	if (document.EditView.parent_module.value == '') {
 		document.EditView.parent_button.disabled = true;
 	} else {
@@ -27,10 +31,12 @@ if (document.EditView.parent_module) {
 function moduleChanged(form) {
 	form.parent_name.value='';
 	form.parent_id.value='';
-	if (form.parent_module.value == '') {
-		form.parent_button.disabled = true;
-	} else {
-		form.parent_button.disabled = false;
+	if (document.EditView.parent_button) {
+		if (form.parent_module.value == '') {
+			form.parent_button.disabled = true;
+		} else {
+			form.parent_button.disabled = false;
+		}
 	}
 }
 </script>
@@ -84,6 +90,10 @@ function moduleChanged(form) {
 <td width="30%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_ARCHIVE_TO}</slot></td>
 <td width="*" valign="top" class="tabDetailViewDF" colspan="3"><slot><select name='parent_category'>{CAT_OPTIONS}</select></slot></td>
 </tr>
+<tr>
+<td width="30%" valign="top" class="tabDetailViewDL"><slot>{MOD.LBL_SEND_EMAIL}</slot></td>
+<td width="*" valign="top" class="tabDetailViewDF" colspan="3"><slot><input type="text" name="send_email" value="{SEND_EMAIL}" size="50"/> <span class="dateFormat">{MOD.LBL_SEND_EMAIL_HINTS}</span></slot></td>
+</tr>
 </table>
 <!-- END: attach_selection -->
 
@@ -110,6 +120,14 @@ function moduleChanged(form) {
 </tr></table>
 <!-- END: execbutton -->
 
+<!-- BEGIN: schedulebutton -->
+<p/>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">	<tr>		
+<td style="padding-bottom: 2px;">			
+<input class="button" onclick="this.form.schedule.value='true'" type="submit" name="button" value="  {MOD.LBL_ADD_SCHEDULER}  ">		
+</td>	
+</tr></table>
+<!-- END: schedulebutton -->
 
 
 

@@ -16,5 +16,5 @@ if (!empty($_REQUEST['record'])) {
 $link = populateFromPost("link_", $link);
 $return_id = $link->save();
 
-handleRedirect($return_id, "ZuckerReportParameterLink");
+handleRedirect();
 ?>

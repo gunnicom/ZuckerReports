@@ -25,6 +25,7 @@ class WordTemplate extends ReportProviderBase {
 	
 	function WordTemplate() {		
 		parent::ReportProviderBase();		
+		$this->new_schema = true;
 	}	
 	
 	function get_summary_text() {		
@@ -66,14 +67,25 @@ class WordTemplate extends ReportProviderBase {
 			$this->image_html = get_image("themes/".$theme."/images/ZuckerWordTemplate", "ZuckerWordTemplate");
 			$this->image_module = "ZuckerWordTemplate";
 		}
+		
+		$this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
+		$this->team_name = SimpleTeams::get_assigned_team_name($this);
 	}			
 
 	function get_parameter_links() {
-		return $this->querytemplate->get_parameter_links();
+		if (empty($this->querytemplate)) {
+			return array();
+		} else {
+			return $this->querytemplate->get_parameter_links();
+		}
 	}
 	
 	function get_module_link($module_name) {
-		return $this->querytemplate->get_module_link($module_name);
+		if (empty($this->querytemplate)) {
+			return array();
+		} else {
+			return $this->querytemplate->get_module_link($module_name);
+		}
 	}
 
 	function get_for_module($module_name) {

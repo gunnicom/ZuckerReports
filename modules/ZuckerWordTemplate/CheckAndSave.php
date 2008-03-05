@@ -5,21 +5,16 @@ require_once('include/formbase.php');
 require_once('include/upload_file.php');
 require_once('modules/ZuckerWordTemplate/WordTemplate.php');
 
-if (!is_admin($current_user)) {
-	sugar_die("only admin allowed");
-}
-
 global $mod_strings;
 $mod_strings = return_module_language($current_language, 'ZuckerReports');
 
-
 $template = new WordTemplate();
 if (!empty($_REQUEST['record'])) {
-	$template->retrieve($_REQUEST['record']);
+	$template = $template->retrieve($_REQUEST['record']);
+	if ($template == null) { echo "no access"; exit; }
 }
 $template = populateFromPost("", $template);
 $template->querytemplate_id = $_REQUEST["querytemplate_id"];
-
 
 $upload_file = new UploadFile('templatefile');
 

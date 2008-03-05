@@ -5,6 +5,7 @@ require_once('include/utils.php');
 require_once('data/SugarBean.php');
 require_once('data/SugarBean.php');
 require_once('modules/ZuckerReports/Report.php');
+require_once('modules/ZuckerReports/SimpleTeams.php');
 
 class ReportContainer extends SugarBean {
 
@@ -12,6 +13,11 @@ class ReportContainer extends SugarBean {
 	var $parent_id;
 	var $name;
 	var $description;
+
+	var $assigned_user_id;
+	var $assigned_user_name;
+	var $team_id;
+	var $team_name;
 	
 	var $created_by;
 	var $date_entered;
@@ -28,17 +34,49 @@ class ReportContainer extends SugarBean {
 	function ReportContainer() {
 		parent::SugarBean();
 		$this->new_schema = true;
+		
+		global $current_user;
+		if(empty($current_user))
+		{
+			$this->assigned_user_id = 1;
+			$this->assigned_user_name = 'admin';
+		}
+		else
+		{
+			$this->assigned_user_id = $current_user->id;
+			$this->assigned_user_name = $current_user->user_name;
+		}
+		SimpleTeams::prepareBean($this);
 	}
 
 	function save($check_notify = false) {	
 		return parent::save($check_notify);		
 	}
 
-	function retrieve($id, $encode=false) {
-		$ret = parent::retrieve($id, $encode);
-		return $ret;
-	}	
-
+	function retrieve($id = -1) {
+		$bean = parent::retrieve($id);
+		if ($bean != null) {
+			if (!SimpleTeams::checkAccess($bean)) {
+				$bean = null;
+			}
+		}
+		return $bean;
+	}
+	
+	function get_full_list($order_by = "", $where = "") {
+		$list = parent::get_full_list($order_by, $where);
+		
+		if (!empty($list)) $list = SimpleTeams::filterBeanList($list);
+		return $list;
+	}
+	
+	function bean_implements($interface){
+		switch($interface){
+			case 'ACL':return true;
+		}
+		return false;
+	}
+	
 	function fill_in_additional_list_fields() {
 		$this->fill_in_additional_detail_fields();
 	}
@@ -55,6 +93,9 @@ class ReportContainer extends SugarBean {
 				}
 			}
 		}
+
+		$this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
+		$this->team_name = SimpleTeams::get_assigned_team_name($this);
 	}
 	
 	function get_summary_text() {
@@ -134,6 +175,7 @@ class ReportContainer extends SugarBean {
 		$result = array();
 		$result[""] = "";
 		ReportContainer::get_category_select_options_rec($result, $root, "");
+		
 		return $result;
 	}
 	
@@ -143,6 +185,7 @@ class ReportContainer extends SugarBean {
 		} else {
 			$child_containers = $container->get_linked_beans("containers", "ReportContainer");
 		}
+		$child_containers = SimpleTeams::filterBeanList($child_containers);
 		
 		foreach ($child_containers as $child) {
 			$result[$child->id] = "".$prefix.($child->name);

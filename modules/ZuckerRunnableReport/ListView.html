@@ -1,0 +1,24 @@
+<!-- BEGIN: main -->
+<table cellpadding="0" cellspacing="0" width="100%" border="0" class="listView">
+<!-- BEGIN: list_nav_row -->
+{PAGINATION}
+	<!-- END: list_nav_row -->
+	<tr height="20" >
+	<td scope="col" width="20%" class="listViewThS1" NOWRAP><slot><a href="{ORDER_BY}name" class="listViewThLinkS1">{MOD.LBL_RUNNABLEREPORT_NAME}{arrow_start}{friendly_name_arrow}{arrow_end}</a></slot></td>
+	<td scope="col" width="10%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_RUNNABLEREPORT_INTERVAL}</slot></td>
+	<td scope="col" width="10%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_RUNNABLEREPORT_NEXTRUN}</slot></td>
+	<td scope="col" width="60%" class="listViewThS1" NOWRAP><slot>{MOD.LBL_RUNNABLEREPORT_DESCRIPTION}</slot></td>
+	</tr>
+
+<!-- BEGIN: row -->
+<tr height="20"  onmouseover="setPointer(this, '{RUNNABLE.ID}', 'over', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmouseout="setPointer(this, '{RUNNABLE.ID}', 'out', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');" onmousedown="setPointer(this, '{RUNNABLE.ID}', 'click', '{BG_COLOR}', '{BG_HILITE}', '{BG_CLICK}');">
+		<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot><a href="{URL_PREFIX}index.php?action=DetailView&module=ZuckerRunnableReport&record={RUNNABLE.ID}&return_module=ZuckerRunnableReport&return_action=ListView" class="listViewTdLinkS1">{RUNNABLE.NAME}</a></slot></td>
+    	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{RUNNABLE.SCHEDULE_INTERVAL_DESC}</slot></td>
+    	<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{RUNNABLE.NEXTRUN}</slot></td>
+		<td valign=TOP class="{ROW_COLOR}S1" bgcolor="{BG_COLOR}" nowrap><slot>{RUNNABLE.DESCRIPTION}</slot></td>
+</tr>
+<tr><td colspan="20" class="listViewHRS1"></td></tr>
+<!-- END: row -->
+
+</table>
+<!-- END: main -->
