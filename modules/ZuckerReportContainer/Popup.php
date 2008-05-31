@@ -1,7 +1,6 @@
 <?php
 
 global $theme;
-require_once('include/logging.php');
 require_once('XTemplate/xtpl.php');
 require_once('include/utils.php');
 require_once('include/ListView/ListView.php');

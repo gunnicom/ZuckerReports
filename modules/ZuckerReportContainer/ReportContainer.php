@@ -1,6 +1,4 @@
 <?php
-
-require_once('include/logging.php');
 require_once('include/utils.php');
 require_once('data/SugarBean.php');
 require_once('data/SugarBean.php');
@@ -35,16 +33,15 @@ class ReportContainer extends SugarBean {
 		parent::SugarBean();
 		$this->new_schema = true;
 		
-		global $current_user;
-		if(empty($current_user))
+		if(empty($GLOBALS["current_user"]))
 		{
 			$this->assigned_user_id = 1;
 			$this->assigned_user_name = 'admin';
 		}
 		else
 		{
-			$this->assigned_user_id = $current_user->id;
-			$this->assigned_user_name = $current_user->user_name;
+			$this->assigned_user_id = $GLOBALS["current_user"]->id;
+			$this->assigned_user_name = $GLOBALS["current_user"]->user_name;
 		}
 		SimpleTeams::prepareBean($this);
 	}

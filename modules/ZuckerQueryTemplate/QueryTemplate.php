@@ -1,5 +1,4 @@
 <?php
-require_once('include/logging.php');
 require_once('include/utils/db_utils.php');
 require_once('data/SugarBean.php');
 require_once('modules/ZuckerReports/ReportProviderBase.php');

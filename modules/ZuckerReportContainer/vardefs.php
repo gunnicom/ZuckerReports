@@ -1,5 +1,5 @@
 <?php
-$dictionary['ReportContainer'] = array(
+$GLOBALS["dictionary"]['ReportContainer'] = array(
 	'table' => 'zucker_reportcontainer',
 	'fields' => array (
 		'id' => array (

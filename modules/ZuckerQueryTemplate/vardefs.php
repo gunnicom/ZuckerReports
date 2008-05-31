@@ -1,5 +1,5 @@
 <?php
-$dictionary['QueryTemplate'] = array(
+$GLOBALS["dictionary"]['QueryTemplate'] = array(
 	'table' => 'zucker_querytemplates',
 	'fields' => array (
 		'id' => array (

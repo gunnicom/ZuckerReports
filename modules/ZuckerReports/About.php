@@ -30,10 +30,10 @@ require_once("modules/ZuckerReports/config.php");
 <table width="100%" cellspacing="0" cellpadding="0" border="0" class="tabForm">
 	<tr>
 		<td class="tabDetailViewDL">ZuckerReports</td>
-		<td class="tabDetailViewDF"><?php echo get_image("themes/Default/images/ZuckerReports32", "ZuckerReports"); ?> 1.8</td>
+		<td class="tabDetailViewDF"><?php echo get_image("themes/Default/images/ZuckerReports32", "ZuckerReports"); ?> 1.9</td>
 	</tr><tr>
 		<td width="15%" class="tabDetailViewDL">Company</td>
-		<td class="tabDetailViewDF">go-mobile<br/>Grillparzerstra&szlig;e 26<br/>A-4020 Linz<br/></td>
+		<td class="tabDetailViewDF">go-mobile IT GmbH<br/>Grillparzerstra&szlig;e 26<br/>A-4020 Linz<br/></td>
 	</tr><tr>
 		<td class="tabDetailViewDL">Website</td>
 		<td class="tabDetailViewDF"><a href="http://www.go-mobile.at">http://www.go-mobile.at</a></td>

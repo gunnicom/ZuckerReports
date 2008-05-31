@@ -1,6 +1,6 @@
 <?php
 
-$dictionary['WordTemplate'] = array(
+$GLOBALS["dictionary"]['WordTemplate'] = array(
 	'table' => 'zucker_wordtemplates',
 	'fields' => array (
 		'id' => array (

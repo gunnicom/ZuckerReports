@@ -1,6 +1,4 @@
 <?php
-
-require_once('include/logging.php');
 require_once('include/formbase.php');
 require_once('include/upload_file.php');
 require_once('modules/ZuckerReportContainer/ReportContainer.php');

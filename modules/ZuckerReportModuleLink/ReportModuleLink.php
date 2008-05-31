@@ -1,6 +1,5 @@
 <?php
 
-require_once('include/logging.php');
 require_once('data/SugarBean.php');
 require_once('modules/ZuckerReportParameterLink/ReportParameterLink.php');
 

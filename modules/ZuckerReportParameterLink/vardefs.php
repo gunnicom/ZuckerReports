@@ -1,6 +1,6 @@
 <?php
 
-$dictionary['ReportParameterLink'] = array(
+$GLOBALS["dictionary"]['ReportParameterLink'] = array(
 	'table' => 'zucker_reportparameterlink',
 	'fields' => array (
 		'id' => array (

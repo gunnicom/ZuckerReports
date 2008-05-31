@@ -1,5 +1,5 @@
 <?php
-$dictionary['ListingTemplate'] = array(
+$GLOBALS["dictionary"]['ListingTemplate'] = array(
 	'table' => 'zucker_listingtemplates',
 	'fields' => array (
 		'id' => array (

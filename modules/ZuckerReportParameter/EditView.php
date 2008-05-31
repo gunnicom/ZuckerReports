@@ -83,7 +83,7 @@ $xtpl->assign("RANGE_SELECTION", get_select_options_with_id($mod_list_strings["P
 if ($range == 'SQL') {
 	$xtpl->assign("RANGE_OPTIONS", $range_options);
 	if ($_REQUEST['sqltest'] == 'true') {
-		if (is_admin($current_user)) {
+		if (is_admin($GLOBALS['current_user'])) {
 			$table = $focus->get_sql_table(html_entity_decode($range_options), 20);		
 			if (is_array($table)) {			
 				$text = "<table><tr><th>KEY</th><th>VALUE</th></tr>";			
