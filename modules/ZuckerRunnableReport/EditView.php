@@ -63,6 +63,7 @@ $xtpl->assign("NAME", $name);
 $xtpl->assign("DESCRIPTION", $description);
 $xtpl->assign("SETTINGS", $settings);
 $xtpl->assign("REPORT_RESULT_TYPE", $report_result_type);
+asort($mod_list_strings["SCHEDULE_INTERVALS"]);
 $xtpl->assign("INTERVAL_SELECTION", get_select_options_with_id($mod_list_strings["SCHEDULE_INTERVALS"], $interval));
 
 
@@ -70,7 +71,9 @@ $json = getJSONobj();
 
 if (empty($focus->assigned_user_id) && empty($focus->id))  $focus->assigned_user_id = $current_user->id;
 if (empty($focus->assigned_name) && empty($focus->id))  $focus->assigned_user_name = $current_user->user_name;
-$xtpl->assign("ASSIGNED_USER_OPTIONS", get_select_options_with_id(get_user_array(TRUE, "Active", $focus->assigned_user_id), $focus->assigned_user_id));
+$assigned_user = get_user_array(TRUE, "Active", $focus->assigned_user_id);
+asort($assigned_user);
+$xtpl->assign("ASSIGNED_USER_OPTIONS", get_select_options_with_id($assigned_user, $focus->assigned_user_id));
 $xtpl->assign("ASSIGNED_USER_NAME", $focus->assigned_user_name);
 $xtpl->assign("ASSIGNED_USER_ID", $focus->assigned_user_id );
 
@@ -90,7 +93,7 @@ require_once('modules/ZuckerReports/SimpleTeams.php');
 $xtpl->assign("TEAM_SELECTION", SimpleTeams::xtplGetTeamSelection($xtpl, $focus));
 
 
-if ($report_result_type == 'FILE') $xtpl->parse("main.schedule");
+if ($report_result_type == 'FILE' || $focus->report_result_type == "INLINE") $xtpl->parse("main.schedule");
 else $xtpl->parse("main.noschedule");
 
 $xtpl->parse("main");

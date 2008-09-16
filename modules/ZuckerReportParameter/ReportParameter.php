@@ -162,6 +162,7 @@ class ReportParameter extends SugarBean {
 		
 		if ($rp->range == 'SQL') {
 			$param_table = $rp->get_sql_table();
+			asort($param_table);
 			if (is_array($param_table)) {
 				$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
 				$xtpl->assign("PARAM_NAME", $rpl->name);
@@ -173,6 +174,7 @@ class ReportParameter extends SugarBean {
 			}
 		} else if ($rp->range == 'LIST') {
 			$list = $rp->get_list_table();
+			asort($list);
 			$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
 			$xtpl->assign("PARAM_NAME", $rpl->name);
 			$xtpl->assign("PARAM_SELECTION", get_select_options_with_id($list, $selected_val));
@@ -185,6 +187,7 @@ class ReportParameter extends SugarBean {
 			$list = $rp->get_list_table();
 			$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
 			$xtpl->assign("PARAM_NAME", $rpl->name);
+			asort($app_list_strings[$rp->range_options]);
 			$xtpl->assign("PARAM_SELECTION", get_select_options_with_id($app_list_strings[$rp->range_options], $selected_val));
 			$xtpl->parse("LIST");
 			$parameter_html = $xtpl->text("LIST");
@@ -223,6 +226,7 @@ class ReportParameter extends SugarBean {
 				$type = NULL;
 			}
 			$xtpl->assign("PARAM_VALUE_COUNT", $count);
+			asort($mod_list_strings['PARAM_DATE_TYPES']);
 			$xtpl->assign("PARAM_SELECTION", get_select_options_with_id($mod_list_strings['PARAM_DATE_TYPES'], $type));
 			
 			$xtpl->parse("DATE_CALC");

@@ -63,7 +63,9 @@ class SimpleTeams {
 		$impl = SimpleTeams::getImplementationType();
 		if ($impl == "sugar") {
 			$json = getJSONobj();
-
+			
+			$team_array = get_team_array();
+			asort($team_array);
 			if (empty($focus->id)) {	
 				$xtpl_teams->assign("TEAM_OPTIONS", get_select_options_with_id(get_team_array(), $current_user->default_team));
 				$xtpl_teams->assign("TEAM_NAME", $current_user->default_team_name);
@@ -87,7 +89,9 @@ class SimpleTeams {
 			return $xtpl_teams->text("sugarpro");
 			
 		} else if ($impl == "simple") {
-			$xtpl_teams->assign("TEAM_OPTIONS", get_select_options_with_id(SimpleTeams::getTeamOptions(), $focus->team_id));
+			$team_options = SimpleTeams::getTeamOptions();
+			asort($team_options);
+			$xtpl_teams->assign("TEAM_OPTIONS", get_select_options_with_id($team_options, $focus->team_id));
 			$xtpl_teams->parse("simpleteams");
 			return $xtpl_teams->text("simpleteams");
 		} else {

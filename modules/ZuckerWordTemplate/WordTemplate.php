@@ -59,11 +59,11 @@ class WordTemplate extends ReportProviderBase {
 
 		if ($this->extension == "stw") {
 			$this->type_desc = $mod_strings["LBL_OPENOFFICE"];
-			$this->image_html = get_image("themes/".$theme."/images/ZuckerOpenOfficeTemplate", "ZuckerOpenOfficeTemplate");
+			$this->image_html = get_image("themes/".$theme."/images/ZuckerOpenOfficeTemplate", "alt=\"ZuckerOpenOfficeTemplate\"");
 			$this->image_module = "ZuckerOpenOfficeTemplate";
 		} else if ($this->extension == "doc") {
 			$this->type_desc = $mod_strings["LBL_WORD"];
-			$this->image_html = get_image("themes/".$theme."/images/ZuckerWordTemplate", "ZuckerWordTemplate");
+			$this->image_html = get_image("themes/".$theme."/images/ZuckerWordTemplate", "alt=\"ZuckerWordTemplate\"");
 			$this->image_module = "ZuckerWordTemplate";
 		}
 		
@@ -306,6 +306,7 @@ class WordTemplate extends ReportProviderBase {
 			if (!isset($_REQUEST["format"])) {
 				$_REQUEST["format"] = "File";
 			}
+			asort($mod_list_strings["OPENOFFICE_EXPORT_TYPES"]);
 			return get_select_options_with_id($mod_list_strings["OPENOFFICE_EXPORT_TYPES"], $_REQUEST["format"]);
 		} else if ($this->extension == "doc") {
 			if (isset($_REQUEST["format"])) {
@@ -316,6 +317,7 @@ class WordTemplate extends ReportProviderBase {
 			if (!isset($_REQUEST["format"])) {
 				$_REQUEST["format"] = "NewDocument";
 			}
+			asort($mod_list_strings["WORD_EXPORT_TYPES"]);
 			return get_select_options_with_id($mod_list_strings["WORD_EXPORT_TYPES"], $_REQUEST["format"]);
 		}
 	}		

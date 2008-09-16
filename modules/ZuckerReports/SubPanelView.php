@@ -64,6 +64,7 @@ $xtpl_reports->assign("PARENT_NAME", $focus->get_summary_text());
 $xtpl_reports->assign("JAVASCRIPT_PARAMS", $javascript_params);
 $xtpl_reports->assign("JAVASCRIPT_TABLE", $javascript_table);
 $xtpl_reports->assign("JAVASCRIPT_PARAM", $focus->id);
+asort($template_select);
 $xtpl_reports->assign("TEMPLATE_SELECTION", get_select_options_with_id($template_select, ""));
 
 $xtpl_reports->assign("REPORT_FORMAT", "PDF");

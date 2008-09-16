@@ -64,7 +64,9 @@ $json = getJSONobj();
 
 if (empty($focus->assigned_user_id) && empty($focus->id))  $focus->assigned_user_id = $current_user->id;
 if (empty($focus->assigned_name) && empty($focus->id))  $focus->assigned_user_name = $current_user->user_name;
-$xtpl->assign("ASSIGNED_USER_OPTIONS", get_select_options_with_id(get_user_array(TRUE, "Active", $focus->assigned_user_id), $focus->assigned_user_id));
+$assigned_user = get_user_array(TRUE, "Active", $focus->assigned_user_id);
+asort($assigned_user);
+$xtpl->assign("ASSIGNED_USER_OPTIONS", get_select_options_with_id($assigned_user, $focus->assigned_user_id));
 $xtpl->assign("ASSIGNED_USER_NAME", $focus->assigned_user_name);
 $xtpl->assign("ASSIGNED_USER_ID", $focus->assigned_user_id );
 
@@ -100,6 +102,7 @@ if (!empty($ltlist)) {
 		$qtselect[$lt->id] = $lt->name;
 	}
 }
+asort($qtselect);
 $xtpl->assign("QUERYTEMPLATE_SELECTION", get_select_options_with_id($qtselect, $querytemplate_id));
 
 $xtpl->parse("main");

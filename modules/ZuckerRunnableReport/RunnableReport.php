@@ -1,6 +1,7 @@
 <?php
 
 require_once('include/utils.php');
+require_once('include/TimeDate.php');
 require_once('data/SugarBean.php');
 require_once('data/SugarBean.php');
 require_once('modules/ZuckerReports/SimpleTeams.php');
@@ -102,8 +103,6 @@ class RunnableReport extends SugarBean {
 	function get_runnablereports_to_run(){
 		$time = gmdate('Y-m-d H:i:s', time());
 		$query = "SELECT id FROM $this->table_name WHERE nextrun < '$time' AND deleted=0 AND schedule_interval is not null ORDER BY nextrun ASC";
-
-		//echo $query;
 		
 		$seed = new RunnableReport();
 		$result = $seed->build_related_list($query, $seed);
@@ -120,7 +119,8 @@ class RunnableReport extends SugarBean {
 	
 	
 	function run($update_nextrun_time = false) {
-	
+		global $timedate;
+		
 		$parameter_values = unserialize(html_entity_decode($this->settings));
 		
 		foreach ($parameter_values as $key=>$value) {
@@ -134,14 +134,7 @@ class RunnableReport extends SugarBean {
 		$this->lastlog = ob_get_clean();
 		
 		if ($update_nextrun_time) {
-			//echo $this->nextrun."\n";
-			$lastrun = strtotime($this->nextrun);
-			$time = time();
-			while($lastrun <= $time){
-				$lastrun += $this->schedule_interval;
-			}
-			$this->nextrun = date('Y-m-d H:i:s', $lastrun);
-			//echo $this->nextrun."\n";
+			$this->nextrun = date($timedate->get_date_time_format(), time() + $this->schedule_interval);
 		}
 		$this->save();
 	}

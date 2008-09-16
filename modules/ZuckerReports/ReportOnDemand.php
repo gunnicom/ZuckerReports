@@ -85,6 +85,7 @@ if (!$is_scheduler) {
 		foreach ($templates as $template) {
 			$template_select[$template->id] = $template->get_summary_text();
 		}
+		asort($template_select);
 			
 		$xtpl->assign("REPORT_SELECTION_HEADER", get_form_header ($mod_strings["LBL_ONDEMAND_REPORT_SELECTION"], "", false));
 		$xtpl->assign("TEMPLATE_SELECTION", get_select_options_with_id($template_select, $focus->id));
@@ -105,6 +106,7 @@ if (!$is_scheduler) {
 			if ($focus->report_result_type == "FILE") {
 				$types = parse_list_modules($app_list_strings['record_type_display']);
 				$types = array_merge(array("" => ""), $types);
+				asort($types);
 			
 				$xtpl->assign("TYPE_OPTIONS", get_select_options_with_id($types, $_REQUEST['parent_module']));
 			
@@ -124,8 +126,10 @@ if (!$is_scheduler) {
 				$xtpl->assign('encoded_popup_request_data', $encoded_popup_request_data);
 				$xtpl->assign("ATTACH_SELECTION_HEADER", get_form_header ($mod_strings["LBL_ONDEMAND_ATTACH_SELECTION"], "", false));
 				$xtpl->assign("PARENT_ID", $_REQUEST['parent_id']);
-				$xtpl->assign("PARENT_NAME", $_REQUEST['parent_name']);	
-				$xtpl->assign("CAT_OPTIONS", get_select_options_with_id(ReportContainer::get_category_select_options(), $_REQUEST['parent_category']));
+				$xtpl->assign("PARENT_NAME", $_REQUEST['parent_name']);
+				$cat_options = ReportContainer::get_category_select_options();
+				asort($cat_options);
+				$xtpl->assign("CAT_OPTIONS", get_select_options_with_id($cat_options, $_REQUEST['parent_category']));
 				$xtpl->assign("SEND_EMAIL", $_REQUEST['send_email']);
 				
 				$xtpl->parse("attach_selection");
@@ -168,7 +172,7 @@ if (!$is_scheduler) {
 			$xtpl->parse("execbutton");			
 			$execbutton = $xtpl->text("execbutton");
 			
-			if ($focus->report_result_type == "FILE" || $focus->report_result_type == "INLINE") {
+			if ($focus->report_result_type == "FILE") {
 				$xtpl->parse("schedulebutton");			
 				$schedulebutton = $xtpl->text("schedulebutton");
 			}

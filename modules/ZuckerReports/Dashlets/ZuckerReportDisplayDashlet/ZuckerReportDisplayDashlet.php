@@ -53,6 +53,7 @@ class ZuckerReportDisplayDashlet extends Dashlet {
 				$select[$bean->id] = $bean->get_summary_text();
 			}
 		}
+		asort($select);
 	
 		$ss = new Sugar_Smarty();
 		$ss->assign('runnableLbl', $this->dashletStrings['LBL_CONFIGURE_RUNNABLE']);

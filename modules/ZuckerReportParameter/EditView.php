@@ -78,6 +78,7 @@ $xtpl->assign("DEFAULT_NAME", $default_name);
 $xtpl->assign("DEFAULT_VALUE", $default_value);
 $xtpl->assign("DESCRIPTION", $description);
 
+asort($mod_list_strings["PARAM_RANGE_TYPES"]);
 $xtpl->assign("RANGE_SELECTION", get_select_options_with_id($mod_list_strings["PARAM_RANGE_TYPES"], $range));
 
 if ($range == 'SQL') {
@@ -112,6 +113,7 @@ if ($range == 'DROPDOWN') {
 	foreach (array_keys($app_list_strings) as $app_list_key) {
 		$options[$app_list_key] = $app_list_key;
 	}
+	asort($options);
 	$xtpl->assign("DROPDOWN_OPTIONS", get_select_options_with_id($options, $range_options));
 	
 	$xtpl->parse('main.DROPDOWN');

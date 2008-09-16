@@ -43,6 +43,7 @@ if (is_admin($current_user)) {
 			foreach ($rps as $rp) {
 				$param_select[$rp->id] = $rp->get_summary_text();
 			}
+			asort($param_select);
 			if (empty($_REQUEST['link_parameter_id'])) {
 				$rp = $rps[0];
 			} else {
@@ -74,6 +75,8 @@ if (is_admin($current_user)) {
 			foreach ($links as $link) {
 				$param_select[$link->id] = $link->get_summary_text();
 			}
+			asort($param_select);
+			asort($beanList);
 			
 			$xtpl->assign("TEMPLATE_ID", $focus->id);
 			$xtpl->assign("LINK_PARAM_SELECTION", get_select_options_with_id($param_select, $_REQUEST['module_parameterlink_id']));

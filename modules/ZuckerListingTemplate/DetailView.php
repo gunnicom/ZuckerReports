@@ -75,6 +75,7 @@ if (is_admin($current_user)) {
 	
 
 	$field_select = $focus->get_full_fields_list();
+	asort($field_select);
 
 	$rp = new ReportParameter();
 	$rps = $rp->get_full_list();
@@ -92,8 +93,11 @@ if (is_admin($current_user)) {
 	$xtpl->assign("TEMPLATE_ID", $focus->id);
 	$xtpl->assign("TEMPLATE_MODULE", $focus->mainmodule);
 	$xtpl->assign("FILTER_FIELD_SELECTION", get_select_options_with_id($field_select, $_REQUEST["filter_field_name"]));
-	$xtpl->assign("FILTER_COMPARATOR_SELECTION", get_select_options_with_id($focus->get_full_comparator_list($_REQUEST["filter_field_name"]), $_REQUEST["filter_comparator"]));
+	$filter_comparator = $focus->get_full_comparator_list($_REQUEST["filter_field_name"]);
+	asort($filter_comparator);
+	$xtpl->assign("FILTER_COMPARATOR_SELECTION", get_select_options_with_id($filter_comparator, $_REQUEST["filter_comparator"]));
 	
+	asort($param_select);
 	$xtpl->assign("FILTER_PARAM_SELECTION", get_select_options_with_id($param_select, $_REQUEST["filter_value_param"]));
 	$xtpl->assign("FILTER_VALUE_INPUT", $_REQUEST["filter_value_input"]);
 	
@@ -101,6 +105,7 @@ if (is_admin($current_user)) {
 
 	$xtpl->parse("filter_add.filter_add_param");
 	if (!empty($options_select)) {
+		asort($options_select);
 		$xtpl->assign("FILTER_ENUM_SELECTION", get_select_options_with_id($options_select, $_REQUEST["filter_value_enum"]));
 		$xtpl->parse("filter_add.filter_add_enum");
 	}
@@ -115,6 +120,7 @@ if (is_admin($current_user)) {
 	$xtpl->assign("TEMPLATE_ID", $focus->id);
 	$xtpl->assign("TEMPLATE_MODULE", $focus->mainmodule);
 	$xtpl->assign("ORDER_FIELD_SELECTION", get_select_options_with_id($field_select, $_REQUEST["order_field_name"]));
+	asort($mod_list_strings["LISTING_ORDER_TYPES"]);
 	$xtpl->assign("ORDER_TYPE_SELECTION", get_select_options_with_id($mod_list_strings["LISTING_ORDER_TYPES"], $_REQUEST["order_order_type"]));
 	$xtpl->assign("JAVASCRIPT", get_validate_js());
 		

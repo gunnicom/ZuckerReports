@@ -30,7 +30,7 @@ class QueryTemplate extends ReportProviderBase {
 	
 		$this->action_module = $this->module_dir;
 		$this->type_desc = $mod_strings["LBL_QUERY"];
-		$this->image_html = get_image("themes/".$theme."/images/ZuckerQueryTemplate", "ZuckerQueryTemplate");
+		$this->image_html = get_image("themes/".$theme."/images/ZuckerQueryTemplate", "alt=\"ZuckerQueryTemplate\"");
 		$this->image_module = "ZuckerQueryTemplate";
 
 		$this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);
@@ -282,6 +282,7 @@ class QueryTemplate extends ReportProviderBase {
 			$this->report_result_type = "FILE";
 		}
 		
+		asort($mod_list_strings["QUERY_EXPORT_TYPES"]);
 		return get_select_options_with_id($mod_list_strings["QUERY_EXPORT_TYPES"], $_REQUEST["format"]);
 	}	
 
@@ -297,6 +298,8 @@ class QueryTemplate extends ReportProviderBase {
 		$xtpl->assign("APP", $app_strings);		
 
 		if ($_REQUEST["format"] == "CSV") {
+			asort($mod_list_strings["COL_DELIMS"]);
+			asort($mod_list_strings["ROW_DELIMS"]);
 			$xtpl->assign("COL_DELIM_SELECTION", get_select_options_with_id($mod_list_strings["COL_DELIMS"], $_REQUEST["col_delim"]));
 			$xtpl->assign("ROW_DELIM_SELECTION", get_select_options_with_id($mod_list_strings["ROW_DELIMS"], $_REQUEST["row_delim"]));
 			if (isset($_REQUEST["include_header"])) {

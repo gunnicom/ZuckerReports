@@ -69,6 +69,7 @@ $lv->setHeaderText($button);
 $lv->setModStrings($mod_strings);
 $lv->processListViewTwo($child_containers, "main", "CONTAINER");
 
-echo get_form_footer();
+if (function_exists("get_form_footer"))
+	echo get_form_footer();
 insert_popup_footer();
 ?>

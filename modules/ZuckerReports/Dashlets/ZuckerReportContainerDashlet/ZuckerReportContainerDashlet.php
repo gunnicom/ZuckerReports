@@ -70,7 +70,9 @@ class ZuckerReportContainerDashlet extends Dashlet {
         $ss->assign('containerLbl', $this->dashletStrings['LBL_CONFIGURE_CONTAINER']);
         $ss->assign('saveLbl', $app_strings['LBL_SAVE_BUTTON_LABEL']);
         $ss->assign('title', $this->title);
-		$ss->assign('containerSelect', get_select_options_with_id(ReportContainer::get_category_select_options(), $this->container_id));
+		$container = ReportContainer::get_category_select_options();
+		asort($container);
+		$ss->assign('containerSelect', get_select_options_with_id($container, $this->container_id));
         $ss->assign('count', $this->count);
         $ss->assign('id', $this->id);
 		

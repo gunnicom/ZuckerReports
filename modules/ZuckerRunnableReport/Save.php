@@ -13,10 +13,9 @@ if (empty($_REQUEST['schedule_interval'])) {
 } else {
 	global $timedate;
 	if(empty($_REQUEST['schedule_start'])){
-		//$runnable->nextrun = gmdate('Y-m-d H:i:s', time());	
-		$runnable->nextrun = $timedate->get_gmt_db_datetime();
+		$runnable->nextrun = date($timedate->get_date_time_format(), time());
 	} else {
-		$runnable->nextrun = $timedate->to_db_date($_REQUEST['schedule_start'], false)." 00:00:00";
+		$runnable->nextrun = date($timedate->get_date_time_format(), strtotime($_REQUEST['schedule_start']));
 	}
 }
 

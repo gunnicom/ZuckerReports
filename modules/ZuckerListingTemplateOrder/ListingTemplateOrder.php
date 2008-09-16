@@ -1,6 +1,8 @@
 <?php
 
 require_once('data/SugarBean.php');
+// Stefan: Fixed missing class error
+require_once('modules/ZuckerListingTemplate/ListingTemplate.php');
 
 class ListingTemplateOrder extends SugarBean {
 
@@ -73,7 +75,13 @@ class ListingTemplateOrder extends SugarBean {
 			require_once($beanFile);
 			$seed = new $beanName;
 			
-			$result .= $seed->table_name.".".$this->field_name;
+			$field_def = $seed->field_defs[$this->field_name];
+			if ($field_def["type"] == "relate" && $field_def["source"] == "non-db") {
+				$result .= $field_def["table"].".".$field_def["rname"];
+			} else {
+				$result .= $seed->table_name.".".$this->field_name;
+			}
+			//$result .= $seed->table_name.".".$this->field_name;
 			if ($this->order_type == "asc") {
 				$result .= " asc ";
 			} else {

@@ -116,7 +116,7 @@ class ReportTemplate extends ReportProviderBase {
 		
 		$this->action_module = $this->module_dir;
 		$this->type_desc = $mod_strings["LBL_REPORT"];
-		$this->image_html = get_image("themes/".$theme."/images/ZuckerReportTemplate", "ZuckerReportTemplate");
+		$this->image_html = get_image("themes/".$theme."/images/ZuckerReportTemplate", "alt=\"ZuckerReportTemplate\"");
 		$this->image_module = "ZuckerReportTemplate";
 
 		$this->assigned_user_name = get_assigned_user_name($this->assigned_user_id);

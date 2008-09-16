@@ -330,6 +330,8 @@ class ListingTemplate extends ReportProviderBase {
 					} else {
 						require_once('include/ListView/ListView.php');
 						$lv = new ListView();
+						if ($_REQUEST["is_scheduler"] = "true")
+							$lv->setDisplayHeaderAndFooter(false);
 						$lv->initNewXTemplate('modules/ZuckerListingTemplate/lists/'.$this->list_template, return_module_language($current_language, $this->mainmodule));
 						$lv->xTemplateAssign("SITE_URL", $sugar_config["site_url"]);
 						
@@ -353,7 +355,7 @@ class ListingTemplate extends ReportProviderBase {
 						
 						fwrite($f, ob_get_clean());
 	
-						fwrite($f, file_get_contents("modules/ZuckerQueryTemplate/lists/footer.html"));
+						fwrite($f, file_get_contents("modules/ZuckerListingTemplate/lists/footer.html"));
 						fclose($f);
 						
 					} else {
@@ -498,6 +500,7 @@ class ListingTemplate extends ReportProviderBase {
 		} else if ($_REQUEST["format"] == "HTML" || $_REQUEST["format"] == "SIMPLEHTML") {
 			$this->report_result_type = "FILE";
 		}
+		asort($strings);
 		return get_select_options_with_id($strings, $_REQUEST["format"]);
 	}	
 	
@@ -521,6 +524,7 @@ class ListingTemplate extends ReportProviderBase {
 				$xtpl->parse("listTableEmpty");
 				return $xtpl->text("listTableEmpty");
 			} else {
+				asort($templates);
 				$xtpl->assign("LIST_TEMPLATE_SELECTION", get_select_options_with_id($templates, $_REQUEST["list_template"]));
 				$xtpl->parse("listTable");
 				return $xtpl->text("listTable");
@@ -537,7 +541,9 @@ class ListingTemplate extends ReportProviderBase {
 		} else if ($_REQUEST["format"] == "CSV") {
 		
 			$csv_strings = return_mod_list_strings_language($current_language, "ZuckerQueryTemplate");
-		
+			asort($csv_strings["COL_DELIMS"]);
+			asort($csv_strings["ROW_DELIMS"]);
+			
 			$xtpl->assign("COL_DELIM_SELECTION", get_select_options_with_id($csv_strings["COL_DELIMS"], $_REQUEST["col_delim"]));
 			$xtpl->assign("ROW_DELIM_SELECTION", get_select_options_with_id($csv_strings["ROW_DELIMS"], $_REQUEST["row_delim"]));
 			if (isset($_REQUEST["include_header"])) {

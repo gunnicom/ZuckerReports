@@ -80,7 +80,7 @@ class ListingTemplateFilter extends SugarBean {
 			
 			
 			$field_def = $seed->field_defs[$this->field_name];
-			if ($field_def["type"] == "relate") {
+			if ($field_def["type"] == "relate" && $field_def["source"] == "non-db") {
 				$result .= $field_def["table"].".".$field_def["rname"];
 			} else {
 				$result .= $seed->table_name.".".$this->field_name;
