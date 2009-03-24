@@ -11,7 +11,7 @@ class ReportParameter extends SugarBean {
 	var $default_name;
 	var $default_value;
 	var $description;
-	var $range; //SQL,LIST,SIMPLE,DATE,CURRENT_USER
+	var $range_name; //SQL,LIST,SIMPLE,DATE,CURRENT_USER
 	var $range_options; //module to select, sql-query, value-list
 	
 	var $created_by;
@@ -67,7 +67,7 @@ class ReportParameter extends SugarBean {
 		global $current_language;
 
 		$mod_list_strings = return_mod_list_strings_language($current_language, "ZuckerReports");
-		$this->range_description = $mod_list_strings['PARAM_RANGE_TYPES'][$this->range];
+		$this->range_description = $mod_list_strings['PARAM_RANGE_TYPES'][$this->range_name];
 	}
 	
 	function get_summary_text() {
@@ -75,13 +75,13 @@ class ReportParameter extends SugarBean {
 	}			
 
 	function input_required() {
-		if ($this->range == "CURRENT_USER") {
+		if ($this->range_name == "CURRENT_USER") {
 			return false;
 		}
-		if ($this->range == "DATE_NOW") {
+		if ($this->range_name == "DATE_NOW") {
 			return false;
 		}
-		if ($this->range == "SCRIPT") {
+		if ($this->range_name == "SCRIPT") {
 			return false;
 		}
 		return true;
@@ -90,22 +90,22 @@ class ReportParameter extends SugarBean {
 	function get_parameter_value($rp, $rpl) {
 		global $current_language, $current_user;
 		
-		if ($rp->range == "CURRENT_USER") {
+		if ($rp->range_name == "CURRENT_USER") {
 			return $current_user->id;
-		} else if ($rp->range == "SCRIPT") {
+		} else if ($rp->range_name == "SCRIPT") {
 			return eval($rp->range_options);
-		} else if ($rp->range == "DATE") {
+		} else if ($rp->range_name == "DATE") {
 		
 			$timedate = new TimeDate();
 			$result = $timedate->to_db_date($_REQUEST[$rpl->name], false);
 			return $result;
-		} else if ($rp->range == "DATE_NOW") {
+		} else if ($rp->range_name == "DATE_NOW") {
 		
 			$timedate = new TimeDate();
 			$result = $timedate->get_gmt_db_datetime();
 			return $result;
 		
-		} else if ($rp->range == "DATE_ADD" || $rp->range == "DATE_SUB") {
+		} else if ($rp->range_name == "DATE_ADD" || $rp->range_name == "DATE_SUB") {
 			$timedate = new TimeDate();
 			
 			$arr = split("::", $_REQUEST[$rpl->name]);
@@ -126,7 +126,7 @@ class ReportParameter extends SugarBean {
 				} else if ($type == "YEAR") {
 					$count *= 60 * 60 * 24 * 365;
 				}
-				if ($rp->range == "DATE_SUB") $count *= -1;
+				if ($rp->range_name == "DATE_SUB") $count *= -1;
 			} else {
 				$count = 0;
 			}
@@ -160,7 +160,7 @@ class ReportParameter extends SugarBean {
 			$selected_val = $_REQUEST[$rpl->name];
 		}
 		
-		if ($rp->range == 'SQL') {
+		if ($rp->range_name == 'SQL') {
 			$param_table = $rp->get_sql_table();
 			asort($param_table);
 			if (is_array($param_table)) {
@@ -172,7 +172,7 @@ class ReportParameter extends SugarBean {
 			} else {
 				$parameter_html = $param_table."<br/>";
 			}
-		} else if ($rp->range == 'LIST') {
+		} else if ($rp->range_name == 'LIST') {
 			$list = $rp->get_list_table();
 			asort($list);
 			$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
@@ -181,7 +181,7 @@ class ReportParameter extends SugarBean {
 			$xtpl->parse("LIST");
 			$parameter_html = $xtpl->text("LIST");
 
-		} else if ($rp->range == 'DROPDOWN') {
+		} else if ($rp->range_name == 'DROPDOWN') {
 			$app_list_strings = return_app_list_strings_language($current_language);
 		
 			$list = $rp->get_list_table();
@@ -192,14 +192,14 @@ class ReportParameter extends SugarBean {
 			$xtpl->parse("LIST");
 			$parameter_html = $xtpl->text("LIST");
 
-		} else if ($rp->range == 'SIMPLE') {
+		} else if ($rp->range_name == 'SIMPLE') {
 			$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
 			$xtpl->assign("PARAM_NAME", $rpl->name);
 			$xtpl->assign("PARAM_VALUE", $selected_val);
 			$xtpl->parse("SIMPLE");
 			$parameter_html = $xtpl->text("SIMPLE");
 
-		} else if ($rp->range == 'DATE') {
+		} else if ($rp->range_name == 'DATE') {
 			$timedate = new TimeDate();
 				
 			$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
@@ -211,7 +211,7 @@ class ReportParameter extends SugarBean {
 			$xtpl->parse("DATE");
 			$parameter_html = $xtpl->text("DATE");
 
-		} else if ($rp->range == 'DATE_ADD' || $rp->range == 'DATE_SUB') {
+		} else if ($rp->range_name == 'DATE_ADD' || $rp->range_name == 'DATE_SUB') {
 
 			$xtpl->assign("PARAM_FRIENDLY_NAME", $rpl->friendly_name);
 			$xtpl->assign("PARAM_NAME", $rpl->name);

@@ -50,7 +50,7 @@ function post_install( ) {
 		$seed->default_name = "ACCOUNT_ID";
 		$seed->default_value = "";
 		$seed->description = "";
-		$seed->range = "SQL";
+		$seed->range_name = "SQL";
 		$seed->range_options = 'select id, name from accounts where deleted = 0 order by name';
 		$seed->save();
 		
@@ -59,7 +59,7 @@ function post_install( ) {
 		$seed->default_name = "CONTACT_ID";
 		$seed->default_value = "";
 		$seed->description = "";
-		$seed->range = "SQL";
+		$seed->range_name = "SQL";
 		$seed->range_options = 'select id, concat(last_name, concat(" ", first_name)) as name from contacts where deleted = 0 order by last_name';
 		$seed->save();
 
@@ -68,7 +68,7 @@ function post_install( ) {
 		$seed->default_name = "MEETING_ID";
 		$seed->default_value = "";
 		$seed->description = "";
-		$seed->range = "SQL";
+		$seed->range_name = "SQL";
 		$seed->range_options = 'select id, concat(name, " (", date_start, " ", time_start, ")") from meetings where deleted = 0 order by name, date_start, time_start';
 		$seed->save();
 
@@ -77,7 +77,7 @@ function post_install( ) {
 		$seed->default_name = "PROJECT_ID";
 		$seed->default_value = "";
 		$seed->description = "";
-		$seed->range = "SQL";
+		$seed->range_name = "SQL";
 		$seed->range_options = 'select id, name from project where deleted = 0 order by name';
 		$seed->save();
 		
@@ -86,7 +86,7 @@ function post_install( ) {
 		$seed->default_name = "CURRENT_USER";
 		$seed->default_value = "";
 		$seed->description = "";
-		$seed->range = "CURRENT_USER";
+		$seed->range_name = "CURRENT_USER";
 		$seed->save();
 
 		$seed = new ReportParameter();
@@ -94,7 +94,7 @@ function post_install( ) {
 		$seed->default_name = "MY_SCRIPT";
 		$seed->default_value = "";
 		$seed->description = "";
-		$seed->range = "SCRIPT";
+		$seed->range_name = "SCRIPT";
 		$seed->range_options = "return '%';";
 		$seed->save();
 		

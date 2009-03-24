@@ -78,8 +78,8 @@ $GLOBALS['dictionary']['ReportParameter'] = array(
 			'type' => 'varchar',
 			'len' => 255,
 			),
-		'range' => array (
-			'name' => 'range',
+		'range_name' => array (
+			'name' => 'range_name',
 			'vname' => 'LBL_PARAM_RANGE',
 			'required' => true,
 			'type' => 'varchar',

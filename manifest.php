@@ -1,15 +1,15 @@
 <?PHP
 
 $manifest = array(
-    'acceptable_sugar_versions' => array("regex_matches" => array("5.1.*")),
+    'acceptable_sugar_versions' => array("regex_matches" => array("5.2.*")),
 	'acceptable_sugar_flavors' => array (
 		0 => 'CE',
 	),
     'name' => 'ZuckerReports CE',
     'description' => 'ZuckerReports Community Edition',
     'author' => 'go-mobile IT GmbH',
-    'published_date' => '2008/09/05',
-    'version' => '1.10',
+    'published_date' => '2009/03/24',
+    'version' => '1.11',
     'type' => 'module',
     'icon' => 'include/images/ZuckerReports.gif',
 	'is_uninstallable' => 'true',

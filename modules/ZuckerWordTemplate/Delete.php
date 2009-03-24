@@ -1,6 +1,5 @@
 <?php
 
-require_once('include/logging.php');
 require_once('include/formbase.php');
 require_once('modules/ZuckerWordTemplate/WordTemplate.php');
 

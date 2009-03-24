@@ -1,5 +1,5 @@
 /*
- $Id: LICENSE.groovy.txt 1232 2006-04-20 13:15:10Z teodord $
+ $Id: LICENSE.groovy.txt 762 2006-02-28 19:46:19Z gt78 $
 
  Copyright 2003 (C) James Strachan and Bob Mcwhirter. All Rights Reserved.
 

@@ -172,10 +172,10 @@ if (!$is_scheduler) {
 			$xtpl->parse("execbutton");			
 			$execbutton = $xtpl->text("execbutton");
 			
-			if ($focus->report_result_type == "FILE") {
-				$xtpl->parse("schedulebutton");			
-				$schedulebutton = $xtpl->text("schedulebutton");
-			}
+			//if ($focus->report_result_type == "FILE") {
+			$xtpl->parse("schedulebutton");			
+			$schedulebutton = $xtpl->text("schedulebutton");
+			//}
 		}
 		
 		if (!empty($report_selection)) $xtpl->assign("REPORT_SELECTION", $report_selection);

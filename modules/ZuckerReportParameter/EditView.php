@@ -22,7 +22,7 @@ if(isset($_REQUEST['record']) && !empty($_REQUEST['record'])) {
 	$default_name = $focus->default_name;
 	$default_value = $focus->default_value;
 	$description = $focus->description;
-	$range = $focus->range;
+	$range_name = $focus->range_name;
 	$range_options = $focus->range_options;
 
 	$title = $mod_strings['LBL_MODULE_NAME'].": ".$focus->default_name;
@@ -42,8 +42,8 @@ if (!empty($_REQUEST['default_value'])) {
 if (!empty($_REQUEST['description'])) {
 	$description = $_REQUEST['description'];
 }
-if (!empty($_REQUEST['range'])) {
-	$range = $_REQUEST['range'];
+if (!empty($_REQUEST['range_name'])) {
+	$range_name = $_REQUEST['range_name'];
 }
 if (!empty($_REQUEST['range_options'])) {
 	$range_options = $_REQUEST['range_options'];
@@ -79,9 +79,9 @@ $xtpl->assign("DEFAULT_VALUE", $default_value);
 $xtpl->assign("DESCRIPTION", $description);
 
 asort($mod_list_strings["PARAM_RANGE_TYPES"]);
-$xtpl->assign("RANGE_SELECTION", get_select_options_with_id($mod_list_strings["PARAM_RANGE_TYPES"], $range));
+$xtpl->assign("RANGE_SELECTION", get_select_options_with_id($mod_list_strings["PARAM_RANGE_TYPES"], $range_name));
 
-if ($range == 'SQL') {
+if ($range_name == 'SQL') {
 	$xtpl->assign("RANGE_OPTIONS", $range_options);
 	if ($_REQUEST['sqltest'] == 'true') {
 		if (is_admin($GLOBALS['current_user'])) {
@@ -102,13 +102,13 @@ if ($range == 'SQL') {
 	}
 	$xtpl->parse('main.SQL');
 }
-if ($range == 'LIST') {
+if ($range_name == 'LIST') {
 	$xtpl->assign("RANGE_OPTIONS", $range_options);
 	
 	$xtpl->parse('main.LIST');
 }
 
-if ($range == 'DROPDOWN') {
+if ($range_name == 'DROPDOWN') {
 	$options = array();
 	foreach (array_keys($app_list_strings) as $app_list_key) {
 		$options[$app_list_key] = $app_list_key;
@@ -120,7 +120,7 @@ if ($range == 'DROPDOWN') {
 }
 
 
-if ($range == 'SCRIPT') {
+if ($range_name == 'SCRIPT') {
 	require_once("modules/ZuckerReports/config.php");
 	
 	if ($zuckerreports_config["param_script_enabled"] == "yes") {

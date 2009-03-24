@@ -30,7 +30,7 @@ if (!empty($_REQUEST["record"])) {
 					$href .= "&parent_module=".$_REQUEST["module"];
 					$href .= "&parent_id=".$_REQUEST["record"];
 					//$href .= "&parent_name=".urlencode($focus->get_summary_text());
-					$href .= "&".$mod_link->parameterlink_name."=".$focus->id;
+					$href .= "&".$mod_link->parameterlink_name."=".$_REQUEST["record"];
 					
 					$module_menu[] = array($href, $t->get_summary_text(), $t->image_module);
 				}
