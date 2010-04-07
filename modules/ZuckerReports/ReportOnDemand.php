@@ -1,7 +1,7 @@
 <?php
 require_once('XTemplate/xtpl.php');
 require_once('modules/ZuckerReports/config.php');
-require_once('modules/ZuckerReports/Report.php');
+require_once('modules/ZuckerReports/ZuckerReport.php');
 require_once('modules/ZuckerReportContainer/ReportContainer.php');
 require_once('modules/ZuckerReportParameter/ReportParameter.php');
 require_once('modules/ZuckerReportParameterLink/ReportParameterLink.php');
@@ -216,6 +216,16 @@ if (!empty($focus->id) && $_REQUEST['run'] == "true") {
 				$report->filename = $focus->report_result_name;
 				$report->published = 0;
 				$report->save();
+				
+				$note = new Note();
+				$note->name = $focus->report_result_name;
+				if ($zuckerreports_config["debug"] == "yes") $note->description = $focus->report_output;
+				$note->filename = $focus->report_result_name;
+				$note->parent_type = "ZuckerReport";
+				$note->parent_id = $report->id;
+				$note->id = $report->id;
+				$note->new_with_id = true;
+				$note->save();
 				
 				$uf = new UploadFile("upload");
 				$uf->set_for_soap($focus->report_result_name, file_get_contents($focus->report_result));

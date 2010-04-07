@@ -57,7 +57,9 @@ class QueryTemplate extends ReportProviderBase {
 	var $col_delim;
 	var $row_delim;
 	
-	function execute_request($parameter_values = array(), $archive_dir = "modules/ZuckerReports/archive") {
+	function execute_request($parameter_values = array(), $archive_dir = "") {
+
+		if (empty($archive_dir)) $archive_dir = $this->get_archive_dir();
 
 		$this->archive_dir = $archive_dir;
 		

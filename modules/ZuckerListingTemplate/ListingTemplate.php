@@ -227,7 +227,7 @@ class ListingTemplate extends ReportProviderBase {
 	function execute_request($parameter_values = array()) {
 	
 		$this->list_template = $_REQUEST["list_template"];
-		$this->archive_dir = "modules/ZuckerReports/archive";
+		$this->archive_dir = $this->get_archive_dir();
 		
 		if ($_REQUEST["format"] == "CSV") {
 			$this->col_delim = $this->get_delim($_REQUEST["col_delim"]);

@@ -191,17 +191,17 @@ $GLOBALS["dictionary"]['ReportTemplate'] = array(
  'relationships' => array (	
   'zucker_reporttemplate_assigned_user' =>
    array('lhs_module'=> 'Users', 'lhs_table'=> 'users', 'lhs_key' => 'id',
-   'rhs_module'=> 'ZuckerReportTemplate', 'rhs_table'=> 'zucker_reporttemplate', 'rhs_key' => 'assigned_user_id',
+   'rhs_module'=> 'ZuckerReportTemplate', 'rhs_table'=> 'zucker_reporttemplates', 'rhs_key' => 'assigned_user_id',
    'relationship_type'=>'one-to-many')
 
    ,'zucker_reporttemplate_modified_user' =>
    array('lhs_module'=> 'Users', 'lhs_table'=> 'users', 'lhs_key' => 'id',
-   'rhs_module'=> 'ZuckerReportTemplate', 'rhs_table'=> 'zucker_reporttemplate', 'rhs_key' => 'modified_user_id',
+   'rhs_module'=> 'ZuckerReportTemplate', 'rhs_table'=> 'zucker_reporttemplates', 'rhs_key' => 'modified_user_id',
    'relationship_type'=>'one-to-many')
 
    ,'zucker_reporttemplate_created_by' =>
    array('lhs_module'=> 'Users', 'lhs_table'=> 'users', 'lhs_key' => 'id',
-   'rhs_module'=> 'ZuckerReportTemplate', 'rhs_table'=> 'zucker_reporttemplate', 'rhs_key' => 'created_by',
+   'rhs_module'=> 'ZuckerReportTemplate', 'rhs_table'=> 'zucker_reporttemplates', 'rhs_key' => 'created_by',
    'relationship_type'=>'one-to-many')
 
 ),

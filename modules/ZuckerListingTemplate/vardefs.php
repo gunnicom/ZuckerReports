@@ -137,7 +137,7 @@ $GLOBALS["dictionary"]['ListingTemplate'] = array(
 		  array (
 				'name' => 'assigned_user_link',
 			'type' => 'link',
-			'relationship' => 'zucker_reporttemplate_assigned_user',
+			'relationship' => 'zucker_listingtemplate_assigned_user',
 			'vname' => 'LBL_ASSIGNED_TO_USER',
 			'link_type' => 'one',
 			'module'=>'Users',
@@ -162,7 +162,7 @@ $GLOBALS["dictionary"]['ListingTemplate'] = array(
 			  array (
 					'name' => 'created_by_link',
 				'type' => 'link',
-				'relationship' => 'zucker_reporttemplate_created_by',
+				'relationship' => 'zucker_listingtemplate_created_by',
 				'vname' => 'LBL_CREATED_BY_USER',
 				'link_type' => 'one',
 				'module'=>'Users',
@@ -192,17 +192,17 @@ $GLOBALS["dictionary"]['ListingTemplate'] = array(
  'relationships' => array (	
   'zucker_listingtemplate_assigned_user' =>
    array('lhs_module'=> 'Users', 'lhs_table'=> 'users', 'lhs_key' => 'id',
-   'rhs_module'=> 'ZuckerListingTemplate', 'rhs_table'=> 'zucker_listingtemplate', 'rhs_key' => 'assigned_user_id',
+   'rhs_module'=> 'ZuckerListingTemplate', 'rhs_table'=> 'zucker_listingtemplates', 'rhs_key' => 'assigned_user_id',
    'relationship_type'=>'one-to-many')
 
    ,'zucker_listingtemplate_modified_user' =>
    array('lhs_module'=> 'Users', 'lhs_table'=> 'users', 'lhs_key' => 'id',
-   'rhs_module'=> 'ZuckerListingTemplate', 'rhs_table'=> 'zucker_listingtemplate', 'rhs_key' => 'modified_user_id',
+   'rhs_module'=> 'ZuckerListingTemplate', 'rhs_table'=> 'zucker_listingtemplates', 'rhs_key' => 'modified_user_id',
    'relationship_type'=>'one-to-many')
 
    ,'zucker_listingtemplate_created_by' =>
    array('lhs_module'=> 'Users', 'lhs_table'=> 'users', 'lhs_key' => 'id',
-   'rhs_module'=> 'ZuckerListingTemplate', 'rhs_table'=> 'zucker_listingtemplate', 'rhs_key' => 'created_by',
+   'rhs_module'=> 'ZuckerListingTemplate', 'rhs_table'=> 'zucker_listingtemplates', 'rhs_key' => 'created_by',
    'relationship_type'=>'one-to-many')
 
 ),

@@ -2,7 +2,7 @@
 require_once('include/utils.php');
 require_once('data/SugarBean.php');
 require_once('data/SugarBean.php');
-require_once('modules/ZuckerReports/Report.php');
+require_once('modules/ZuckerReports/ZuckerReport.php');
 require_once('modules/ZuckerReports/SimpleTeams.php');
 
 class ReportContainer extends SugarBean {

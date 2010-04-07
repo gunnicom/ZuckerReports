@@ -40,6 +40,22 @@ class ReportProviderBase extends SugarBean {
 		SimpleTeams::prepareBean($this);
 	}	
 
+	function get_archive_dir() {
+		$dir = "custom/ZuckerReports/archive/";
+		if (!is_dir($dir)) mkdir($dir, 0700, true);
+		return $dir;
+	}
+	function get_temp_dir() {
+		$dir = "custom/ZuckerReports/temp/";
+		if (!is_dir($dir)) mkdir($dir, 0700, true);
+		return $dir;
+	}
+	function get_resources_dir() {
+		$dir = "custom/ZuckerReports/resources/";
+		if (!is_dir($dir)) mkdir($dir, 0700, true);
+		return $dir;
+	}	
+	
 	function bean_implements($interface){
 		switch($interface){
 			case 'ACL':return true;

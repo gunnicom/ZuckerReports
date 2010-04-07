@@ -1,25 +1,20 @@
 <?PHP
 
 $manifest = array(
-    'acceptable_sugar_versions' => array("regex_matches" => array("5.2.*")),
-	'acceptable_sugar_flavors' => array (
-		0 => 'CE',
-	),
-    'name' => 'ZuckerReports CE',
-    'description' => 'ZuckerReports Community Edition',
-    'author' => 'go-mobile IT GmbH',
-    'published_date' => '2009/03/24',
-    'version' => '1.11',
+    'acceptable_sugar_versions' => array("regex_matches" => array("5.1.*", "5.2.*", "5.5.*")),
+    'name' => 'ZuckerReports',
+    'description' => 'ZuckerReports',
+    'author' => 'dataformers GmbH',
+    'published_date' => '2010/03/22',
+    'version' => '1.12',
     'type' => 'module',
     'icon' => 'include/images/ZuckerReports.gif',
 	'is_uninstallable' => 'true',
 );
 
-
-
 $installdefs = array(
 
-	'id'=> 'ZuckerReportsCE',
+	'id'=> 'ZuckerReports',
 	'image_dir' => '<basepath>/icons',
 	'copy' => array(
 			array('from'=> '<basepath>/include/images/ZuckerReports.gif',
@@ -85,7 +80,7 @@ $installdefs = array(
 	'beans'=> array(
 			array('module'=> 'ZuckerReports',
 				  'class'=> 'ZuckerReport',
-				  'path'=> 'modules/ZuckerReports/Report.php',
+				  'path'=> 'modules/ZuckerReports/ZuckerReport.php',
 				  'tab'=> true,
 			),
 			array('module'=> 'ZuckerReportContainer',

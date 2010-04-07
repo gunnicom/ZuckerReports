@@ -1,6 +1,6 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('modules/ZuckerReports/Report.php');
+require_once('modules/ZuckerReports/ZuckerReport.php');
 require_once('modules/ZuckerReportContainer/ReportContainer.php');
 require_once('modules/ZuckerReports/Forms.php');
 

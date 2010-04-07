@@ -191,17 +191,17 @@ $GLOBALS["dictionary"]['WordTemplate'] = array(
  'relationships' => array (	
   'zucker_wordtemplate_assigned_user' =>
    array('lhs_module'=> 'Users', 'lhs_table'=> 'users', 'lhs_key' => 'id',
-   'rhs_module'=> 'ZuckerWordtemplate', 'rhs_table'=> 'zucker_wordtemplate', 'rhs_key' => 'assigned_user_id',
+   'rhs_module'=> 'ZuckerWordtemplate', 'rhs_table'=> 'zucker_wordtemplates', 'rhs_key' => 'assigned_user_id',
    'relationship_type'=>'one-to-many')
 
    ,'zucker_wordtemplate_modified_user' =>
    array('lhs_module'=> 'Users', 'lhs_table'=> 'users', 'lhs_key' => 'id',
-   'rhs_module'=> 'ZuckerWordtemplate', 'rhs_table'=> 'zucker_wordtemplate', 'rhs_key' => 'modified_user_id',
+   'rhs_module'=> 'ZuckerWordtemplate', 'rhs_table'=> 'zucker_wordtemplates', 'rhs_key' => 'modified_user_id',
    'relationship_type'=>'one-to-many')
 
    ,'zucker_wordtemplate_created_by' =>
    array('lhs_module'=> 'Users', 'lhs_table'=> 'users', 'lhs_key' => 'id',
-   'rhs_module'=> 'ZuckerWordtemplate', 'rhs_table'=> 'zucker_wordtemplate', 'rhs_key' => 'created_by',
+   'rhs_module'=> 'ZuckerWordtemplate', 'rhs_table'=> 'zucker_wordtemplates', 'rhs_key' => 'created_by',
    'relationship_type'=>'one-to-many')
 
 ),

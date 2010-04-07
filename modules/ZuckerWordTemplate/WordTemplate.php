@@ -37,7 +37,7 @@ class WordTemplate extends ReportProviderBase {
 		$mod_strings = return_module_language($current_language, "ZuckerWordTemplate");
 	
 		if (!empty($this->filename)) {
-			$this->template_url = "modules/ZuckerReports/resources/".($this->filename);
+			$this->template_url = $this->get_resources_dir().($this->filename);
 			$this->extension = substr($this->filename, strrpos($this->filename, ".") + 1);
 		}		
 		$this->action_module = $this->module_dir;
@@ -124,7 +124,7 @@ class WordTemplate extends ReportProviderBase {
 	
 	
 	function unlink_all_files() {
-		@unlink("modules/ZuckerReports/resources/".($this->filename));
+		@unlink($this->get_resources_dir().($this->filename));
 	}
 
 	function mark_relationships_deleted($id) {
@@ -138,12 +138,12 @@ class WordTemplate extends ReportProviderBase {
 		if (substr($orig_filename, strrpos($orig_filename, ".") + 1) == "doc") {
 			$this->filename = $orig_filename;
 			$this->fill_in_additional_detail_fields();
-			copy($infile, "modules/ZuckerReports/resources/".($this->filename));
+			copy($infile, $this->get_resources_dir().($this->filename));
 			return TRUE;	
 		} else if (substr($orig_filename, strrpos($orig_filename, ".") + 1) == "stw") {
 			$this->filename = $orig_filename;
 			$this->fill_in_additional_detail_fields();
-			copy($infile, "modules/ZuckerReports/resources/".($this->filename));
+			copy($infile, $this->get_resources_dir().($this->filename));
 			return TRUE;	
 		} else {
 			$this->report_output = $mod_strings['ERR_TEMPLATE_INVALID_OFFICE_FILE'];
@@ -154,11 +154,12 @@ class WordTemplate extends ReportProviderBase {
 	var $save_path;
 	var $archive_dir;
 	
-	function execute_request($parameter_values = array(), $archive_dir = "modules/ZuckerReports/archive") {
+	function execute_request($parameter_values = array(), $archive_dir = "") {
 		
 		$this->save_path = $_REQUEST['save_path'];
-		$this->archive_dir = "modules/ZuckerReports/archive";
-	
+		if (empty($archive_dir)) $this->archive_dir = $this->get_archive_dir();
+		else $this->archive_dir = $archive_dir;
+		
 		return $this->execute($_REQUEST['format'], $parameter_values);
 	}
 
@@ -182,9 +183,9 @@ class WordTemplate extends ReportProviderBase {
 		$this->report_result_name = strtolower(join("_", explode(" ", $this->report_result_name)));
 		$this->report_result = $this->archive_dir."/".$this->report_result_name;
 
-		$tempdir = "modules/ZuckerReports/temp/".create_guid();		
+		$tempdir = ($this->get_temp_dir()).create_guid();	
 		$cmdfile = $tempdir."/cmd.xml";
-		mkdir($tempdir, 0755);
+		mkdir($tempdir, 0700);
 		
 		if ($rt->isWindows()) {
 			$abs_report_result = realpath(str_replace("/", "\\", $this->archive_dir))."\\".($this->report_result_name);
@@ -222,7 +223,7 @@ class WordTemplate extends ReportProviderBase {
 		if ($data_success) {
 		
 			$datafile = $this->querytemplate->report_result_name;
-			copy("modules/ZuckerReports/resources/".($this->filename), $tempdir."/".($this->filename));
+			copy($this->get_resources_dir().($this->filename), $tempdir."/".($this->filename));
 
 			$f = fopen($cmdfile, "w");
 			fwrite($f, "<ZuckerReportsCommand><ZuckerReports>\n");

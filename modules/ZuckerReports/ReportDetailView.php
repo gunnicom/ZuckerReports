@@ -1,6 +1,6 @@
 <?php
 require_once('XTemplate/xtpl.php');
-require_once('modules/ZuckerReports/Report.php');
+require_once('modules/ZuckerReports/ZuckerReport.php');
 require_once('include/upload_file.php');
 
 global $app_strings;
@@ -45,8 +45,10 @@ $xtpl->assign("DESCRIPTION", $focus->description);
 $xtpl->assign("PUBLISHED_TEXT", $focus->published_text);
 $xtpl->assign("CONTAINER_ID", $focus->container_id);
 
+//$fileurl = "<a href=\"".UploadFile::get_url($focus->filename,$focus->id)."\" target=\"_blank\">". $focus->filename ."</a>";
+$fileurl = "<a href=\"index.php?entryPoint=download&id=".$focus->id."&type=Notes\" target=\"_blank\">". $focus->filename ."</a>";
 
-$fileurl = "<a href=\"".UploadFile::get_url($focus->filename,$focus->id)."\" target=\"_blank\">". $focus->filename ."</a>";
+
 $xtpl->assign("FILELINK", $fileurl);
 
 

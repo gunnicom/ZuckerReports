@@ -110,9 +110,9 @@ class ReportTemplate extends ReportProviderBase {
 
 		$mod_strings = return_module_language($current_language, "ZuckerReportTemplate");
 		
-		$this->template_url = "modules/ZuckerReports/resources/".($this->filename);
-		$this->compiled_filename = "modules/ZuckerReports/resources/".($this->filename);
-		$this->resources_folder = "modules/ZuckerReports/resources/".($this->filename)."_files/";
+		$this->template_url = $this->get_resources_dir().($this->filename);
+		$this->compiled_filename = $this->get_resources_dir().($this->filename);
+		$this->resources_folder = $this->get_resources_dir().($this->filename)."_files/";
 		
 		$this->action_module = $this->module_dir;
 		$this->type_desc = $mod_strings["LBL_REPORT"];
@@ -165,7 +165,7 @@ class ReportTemplate extends ReportProviderBase {
 		global $mod_strings;
 
 		if (!file_exists($this->resources_folder)) {
-			mkdir($this->resources_folder, 0755);		
+			mkdir($this->resources_folder, 0700);		
 		}
 	
 		$filename = substr($orig_filename, 0, strrpos($orig_filename, ".")).".jasper";
@@ -183,20 +183,23 @@ class ReportTemplate extends ReportProviderBase {
 
 	function add_resource_file($infile, $orig_filename) {
 		if (!file_exists($this->resources_folder)) {
-			mkdir($this->resources_folder, 0755);
+			mkdir($this->resources_folder, 0700);
 		}
 		copy($infile, $this->resources_folder."/".$orig_filename);
 	}
 	
-	function execute_request($parameter_values = array(), $archive_dir = "modules/ZuckerReports/archive/") {
+	function execute_request($parameter_values = array(), $archive_dir = "") {
+		if (empty($archive_dir)) $archive_dir = $this->get_archive_dir();
 		return $this->execute($_REQUEST['format'], $parameter_values, $archive_dir);
 	}
 	
 	
 	//$format = "PDF", "XLS", "CSV", "HTML", "XML", "XML_EMBED"
-	function execute($format = 'PDF', $parameter_values = array(), $archive_dir = "modules/ZuckerReports/archive/") {
+	function execute($format = 'PDF', $parameter_values = array(), $archive_dir = "") {
 		global $sugar_config, $current_user;
 		global $zuckerreports_config;
+
+		if (empty($archive_dir)) $archive_dir = $this->get_archive_dir();
 		
 		$base = substr($this->filename, 0, strrpos($this->filename, "."));
 		
@@ -223,9 +226,9 @@ class ReportTemplate extends ReportProviderBase {
 			$this->report_result_type = "FILE";
 		}
 		
-		$tempdir = "modules/ZuckerReports/temp/".create_guid();		
+		$tempdir = ($this->get_temp_dir()).create_guid();	
 		$cmdfile = $tempdir."/cmd.properties";
-		mkdir($tempdir, 0755);		
+		mkdir($tempdir, 0700);		
 		$f = fopen($cmdfile, "w");
 		fwrite($f, "jasper.datasource=jdbc\n");
 		fwrite($f, "jdbc.driver=com.mysql.jdbc.Driver\n");
@@ -298,7 +301,7 @@ class ReportTemplate extends ReportProviderBase {
 			$cp_sep = ":";
 		}	
 
-		$classpath = "modules/ZuckerReports/resources/".$cp_sep.($this->resources_folder);
+		$classpath = $this->get_resources_dir().$cp_sep.($this->resources_folder);
 	
 		$jars = array();
 		$d = opendir("modules/ZuckerReports/jasper");
