@@ -57,7 +57,7 @@ class WordTemplate extends ReportProviderBase {
 		
 		
 
-		if ($this->extension == "stw" || $this->extension == "odt") {
+		if ($this->extension == "stw") {
 			$this->type_desc = $mod_strings["LBL_OPENOFFICE"];
 			$this->image_html = get_image("themes/".$theme."/images/ZuckerOpenOfficeTemplate", "alt=\"ZuckerOpenOfficeTemplate\"");
 			$this->image_module = "ZuckerOpenOfficeTemplate";
@@ -140,7 +140,7 @@ class WordTemplate extends ReportProviderBase {
 			$this->fill_in_additional_detail_fields();
 			copy($infile, $this->get_resources_dir().($this->filename));
 			return TRUE;	
-		} else if (substr($orig_filename, strrpos($orig_filename, ".") + 1) == "stw" || substr($orig_filename, strrpos($orig_filename, ".") + 1) == "odt") {
+		} else if (substr($orig_filename, strrpos($orig_filename, ".") + 1) == "stw") {
 			$this->filename = $orig_filename;
 			$this->fill_in_additional_detail_fields();
 			copy($infile, $this->get_resources_dir().($this->filename));
@@ -175,7 +175,7 @@ class WordTemplate extends ReportProviderBase {
 		$date = date("ymd_His");
 		
 		$this->report_result_type = "FORWARD";
-		if ($this->extension == "stw" || $this->extension == "odt") {
+		if ($this->extension == "stw") {
 			$this->report_result_name = $date."_".$base.".zro";
 		} else if ($this->extension == "doc") {
 			$this->report_result_name = $date."_".$base.".zrw";
@@ -198,7 +198,7 @@ class WordTemplate extends ReportProviderBase {
 
 		
 
-		if ($this->extension == "stw" || $this->extension == "odt") {
+		if ($this->extension == "stw") {
 			$data_format = "CSV";
 		} else if ($this->extension == "doc") {
 			$data_format = "SIMPLEHTML";
@@ -229,8 +229,6 @@ class WordTemplate extends ReportProviderBase {
 			fwrite($f, "<ZuckerReportsCommand><ZuckerReports>\n");
 			if ($this->extension == "stw") {
 				fwrite($f, " <Application>StarWriter</Application>\n");
-			} else if ($this->extension == "odt") {
-				fwrite($f, " <Application>OpenOffice</Application>\n");
 			} else if ($this->extension == "doc") {
 				fwrite($f, " <Application>Word</Application>\n");
 			}
@@ -300,7 +298,7 @@ class WordTemplate extends ReportProviderBase {
 
 		$this->report_result_type = "FORWARD";
 		
-		if ($this->extension == "stw" || $this->extension == "odt") {
+		if ($this->extension == "stw") {
 			if (isset($_REQUEST["format"])) {
 				if (!array_key_exists($_REQUEST["format"], $mod_list_strings["OPENOFFICE_EXPORT_TYPES"])) {
 					$_REQUEST["format"] = null;
