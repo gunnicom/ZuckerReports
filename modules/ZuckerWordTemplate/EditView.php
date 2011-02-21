@@ -3,6 +3,7 @@ require_once('XTemplate/xtpl.php');
 require_once('modules/ZuckerWordTemplate/WordTemplate.php');
 require_once('modules/ZuckerQueryTemplate/QueryTemplate.php');
 require_once('modules/ZuckerListingTemplate/ListingTemplate.php');
+require_once('modules/ZuckerWordTemplate/Forms.php');
 
 global $app_strings;
 global $app_list_strings;

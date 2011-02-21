@@ -101,8 +101,8 @@ function post_install( ) {
 	}
 	if (is_file('modules/ZuckerReports/config.php')) {
 		echo "<h3>Note: Please remember to check your Java and/or ZIP installation - you may configure it in the file modules/ZuckerReports/config.php! This is not an error message, but a reminder to check your environment according to the ZuckerReports manual.</h3><br/>";
-		echo "<h3>Note: If you plan to use time-triggered reporting, there are additional steps involved - please follow the steps described in the ZuckerReports manual.</h3><br/>";
-		echo "<h2>ZuckerReports is free for Sugar Open Source users. Commercial licenses including support and upgrades are available, please contact us at sales@go-mobile.at.</h3><br/>";
+		echo "<h3>Note: If you plan to use time-triggered reporting, there are additional steps involved - please follow the steps described in the ZuckerReports manual available at <a href=\"http://www.zuckerfriends.com\" target=\"_blank\">ZuckerFriends</a>.</h3><br/>";
+		echo "<h2>ZuckerReports is free for Sugar Open Source users. Commercial licenses including support and upgrades are available, please contact us at <a href=\"mailto:office@zuckerfriends.com\">office@zuckerfriends.com</a>.</h3><br/>";
 	}
 }
 

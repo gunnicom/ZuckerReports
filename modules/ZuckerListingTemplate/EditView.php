@@ -1,6 +1,7 @@
 <?php
 require_once('XTemplate/xtpl.php');
 require_once('modules/ZuckerListingTemplate/ListingTemplate.php');
+require_once('modules/ZuckerListingTemplate/Forms.php');
 
 global $app_strings;
 global $app_list_strings;

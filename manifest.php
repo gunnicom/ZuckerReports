@@ -1,12 +1,12 @@
 <?PHP
 
 $manifest = array(
-    'acceptable_sugar_versions' => array("regex_matches" => array("5.1.*", "5.2.*", "5.5.*")),
+    'acceptable_sugar_versions' => array("regex_matches" => array("5.1.*", "5.2.*", "5.5.*", "6.0.*", "6.1.*")),
     'name' => 'ZuckerReports',
     'description' => 'ZuckerReports',
-    'author' => 'dataformers GmbH',
-    'published_date' => '2010/03/22',
-    'version' => '1.12',
+    'author' => 'ZuckerFriends.com',
+    'published_date' => '2011/02/21',
+    'version' => '1.13a',
     'type' => 'module',
     'icon' => 'include/images/ZuckerReports.gif',
 	'is_uninstallable' => 'true',
@@ -63,6 +63,10 @@ $installdefs = array(
 			array('from'=> '<basepath>/application/app_strings.en_us.lang.php', 
 			'to_module'=> 'application',
 			'language'=>'en_us'
+			),
+                        array('from'=> '<basepath>/application/app_strings.ru_ru.lang.php', 
+			'to_module'=> 'application',
+			'language'=>'ru_ru'
 			),
 			array('from'=> '<basepath>/application/app_strings.ge_ge.lang.php', 
 			'to_module'=> 'application',

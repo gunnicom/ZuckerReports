@@ -2,6 +2,7 @@
 require_once('XTemplate/xtpl.php');
 require_once('modules/ZuckerListingTemplate/ListingTemplate.php');
 require_once('include/ListView/ListView.php');
+require_once('modules/ZuckerListingTemplate/Forms.php');
 
 global $app_strings;
 global $app_list_strings;
@@ -58,7 +59,8 @@ if (file_exists("modules/ZuckerWordTemplate/SubPanelView.php")) include("modules
 echo "\n<p>\n";
 $lv = new ListView();
 $lv->setXTemplate($xtpl);
-$lv->xTemplateAssign("DELETE_INLINE_PNG",  get_image($image_path.'delete_inline','align="absmiddle" alt="'.$app_strings['LNK_DELETE'].'" border="0"'));$lv->setHeaderTitle($current_module_strings['LBL_LISTING_FILTER_LIST']);
+$lv->xTemplateAssign("DELETE_INLINE_PNG",  get_image($image_path.'delete_inline','align="absmiddle" alt="'.$app_strings['LNK_DELETE'].'" border="0"'));
+$lv->setHeaderTitle($current_module_strings['LBL_LISTING_FILTER_LIST']);
 $lv->show_export_button = false;
 $lv->processListView($focus->get_filters(), "filters", "FILTER");
 echo "\n</p>\n";
@@ -66,7 +68,8 @@ echo "\n</p>\n";
 echo "\n<p>\n";
 $lv = new ListView();
 $lv->setXTemplate($xtpl);
-$lv->xTemplateAssign("DELETE_INLINE_PNG",  get_image($image_path.'delete_inline','align="absmiddle" alt="'.$app_strings['LNK_DELETE'].'" border="0"'));$lv->setHeaderTitle($current_module_strings['LBL_LISTING_ORDER_LIST']);
+$lv->xTemplateAssign("DELETE_INLINE_PNG",  get_image($image_path.'delete_inline','align="absmiddle" alt="'.$app_strings['LNK_DELETE'].'" border="0"'));
+$lv->setHeaderTitle($current_module_strings['LBL_LISTING_ORDER_LIST']);
 $lv->show_export_button = false;
 $lv->processListView($focus->get_orders(), "orders", "ORDER");
 echo "\n</p>\n";

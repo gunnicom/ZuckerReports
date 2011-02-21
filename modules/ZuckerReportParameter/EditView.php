@@ -2,6 +2,7 @@
 require_once('XTemplate/xtpl.php');
 require_once('include/formbase.php');
 require_once('modules/ZuckerReportParameter/ReportParameter.php');
+require_once('modules/ZuckerReportParameter/Forms.php');
 
 global $app_strings;
 global $app_list_strings;

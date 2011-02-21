@@ -2,7 +2,9 @@
 require_once('XTemplate/xtpl.php');
 require_once('modules/ZuckerReportParameter/ReportParameter.php');
 require_once('modules/ZuckerReportParameterLink/ReportParameterLink.php');
+require_once('modules/ZuckerReportParameter/Forms.php');
 require_once('include/ListView/ListView.php');
+
 
 $xtpl=new XTemplate ('modules/ZuckerReportParameter/ParameterView.html');
 $xtpl->assign("MOD", $mod_strings);
@@ -13,7 +15,8 @@ if (!$skip_parameter_links) {
 	echo "\n<p>\n";
 	$lv = new ListView();
 	$lv->setXTemplate($xtpl);
-	$lv->xTemplateAssign("DELETE_INLINE_PNG",  get_image($image_path.'delete_inline','align="absmiddle" alt="'.$app_strings['LNK_DELETE'].'" border="0"'));	$lv->setHeaderTitle($mod_strings['LBL_PARAM_LINK_LIST']);
+	$lv->xTemplateAssign("DELETE_INLINE_PNG",  get_image($image_path.'delete_inline','align="absmiddle" alt="'.$app_strings['LNK_DELETE'].'" border="0"'));
+	$lv->setHeaderTitle($mod_strings['LBL_PARAM_LINK_LIST']);
 	$lv->show_export_button = false;
 	$lv->processListView($focus->get_parameter_links(), "parameters", "LINK");
 	echo "\n</p>\n";
@@ -23,7 +26,9 @@ if (!$skip_module_links) {
 	echo "\n<p>\n";
 	$lv = new ListView();
 	$lv->setXTemplate($xtpl);
-	$lv->xTemplateAssign("DELETE_INLINE_PNG",  get_image($image_path.'delete_inline','align="absmiddle" alt="'.$app_strings['LNK_DELETE'].'" border="0"'));	$lv->xTemplateAssign("TEMPLATE_ID",  $focus->id);	$lv->setHeaderTitle($mod_strings['LBL_TEMPLATE_MODULE_LIST']);
+	$lv->xTemplateAssign("DELETE_INLINE_PNG",  get_image($image_path.'delete_inline','align="absmiddle" alt="'.$app_strings['LNK_DELETE'].'" border="0"'));
+	$lv->xTemplateAssign("TEMPLATE_ID",  $focus->id);
+	$lv->setHeaderTitle($mod_strings['LBL_TEMPLATE_MODULE_LIST']);
 	$lv->show_export_button = false;
 	$lv->processListView($focus->get_module_links(), "modules", "LINK");
 	echo "\n</p>\n";

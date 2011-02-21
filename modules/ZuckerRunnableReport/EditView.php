@@ -1,6 +1,7 @@
 <?php
 require_once('XTemplate/xtpl.php');
 require_once('modules/ZuckerRunnableReport/RunnableReport.php');
+require_once('modules/ZuckerRunnableReport/Forms.php');
 
 global $app_strings;
 global $app_list_strings;
