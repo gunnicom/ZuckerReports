@@ -267,7 +267,7 @@ class ReportParameter extends SugarBean {
 		if (empty($list)) {			
 			$list = $this->range_options;		
 		}		
-		$list = split(",", $list);		
+		$list = explode(",", $list);		
 		$result = array();		
 		foreach ($list as $l) {			
 			$result[$l] = $l;		
