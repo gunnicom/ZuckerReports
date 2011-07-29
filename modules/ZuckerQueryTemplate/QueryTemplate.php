@@ -74,7 +74,7 @@ class QueryTemplate extends ReportProviderBase {
 	}
 
 	function execute($format = 'CSV', $parameter_values = array()) {
-		global $sugar_config, $current_user, $theme;
+		global $sugar_config, $current_user, $theme ,$locale;
 		$date = date("ymd_His");
 		
 		if ($format == 'CSV') {
@@ -123,7 +123,7 @@ class QueryTemplate extends ReportProviderBase {
 				for($row = $this->db->fetchByAssoc($rs); $row; $row = $this->db->fetchByAssoc($rs))	{
 					for ($i = 0; $i < count($fields); $i++) {
 						$field = $fields[$i];
-						$pieces = explode("\n", $row[$field]);
+						$pieces = explode("\n", $locale->translateCharset($row[$field],'UTF-8', $locale->getExportCharset()));
 						$cleaned_pieces = array();
 						foreach ($pieces as $piece) {
 							$cleaned_pieces[] = trim($piece);
