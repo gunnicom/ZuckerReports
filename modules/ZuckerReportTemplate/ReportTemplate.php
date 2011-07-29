@@ -201,7 +201,7 @@ class ReportTemplate extends ReportProviderBase {
 
 		if (empty($archive_dir)) $archive_dir = $this->get_archive_dir();
 		
-		$base = substr($this->filename, 0, strrpos($this->filename, "."));
+		$base = rand(0,999) . "_" . substr($this->filename, 0, strrpos($this->filename, "."));
 		
 		$date = date("ymd_His");
 		if ($format == 'XLS') {
