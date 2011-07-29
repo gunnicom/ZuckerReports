@@ -128,7 +128,7 @@ class QueryTemplate extends ReportProviderBase {
 						foreach ($pieces as $piece) {
 							$cleaned_pieces[] = trim($piece);
 						}
-						fwrite($f, join(" ", $cleaned_pieces));
+						fwrite($f, "\"" . join("\n", $cleaned_pieces) . "\"");
 						if ($i != count($fields) - 1) {
 							fwrite($f, $this->col_delim);
 						}
