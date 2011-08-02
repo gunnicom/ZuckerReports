@@ -1,5 +1,6 @@
 <?php
 require_once('include/utils/db_utils.php');
+require_once('include/export_utils.php');
 require_once('data/SugarBean.php');
 require_once('modules/ZuckerReports/ReportProviderBase.php');
 
@@ -302,6 +303,9 @@ class QueryTemplate extends ReportProviderBase {
 		if ($_REQUEST["format"] == "CSV") {
 			asort($mod_list_strings["COL_DELIMS"]);
 			asort($mod_list_strings["ROW_DELIMS"]);
+			if(empty($_REQUEST["col_delim"])){
+				$_REQUEST["col_delim"]=getDelimiter();
+			}
 			$xtpl->assign("COL_DELIM_SELECTION", get_select_options_with_id($mod_list_strings["COL_DELIMS"], $_REQUEST["col_delim"]));
 			$xtpl->assign("ROW_DELIM_SELECTION", get_select_options_with_id($mod_list_strings["ROW_DELIMS"], $_REQUEST["row_delim"]));
 			if (isset($_REQUEST["include_header"])) {
