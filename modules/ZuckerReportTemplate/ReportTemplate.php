@@ -278,17 +278,7 @@ class ReportTemplate extends ReportProviderBase {
 			}
 		}
 		$cmdline = str_replace("%ARGS%", $args, $pattern);
-
-		exec($cmdline, $output, $return_var);
-		$GLOBALS['log']->debug("execute_java: ".$cmdline." => ".$return_var);
-		
-		if ($return_var == 0) {			
-			$this->report_output = join("<br/>", $output);
-			return TRUE;		
-		} else {			
-			$this->report_output = "cmdline: ".$cmdline." <br/>".join("<br/>", $output);				
-			return FALSE;		
-		}	
+		return $this->execute_cmd($cmdline);
 	}
 	function execute_cmd($cmdline) {
 		exec($cmdline, $output, $return_var);
