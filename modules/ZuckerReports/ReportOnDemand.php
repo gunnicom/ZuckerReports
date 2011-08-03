@@ -340,7 +340,7 @@ if (!empty($focus->id) && $_REQUEST['run'] == "true") {
 		$xtpl->out("runerror");
 	}
 }
-if (!empty($focus->id) && $_REQUEST['schedule'] == "true") {
+if (!empty($focus->id) && !empty($_REQUEST['schedule']) && $_REQUEST['schedule'] == "true") {
 
 	$parameter_values = array();
 	$links = $focus->get_parameter_links();
