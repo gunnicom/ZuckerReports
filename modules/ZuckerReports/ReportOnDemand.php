@@ -88,7 +88,7 @@ if (!$is_scheduler) {
 		asort($template_select);
 			
 		$xtpl->assign("REPORT_SELECTION_HEADER", get_form_header ($mod_strings["LBL_ONDEMAND_REPORT_SELECTION"], "", false));
-		$xtpl->assign("TEMPLATE_SELECTION", get_select_options_with_id($template_select, $focus->id));
+		$xtpl->assign("TEMPLATE_SELECTION", get_select_options_with_id($template_select, (isset($focus->id)?$focus->id:"")));
 		$xtpl->parse("report_selection");
 		$report_selection = $xtpl->text("report_selection");
 		
