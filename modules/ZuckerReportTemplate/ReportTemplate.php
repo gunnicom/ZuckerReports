@@ -268,14 +268,14 @@ class ReportTemplate extends ReportProviderBase {
 	function execute_java($args) {
 		global $zuckerreports_config;
 	
-		$pattern = $zuckerreports_config["java_cmdline"];
-		
-		if (empty($pattern)) {
+		if (empty($zuckerreports_config["java_cmdline"])) {
 			if ($this->isWindows()) {
 				$pattern = "javaw %ARGS% 2>&1";
 			} else {
 				$pattern = "java -Djava.awt.headless=true %ARGS% 2>&1";
 			}
+		}else{
+			$pattern = $zuckerreports_config["java_cmdline"];
 		}
 		$cmdline = str_replace("%ARGS%", $args, $pattern);
 		return $this->execute_cmd($cmdline);
