@@ -40,7 +40,7 @@ if (isset($_REQUEST['record'])) {
 	}
 }
 
-$is_scheduler = ($_REQUEST['is_scheduler'] == "true" ? true : false);
+$is_scheduler = (isset($_REQUEST['is_scheduler']) && $_REQUEST['is_scheduler'] == "true" ? true : false);
 
 if (!$is_scheduler) {
 
