@@ -231,14 +231,14 @@ class ReportTemplate extends ReportProviderBase {
 		mkdir($tempdir, 0700);		
 		$f = fopen($cmdfile, "w");
 		fwrite($f, "jasper.datasource=jdbc\n");
-
+		$jdbc_url_extension=(isset($zuckerreports_config["jdbc_url_extension"])?$zuckerreports_config["jdbc_url_extension"]:"");
 		if ($sugar_config["dbconfig"]["db_type"] == 'mysql') {
 			fwrite($f, "jdbc.driver=com.mysql.jdbc.Driver\n");
-			fwrite($f, "jdbc.url=jdbc:mysql://".($sugar_config["dbconfig"]["db_host_name"]).":3306/".($sugar_config["dbconfig"]["db_name"]).$zuckerreports_config["jdbc_url_extension"]."\n");
+			fwrite($f, "jdbc.url=jdbc:mysql://".($sugar_config["dbconfig"]["db_host_name"]).":3306/".($sugar_config["dbconfig"]["db_name"]).$jdbc_url_extension."\n");
 		} else if ($sugar_config["dbconfig"]["db_type"] == 'mssql') {
 			fwrite($f, "jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver\n");
 			//fwrite($f, "jdbc.url=jdbc:sqlserver://".($sugar_config["dbconfig"]["db_host_name"])."\\\\".($sugar_config["dbconfig"]["db_host_instance"]).";databaseName=".($sugar_config["dbconfig"]["db_name"]).$zuckerreports_config["jdbc_url_extension"]."\n");
-			fwrite($f, "jdbc.url=jdbc:sqlserver://localhost\\\\".($sugar_config["dbconfig"]["db_host_instance"]).";databaseName=".($sugar_config["dbconfig"]["db_name"]).$zuckerreports_config["jdbc_url_extension"]."\n");
+			fwrite($f, "jdbc.url=jdbc:sqlserver://localhost\\\\".($sugar_config["dbconfig"]["db_host_instance"]).";databaseName=".($sugar_config["dbconfig"]["db_name"]).$jdbc_url_extension."\n");
 		} else {
 			return "Database Type ".$sugar_config["dbconfig"]["db_type"]." not supported by ZuckerReports";
 		}
