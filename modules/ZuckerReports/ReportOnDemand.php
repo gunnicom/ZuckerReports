@@ -151,6 +151,7 @@ if (!$is_scheduler) {
 			$links = $focus->get_parameter_links();
 			if (count($links) > 0) {
 				$input_required = false;
+				$parameter_html="";
 				foreach ($links as $link) {
 					$link->fill_in_additional_detail_fields();
 					$parameter_html .= ReportParameter::get_parameter_html($link->parameter, $link);
