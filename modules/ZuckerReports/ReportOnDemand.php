@@ -136,8 +136,8 @@ if (!$is_scheduler) {
 				$attach_selection = $xtpl->text("attach_selection");
 			} else {
 				$xtpl->assign("PARENT_ID", $_REQUEST['parent_id']);
-				$xtpl->assign("PARENT_MODULE", $_REQUEST['parent_module']);	
-				$xtpl->assign("PARENT_NAME", $_REQUEST['parent_name']);	
+				if (isset($_REQUEST['parent_module'])) $xtpl->assign("PARENT_MODULE", $_REQUEST['parent_module']);
+				if (isset($_REQUEST['parent_name']))$xtpl->assign("PARENT_NAME", $_REQUEST['parent_name']);
 				
 				$xtpl->parse("attach_selection_hidden");
 				$attach_selection = $xtpl->text("attach_selection_hidden");
