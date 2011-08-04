@@ -156,7 +156,7 @@ class WordTemplate extends ReportProviderBase {
 	
 	function execute_request($parameter_values = array(), $archive_dir = "") {
 		
-		$this->save_path = $_REQUEST['save_path'];
+		$this->save_path = (isset($_REQUEST['save_path'])?$_REQUEST['save_path']:"");
 		if (empty($archive_dir)) $this->archive_dir = $this->get_archive_dir();
 		else $this->archive_dir = $archive_dir;
 		
