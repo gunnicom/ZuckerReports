@@ -113,6 +113,12 @@ $mod_strings = array (
 	'LBL_ONDEMAND_BOUND_RUN' => 'Erstellen',
 	
 	'LBL_ARCHIVE_LIST'=> 'Bericht-Auflistung',
+
+    	'LBL_REPORT_NAME' => 'Vorlagenname',
+	'LBL_QUERY_NAME' => 'Abfragenname',
+	'LBL_QUERY_SQL' => 'SQL-Abfrage',
+	'LBL_WORD_NAME' => 'Vorlagenname',
+	'LBL_WORD_QUERY' => 'Abfrage',
 	
 );
 
