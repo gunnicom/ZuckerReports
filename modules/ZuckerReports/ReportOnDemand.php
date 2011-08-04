@@ -126,11 +126,11 @@ if (!$is_scheduler) {
 				$xtpl->assign('encoded_popup_request_data', $encoded_popup_request_data);
 				$xtpl->assign("ATTACH_SELECTION_HEADER", get_form_header ($mod_strings["LBL_ONDEMAND_ATTACH_SELECTION"], "", false));
 				$xtpl->assign("PARENT_ID", $_REQUEST['parent_id']);
-				$xtpl->assign("PARENT_NAME", $_REQUEST['parent_name']);
+				if (isset($_REQUEST['parent_name']))$xtpl->assign("PARENT_NAME", $_REQUEST['parent_name']);
 				$cat_options = ReportContainer::get_category_select_options();
 				asort($cat_options);
-				$xtpl->assign("CAT_OPTIONS", get_select_options_with_id($cat_options, $_REQUEST['parent_category']));
-				$xtpl->assign("SEND_EMAIL", $_REQUEST['send_email']);
+				$xtpl->assign("CAT_OPTIONS", get_select_options_with_id($cat_options, (isset($_REQUEST['parent_category'])?$_REQUEST['parent_category']:"")));
+				if (isset($_REQUEST['send_email'])) $xtpl->assign("SEND_EMAIL", $_REQUEST['send_email']);
 				
 				$xtpl->parse("attach_selection");
 				$attach_selection = $xtpl->text("attach_selection");
