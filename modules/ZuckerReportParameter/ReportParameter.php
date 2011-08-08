@@ -231,6 +231,8 @@ class ReportParameter extends SugarBean {
 			
 			$xtpl->parse("DATE_CALC");
 			$parameter_html = $xtpl->text("DATE_CALC");
+		}else{
+			return "";
 		}
 	
 		return $parameter_html;
