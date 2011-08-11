@@ -1,7 +1,7 @@
 <?PHP
 
 $manifest = array(
-    'acceptable_sugar_versions' => array("regex_matches" => array("5.1.*", "5.2.*", "5.5.*", "6.0.*", "6.1.*", "6.2.*")),
+    'acceptable_sugar_versions' => array("regex_matches" => array("5.1.*", "5.2.*", "5.5.*", "6.0.*", "6.1.*", "6.2.*"), "6.3.*"),
     'name' => 'ZuckerReports',
     'description' => 'ZuckerReports',
     'author' => 'ZuckerFriends.com',
