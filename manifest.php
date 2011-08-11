@@ -160,7 +160,9 @@ $installdefs = array(
 	),
 	'dashlets'=>array(
 	),
-	
+	'scheduledefs'=>array(
+    		array('from'=> '<basepath>/scheduledtasks.ext.php'),
+	),		
 	'menu'=> array(
 		array('from'=> '<basepath>/menu.ext.php',
 			  'to_module'=> 'Accounts',
