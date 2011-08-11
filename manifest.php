@@ -80,6 +80,14 @@ $installdefs = array(
 			'to_module'=> 'application',
 			'language'=>'fr_FR'
 			),
+			array('from'=> '<basepath>/application/mod_strings_schedulers.en_us.lang.php', 
+			'to_module'=> 'Schedulers',
+			'language'=>'en_us'
+			),
+			array('from'=> '<basepath>/application/mod_strings_schedulers.ge_ge.lang.php', 
+			'to_module'=> 'Schedulers',
+			'language'=>'ge_ge'
+			),
 		),
 	'beans'=> array(
 			array('module'=> 'ZuckerReports',
