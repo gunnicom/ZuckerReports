@@ -259,7 +259,7 @@ if (!empty($focus->id) && $_REQUEST['run'] == "true") {
 			if (!empty($_REQUEST['send_email'])) {
 
 				$mail = new SugarPHPMailer();
-				$emails = split(",", $_REQUEST['send_email']);
+				$emails = explode(",", $_REQUEST['send_email']);
 				foreach ($emails as $email) {
 					$mail->AddAddress($email);
 				}
