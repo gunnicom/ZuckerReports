@@ -108,7 +108,7 @@ class ReportParameter extends SugarBean {
 		} else if ($rp->range_name == "DATE_ADD" || $rp->range_name == "DATE_SUB") {
 			$timedate = new TimeDate();
 			
-			$arr = split("::", $_REQUEST[$rpl->name]);
+			$arr = explode("::", $_REQUEST[$rpl->name]);
 			if (count($arr) == 2) {
 				$count = $arr[0];
 				$type = $arr[1];
@@ -217,7 +217,7 @@ class ReportParameter extends SugarBean {
 			$xtpl->assign("PARAM_NAME", $rpl->name);
 			$xtpl->assign("PARAM_VALUE", $selected_val);
 			
-			$arr = split("::", $selected_val);
+			$arr = explode("::", $selected_val);
 			if (count($arr) == 2) {
 				$count = $arr[0];
 				$type = $arr[1];
