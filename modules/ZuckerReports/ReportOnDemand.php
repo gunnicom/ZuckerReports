@@ -108,7 +108,7 @@ if (!$is_scheduler) {
 				$types = array_merge(array("" => ""), $types);
 				asort($types);
 			
-				$xtpl->assign("TYPE_OPTIONS", get_select_options_with_id($types, $_REQUEST['parent_module']));
+				$xtpl->assign("TYPE_OPTIONS", get_select_options_with_id($types, (isset($_REQUEST['parent_module'])?$_REQUEST['parent_module']:"")));
 			
 				//$change_parent_button = "<input title='".$app_strings['LBL_CHANGE_BUTTON_TITLE']."' type='button' class='button' value='".$app_strings['LBL_CHANGE_BUTTON_LABEL']."' name='parent_button' onclick='return window.open(\"index.php?module=\"+ document.EditView.parent_module.value + \"&action=Popup&html=Popup_picker&form=TasksEditView\",\"test\",\"width=600,height=400,resizable=1,scrollbars=1\");'>";
 				//$xtpl->assign("CHANGE_PARENT_BUTTON", $change_parent_button);
@@ -125,7 +125,7 @@ if (!$is_scheduler) {
 				
 				$xtpl->assign('encoded_popup_request_data', $encoded_popup_request_data);
 				$xtpl->assign("ATTACH_SELECTION_HEADER", get_form_header ($mod_strings["LBL_ONDEMAND_ATTACH_SELECTION"], "", false));
-				$xtpl->assign("PARENT_ID", $_REQUEST['parent_id']);
+				$xtpl->assign("PARENT_ID", (isset($_REQUEST['parent_id'])?$_REQUEST['parent_id']:"")  );
 				if (isset($_REQUEST['parent_name']))$xtpl->assign("PARENT_NAME", $_REQUEST['parent_name']);
 				$cat_options = ReportContainer::get_category_select_options();
 				asort($cat_options);
