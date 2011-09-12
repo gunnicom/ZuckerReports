@@ -251,7 +251,7 @@ class ReportTemplate extends ReportProviderBase {
 		fwrite($f, "sugar.site_url=".($sugar_config['site_url'])."/\n");
 		fwrite($f, "parameter.SUGAR_USER_ID=".($current_user->id)."\n");
 		fwrite($f, "parameter.SUGAR_USER_NAME=".($current_user->user_name)."\n");
-		fwrite($f, "parameter.SUGAR_SESSION_ID=".($_REQUEST['PHPSESSID'])."\n");
+		fwrite($f, "parameter.SUGAR_SESSION_ID=".(empty($_REQUEST['PHPSESSID'])?"":$_REQUEST['PHPSESSID'])."\n");		
 		fwrite($f, "parameter.SUBREPORT_DIR=".($this->resources_folder)."\n");
 		foreach ($parameter_values as $name => $value) {			
 			fwrite($f, "parameter.".$name."=".$value."\n");
