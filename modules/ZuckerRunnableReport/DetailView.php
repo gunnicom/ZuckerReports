@@ -14,7 +14,8 @@ $theme_path="themes/".$theme."/";
 $image_path=$theme_path."images/";
 require_once($theme_path.'layout_utils.php');
 
-$focus =& new RunnableReport();
+unset($focus);
+$focus = new RunnableReport();
 
 if(isset($_REQUEST['record'])) {
     $focus = $focus->retrieve($_REQUEST['record']);
