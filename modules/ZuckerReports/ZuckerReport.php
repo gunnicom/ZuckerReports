@@ -53,6 +53,13 @@ class ZuckerReport extends SugarBean {
 		$this->disable_row_level_security = true;
 	}
 
+	function bean_implements($interface){
+		switch($interface){
+			case 'ACL':return true;
+		}
+		return false;
+	}
+
 	function save($check_notify = false) {	
 		return parent::save($check_notify);		
 	}
