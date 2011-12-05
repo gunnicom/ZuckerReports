@@ -2,6 +2,6 @@ My development version of ZuckerReports.
 
 Make the module by zipping files with:
 
-zip -r ZuckerReports_1.14_enhanced_`date +%Y%m%d`.zip *
+zip -r ../ZuckerReports_1.14_enhanced_`date +%Y%m%d`.zip *
 
 Original authors of ZuckerReports are www.zuckerfriends.com
