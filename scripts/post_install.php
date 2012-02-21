@@ -6,9 +6,7 @@ function post_install( ) {
 	//** Includes **//
 	require_once("include/utils.php");
 	require_once("include/utils/file_utils.php");
-	require_once($_REQUEST['unzip_dir'] . "/manifest.php");
 	include_once('config.php');
-	require_once('include/database/PearDatabase.php');
 
 	$sugar_home_dir = getCwd();
 
