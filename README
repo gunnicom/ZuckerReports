@@ -5,3 +5,5 @@ Make the module by zipping files with:
 zip -r ../ZuckerReports_1.14_enhanced_`date +%Y%m%d`.zip *
 
 Original authors of ZuckerReports are www.zuckerfriends.com
+
+Feel free to add pull requests if you find bugs or enhancements.
