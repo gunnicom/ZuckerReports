@@ -133,7 +133,7 @@ class ListingTemplate extends ReportProviderBase {
 			
 			foreach (array_keys($seed->field_defs) as $field_def_key) {
 				$field_def = $seed->field_defs[$field_def_key];
-				if ($field_def["source"] != "non-db" || ($field_def["type"] == "relate" && !empty($field_def["table"]))) {
+				if ((!empty($field_def["source"]) && $field_def["source"] != "non-db") || ($field_def["type"] == "relate" && !empty($field_def["table"]))) {
 				
 					$field_select[$field_def_key] = $this->get_field_display_name($this->mainmodule, $field_def_key);
 				}
