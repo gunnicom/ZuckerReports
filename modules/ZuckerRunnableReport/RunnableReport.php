@@ -3,7 +3,6 @@
 require_once('include/utils.php');
 require_once('include/TimeDate.php');
 require_once('data/SugarBean.php');
-require_once('data/SugarBean.php');
 require_once('modules/ZuckerReports/SimpleTeams.php');
 
 class RunnableReport extends SugarBean {
