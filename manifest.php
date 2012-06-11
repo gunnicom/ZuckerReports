@@ -1,12 +1,12 @@
 <?PHP
 
 $manifest = array(
-    'acceptable_sugar_versions' => array("regex_matches" => array("5.1.*", "5.2.*", "5.5.*", "6.0.*", "6.1.*", "6.2.*", "6.3.*")),
+    'acceptable_sugar_versions' => array("regex_matches" => array("5.1.*", "5.2.*", "5.5.*", "6.0.*", "6.1.*", "6.2.*", "6.3.*", "6.4.*")),
     'name' => 'ZuckerReports',
     'description' => 'ZuckerReports',
     'author' => 'ZuckerFriends.com',
-    'published_date' => '2011/06/17',
-    'version' => '1.14',
+    'published_date' => '2012/05/02',
+    'version' => '1.15',
     'type' => 'module',
     'icon' => 'include/images/ZuckerReports.gif',
 	'is_uninstallable' => 'true',
@@ -80,14 +80,6 @@ $installdefs = array(
 			'to_module'=> 'application',
 			'language'=>'fr_FR'
 			),
-			array('from'=> '<basepath>/application/mod_strings_schedulers.en_us.lang.php', 
-			'to_module'=> 'Schedulers',
-			'language'=>'en_us'
-			),
-			array('from'=> '<basepath>/application/mod_strings_schedulers.ge_ge.lang.php', 
-			'to_module'=> 'Schedulers',
-			'language'=>'ge_ge'
-			),
 		),
 	'beans'=> array(
 			array('module'=> 'ZuckerReports',
@@ -160,9 +152,7 @@ $installdefs = array(
 	),
 	'dashlets'=>array(
 	),
-	'scheduledefs'=>array(
-    		array('from'=> '<basepath>/scheduledtasks.ext.php'),
-	),		
+	
 	'menu'=> array(
 		array('from'=> '<basepath>/menu.ext.php',
 			  'to_module'=> 'Accounts',

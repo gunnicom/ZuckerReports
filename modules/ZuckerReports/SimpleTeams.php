@@ -101,10 +101,11 @@ class SimpleTeams {
 
 	function get_assigned_team_name($focus) {
 		$impl = SimpleTeams::getImplementationType();
-		global $zuckerreports_config;
 		if ($impl == "sugar") {
 			return get_assigned_team_name($focus->team_id);
-		} else if ($impl == "simple" && isset($zuckerreports_config["teams"][$focus->team_id])) {
+		} else if ($impl == "simple") {
+			global $zuckerreports_config;
+		
 			$team = $zuckerreports_config["teams"][$focus->team_id];
 			return $team["name"];
 		} else {

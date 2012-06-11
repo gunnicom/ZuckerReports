@@ -26,7 +26,7 @@ require_once("modules/ZuckerReports/config.php");
 <table width="100%" cellspacing="0" cellpadding="0" border="0" class="tabForm">
 	<tr>
 		<td class="tabDetailViewDL">ZuckerReports</td>
-		<td class="tabDetailViewDF"><?php echo get_image("themes/Default/images/ZuckerReports32", "alt=\"ZuckerReports\""); ?> 1.13a</td>
+		<td class="tabDetailViewDF"><?php echo get_image("themes/Default/images/ZuckerReports32", "alt=\"ZuckerReports\""); ?> 1.15</td>
 	</tr><tr>
 		<td width="15%" class="tabDetailViewDL">Company</td>
 		<td class="tabDetailViewDF">ZuckerFriends.com<br/>Agsbach 516<br/>A-2533 Klausen-Leopoldsdorf<br/></td>

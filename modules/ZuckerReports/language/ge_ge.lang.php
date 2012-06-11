@@ -105,7 +105,7 @@ $mod_strings = array (
 	'LBL_SEND_EMAIL' => 'Als Email versenden an',
 	'LBL_SEND_EMAIL_HINTS' => '(mehrere Empf&auml;nger durch "," trennen)',
 	'LBL_SEND_EMAIL_SUBJECT' => 'ZuckerReports Benachrichtigung: %s',
-	'LBL_SEND_EMAIL_BODY' => "Im Anhang finden Sie einen von ZuckerReports automatisch generierten Bericht. \n\nDatum: %s\nBericht: %s\n",
+	'LBL_SEND_EMAIL_BODY' => "Im Anhang finden Sie einen von ZuckerReports automatisch generierten Bereicht. \n\nDatum: %s\nBericht: %s\n",
 	'LBL_SEND_EMAIL_OK' => 'Email versendet an %s',
 	
 	'LBL_ONDEMAND_BOUND' => 'Berichte, Abfragen und Briefe',
@@ -113,12 +113,6 @@ $mod_strings = array (
 	'LBL_ONDEMAND_BOUND_RUN' => 'Erstellen',
 	
 	'LBL_ARCHIVE_LIST'=> 'Bericht-Auflistung',
-
-    	'LBL_REPORT_NAME' => 'Vorlagenname',
-	'LBL_QUERY_NAME' => 'Abfragenname',
-	'LBL_QUERY_SQL' => 'SQL-Abfrage',
-	'LBL_WORD_NAME' => 'Vorlagenname',
-	'LBL_WORD_QUERY' => 'Abfrage',
 	
 );
 

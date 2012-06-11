@@ -5,8 +5,10 @@ $mod_strings = array_merge(return_module_language("ge_ge", "ZuckerReports"),
 	'LBL_WORD_TEMPLATE_NEW' => 'Neue Office-Vorlage',
 	'LBL_WORD' => 'Word-Vorlage',
 	'LBL_OPENOFFICE' => 'OpenOffice Vorlage',
+	'LBL_WORD_NAME' => 'Vorlagenname',
 	'LBL_WORD_FILENAME' => 'Vorlagendatei',
 	'LBL_WORD_DESCRIPTION' => 'Kommentar',
+	'LBL_WORD_QUERY' => 'Abfrage',
 
 	'LBL_ASSIGNED_USER_ID' => 'Zugewiesen zu:',
 

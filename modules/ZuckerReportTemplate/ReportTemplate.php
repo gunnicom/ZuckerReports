@@ -201,7 +201,7 @@ class ReportTemplate extends ReportProviderBase {
 
 		if (empty($archive_dir)) $archive_dir = $this->get_archive_dir();
 		
-		$base = rand(0,999) . "_" . substr($this->filename, 0, strrpos($this->filename, "."));
+		$base = substr($this->filename, 0, strrpos($this->filename, "."));
 		
 		$date = date("ymd_His");
 		if ($format == 'XLS') {
@@ -231,14 +231,14 @@ class ReportTemplate extends ReportProviderBase {
 		mkdir($tempdir, 0700);		
 		$f = fopen($cmdfile, "w");
 		fwrite($f, "jasper.datasource=jdbc\n");
-		$jdbc_url_extension=(isset($zuckerreports_config["jdbc_url_extension"])?$zuckerreports_config["jdbc_url_extension"]:"");
+
 		if ($sugar_config["dbconfig"]["db_type"] == 'mysql') {
 			fwrite($f, "jdbc.driver=com.mysql.jdbc.Driver\n");
-			fwrite($f, "jdbc.url=jdbc:mysql://".($sugar_config["dbconfig"]["db_host_name"]).":3306/".($sugar_config["dbconfig"]["db_name"]).$jdbc_url_extension."\n");
+			fwrite($f, "jdbc.url=jdbc:mysql://".($sugar_config["dbconfig"]["db_host_name"]).":3306/".($sugar_config["dbconfig"]["db_name"]).$zuckerreports_config["jdbc_url_extension"]."\n");
 		} else if ($sugar_config["dbconfig"]["db_type"] == 'mssql') {
 			fwrite($f, "jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver\n");
 			//fwrite($f, "jdbc.url=jdbc:sqlserver://".($sugar_config["dbconfig"]["db_host_name"])."\\\\".($sugar_config["dbconfig"]["db_host_instance"]).";databaseName=".($sugar_config["dbconfig"]["db_name"]).$zuckerreports_config["jdbc_url_extension"]."\n");
-			fwrite($f, "jdbc.url=jdbc:sqlserver://localhost\\\\".($sugar_config["dbconfig"]["db_host_instance"]).";databaseName=".($sugar_config["dbconfig"]["db_name"]).$jdbc_url_extension."\n");
+			fwrite($f, "jdbc.url=jdbc:sqlserver://localhost\\\\".($sugar_config["dbconfig"]["db_host_instance"]).";databaseName=".($sugar_config["dbconfig"]["db_name"]).$zuckerreports_config["jdbc_url_extension"]."\n");
 		} else {
 			return "Database Type ".$sugar_config["dbconfig"]["db_type"]." not supported by ZuckerReports";
 		}
@@ -251,7 +251,7 @@ class ReportTemplate extends ReportProviderBase {
 		fwrite($f, "sugar.site_url=".($sugar_config['site_url'])."/\n");
 		fwrite($f, "parameter.SUGAR_USER_ID=".($current_user->id)."\n");
 		fwrite($f, "parameter.SUGAR_USER_NAME=".($current_user->user_name)."\n");
-		fwrite($f, "parameter.SUGAR_SESSION_ID=".(empty($_REQUEST['PHPSESSID'])?"":$_REQUEST['PHPSESSID'])."\n");		
+		fwrite($f, "parameter.SUGAR_SESSION_ID=".($_REQUEST['PHPSESSID'])."\n");
 		fwrite($f, "parameter.SUBREPORT_DIR=".($this->resources_folder)."\n");
 		foreach ($parameter_values as $name => $value) {			
 			fwrite($f, "parameter.".$name."=".$value."\n");
@@ -268,17 +268,27 @@ class ReportTemplate extends ReportProviderBase {
 	function execute_java($args) {
 		global $zuckerreports_config;
 	
-		if (empty($zuckerreports_config["java_cmdline"])) {
+		$pattern = $zuckerreports_config["java_cmdline"];
+		
+		if (empty($pattern)) {
 			if ($this->isWindows()) {
 				$pattern = "javaw %ARGS% 2>&1";
 			} else {
 				$pattern = "java -Djava.awt.headless=true %ARGS% 2>&1";
 			}
-		}else{
-			$pattern = $zuckerreports_config["java_cmdline"];
 		}
 		$cmdline = str_replace("%ARGS%", $args, $pattern);
-		return $this->execute_cmd($cmdline);
+
+		exec($cmdline, $output, $return_var);
+		$GLOBALS['log']->debug("execute_java: ".$cmdline." => ".$return_var);
+		
+		if ($return_var == 0) {			
+			$this->report_output = join("<br/>", $output);
+			return TRUE;		
+		} else {			
+			$this->report_output = "cmdline: ".$cmdline." <br/>".join("<br/>", $output);				
+			return FALSE;		
+		}	
 	}
 	function execute_cmd($cmdline) {
 		exec($cmdline, $output, $return_var);

@@ -1,6 +1,5 @@
 <?php
 require_once('include/utils/db_utils.php');
-require_once('include/export_utils.php');
 require_once('data/SugarBean.php');
 require_once('modules/ZuckerReports/ReportProviderBase.php');
 
@@ -75,7 +74,7 @@ class QueryTemplate extends ReportProviderBase {
 	}
 
 	function execute($format = 'CSV', $parameter_values = array()) {
-		global $sugar_config, $current_user, $theme ,$locale;
+		global $sugar_config, $current_user, $theme;
 		$date = date("ymd_His");
 		
 		if ($format == 'CSV') {
@@ -124,12 +123,12 @@ class QueryTemplate extends ReportProviderBase {
 				for($row = $this->db->fetchByAssoc($rs); $row; $row = $this->db->fetchByAssoc($rs))	{
 					for ($i = 0; $i < count($fields); $i++) {
 						$field = $fields[$i];
-						$pieces = explode("\n", $locale->translateCharset($row[$field],'UTF-8', $locale->getExportCharset()));
+						$pieces = explode("\n", $row[$field]);
 						$cleaned_pieces = array();
 						foreach ($pieces as $piece) {
 							$cleaned_pieces[] = trim($piece);
 						}
-						fwrite($f, "\"" . join("\n", $cleaned_pieces) . "\"");
+						fwrite($f, join(" ", $cleaned_pieces));
 						if ($i != count($fields) - 1) {
 							fwrite($f, $this->col_delim);
 						}
@@ -303,9 +302,6 @@ class QueryTemplate extends ReportProviderBase {
 		if ($_REQUEST["format"] == "CSV") {
 			asort($mod_list_strings["COL_DELIMS"]);
 			asort($mod_list_strings["ROW_DELIMS"]);
-			if(empty($_REQUEST["col_delim"])){
-				$_REQUEST["col_delim"]=getDelimiter();
-			}
 			$xtpl->assign("COL_DELIM_SELECTION", get_select_options_with_id($mod_list_strings["COL_DELIMS"], $_REQUEST["col_delim"]));
 			$xtpl->assign("ROW_DELIM_SELECTION", get_select_options_with_id($mod_list_strings["ROW_DELIMS"], $_REQUEST["row_delim"]));
 			if (isset($_REQUEST["include_header"])) {

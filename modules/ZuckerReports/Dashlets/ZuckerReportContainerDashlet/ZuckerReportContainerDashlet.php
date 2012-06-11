@@ -32,7 +32,7 @@ class ZuckerReportContainerDashlet extends Dashlet {
     }
 
     function display() {
-		global $current_language,$image_path,$app_strings;
+		global $current_language;
 		
 		if (empty($this->container_id)) {
 			$child_reports = ReportContainer::get_root_reports();
