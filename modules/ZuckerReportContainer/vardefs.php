@@ -80,6 +80,7 @@ $GLOBALS["dictionary"]['ReportContainer'] = array(
 			'name' => 'parent_name',
 			'vname' => 'LBL_CONTAINER_PARENT_NAME',
    			'source' => 'non-db',
+   			'type' => 'varchar',
 			),
 		'team_id' => array(
 			'name' => 'team_id',
