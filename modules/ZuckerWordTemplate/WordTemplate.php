@@ -61,7 +61,7 @@ class WordTemplate extends ReportProviderBase {
 			$this->type_desc = $mod_strings["LBL_OPENOFFICE"];
 			$this->image_html = get_image("themes/".$theme."/images/ZuckerOpenOfficeTemplate", "alt=\"ZuckerOpenOfficeTemplate\"");
 			$this->image_module = "ZuckerOpenOfficeTemplate";
-		} else if ($this->extension == "doc") {
+		} else if ($this->extension == "doc" || $this->extension == "docx") {
 			$this->type_desc = $mod_strings["LBL_WORD"];
 			$this->image_html = get_image("themes/".$theme."/images/ZuckerWordTemplate", "alt=\"ZuckerWordTemplate\"");
 			$this->image_module = "ZuckerWordTemplate";
@@ -135,7 +135,7 @@ class WordTemplate extends ReportProviderBase {
 		global $mod_strings;
 	
 
-		if (substr($orig_filename, strrpos($orig_filename, ".") + 1) == "doc") {
+		if (substr($orig_filename, strrpos($orig_filename, ".") + 1) == "doc" || substr($orig_filename, strrpos($orig_filename, ".") + 1) == "docx") {
 			$this->filename = $orig_filename;
 			$this->fill_in_additional_detail_fields();
 			copy($infile, $this->get_resources_dir().($this->filename));
@@ -177,7 +177,7 @@ class WordTemplate extends ReportProviderBase {
 		$this->report_result_type = "FORWARD";
 		if ($this->extension == "stw" || $this->extension == "odt") {
 			$this->report_result_name = $date."_".$base.".zro";
-		} else if ($this->extension == "doc") {
+		} else if ($this->extension == "doc" || $this->extension == "docx") {
 			$this->report_result_name = $date."_".$base.".zrw";
 		}
 		$this->report_result_name = strtolower(join("_", explode(" ", $this->report_result_name)));
@@ -200,7 +200,7 @@ class WordTemplate extends ReportProviderBase {
 
 		if ($this->extension == "stw" || $this->extension == "odt") {
 			$data_format = "CSV";
-		} else if ($this->extension == "doc") {
+		} else if ($this->extension == "doc" || $this->extension == "docx") {
 			$data_format = "SIMPLEHTML";
 		}
 
@@ -231,7 +231,7 @@ class WordTemplate extends ReportProviderBase {
 				fwrite($f, " <Application>StarWriter</Application>\n");
 			} else if ($this->extension == "odt") {
 				fwrite($f, " <Application>OpenOffice</Application>\n");
-			} else if ($this->extension == "doc") {
+			} else if ($this->extension == "doc" || $this->extension == "docx") {
 				fwrite($f, " <Application>Word</Application>\n");
 			}
 			fwrite($f, " <Destination>".$format."</Destination>\n");
@@ -311,7 +311,7 @@ class WordTemplate extends ReportProviderBase {
 			}
 			asort($mod_list_strings["OPENOFFICE_EXPORT_TYPES"]);
 			return get_select_options_with_id($mod_list_strings["OPENOFFICE_EXPORT_TYPES"], $_REQUEST["format"]);
-		} else if ($this->extension == "doc") {
+		} else if ($this->extension == "doc" || $this->extension == "docx") {
 			if (isset($_REQUEST["format"])) {
 				if (!array_key_exists($_REQUEST["format"], $mod_list_strings["WORD_EXPORT_TYPES"])) {
 					$_REQUEST["format"] = null;
